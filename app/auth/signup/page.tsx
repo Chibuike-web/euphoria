@@ -1,7 +1,7 @@
 "use client";
 
 import { GoogleLogo, TwitterLogo } from "@/app/assets/icons";
-import signupImage from "@/app/assets/signup/signup.png";
+import signupImage from "@/app/assets/auth/signup.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,10 +12,10 @@ import Link from "next/link";
 
 export default function Signup() {
 	return (
-		<main className="flex w-screen justify-center items-center gap-6 px-6 xl:px-0">
+		<main className="flex w-screen justify-center items-center gap-6">
 			<section className="w-full max-w-[1240px]">
 				<div className="flex w-full gap-[77px] flex-col lg:flex-row lg:justify-end items-center">
-					<figure className="w-full xl:min-w-[694px] h-[600px] lg:h-[952px]">
+					<figure className="w-full xl:min-w-[694px] h-[400px] sm:h-[600px] lg:h-[952px]">
 						<Image
 							src={signupImage}
 							alt="Image of Fashionistas"
@@ -24,8 +24,8 @@ export default function Signup() {
 							className="w-full h-full object-cover object-top"
 						/>
 					</figure>
-					<aside className="w-full xl:min-w-[567px]">
-						<h1 className="font-bold text-[40px]">Sign Up</h1>
+					<aside className="w-full xl:min-w-[567px] px-6 xl:px-0">
+						<h1 className="font-bold text-[24px] md:text-[40px]">Sign Up</h1>
 						<p className="font-medium mb-12">
 							Sign up for free to access to in any of our products{" "}
 						</p>
@@ -71,12 +71,13 @@ export default function Signup() {
 									<Label htmlFor="terms2">Subscribe to our monthly newsletter</Label>
 								</div>
 							</div>
+
+							<Button size="lg" className="w-full mt-12 mb-[10px]">
+								Sign up
+							</Button>
 						</form>
 
-						<Button size="lg" className="w-full mt-12 mb-[10px]">
-							Sign up
-						</Button>
-						<p className="text-center">
+						<p className="flex justify-self-center items-center gap-[8px]">
 							Already have an account{" "}
 							<Link href="/auth/login" className="underline">
 								Login
