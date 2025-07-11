@@ -5,6 +5,13 @@ import logo from "@/app/assets/Logo.svg";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Menu, Search, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
 
 export default function Navbar() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -24,19 +31,16 @@ export default function Navbar() {
 						width={92}
 						height={45}
 					/>
-					<div className="relative hidden lg:inline-block w-[190px]">
-						<select
-							id="select"
-							name="language"
-							className="w-full appearance-none bg-white p-2 text-sm outline-none"
-						>
-							<option value="en-US">English (United States)</option>
-							<option value="en-UK">English (United Kingdom)</option>
-						</select>
-						<div className="pointer-events-none absolute inset-y-0 right-2 flex items-center text-gray-500">
-							<ChevronDown />
-						</div>
-					</div>
+
+					<Select defaultValue="en-US">
+						<SelectTrigger className="w-[250px] hidden lg:flex">
+							<SelectValue />
+						</SelectTrigger>
+						<SelectContent className="w-[var(--radix-select-trigger-width)]">
+							<SelectItem value="en-US">English (United States)</SelectItem>
+							<SelectItem value="en-UK">English (United Kingdom)</SelectItem>
+						</SelectContent>
+					</Select>
 				</div>
 
 				<label className="bg-gray-100 px-2 h-10 rounded-[8px] hidden lg:flex items-center gap-3">
@@ -82,19 +86,15 @@ function MobileNav({ isOpen }: { isOpen: boolean }) {
 		<div className="fixed top-[68.5px] bg-black/80 inset-0">
 			<div className="bg-white h-full px-6 py-10 flex flex-col justify-between">
 				<div className="flex flex-col gap-6">
-					<div className="relative inline-block w-full">
-						<select
-							id="select"
-							name="language"
-							className="w-full appearance-none bg-white p-2 text-sm outline-none"
-						>
-							<option value="en-US">English (United States)</option>
-							<option value="en-UK">English (United Kingdom)</option>
-						</select>
-						<div className="pointer-events-none absolute inset-y-0 right-2 flex items-center">
-							<ChevronDown />
-						</div>
-					</div>
+					<Select defaultValue="en-US">
+						<SelectTrigger className="w-full">
+							<SelectValue />
+						</SelectTrigger>
+						<SelectContent className="w-[var(--radix-select-trigger-width)]">
+							<SelectItem value="en-US">English (United States)</SelectItem>
+							<SelectItem value="en-UK">English (United Kingdom)</SelectItem>
+						</SelectContent>
+					</Select>
 
 					<label className="bg-gray-100 px-2 h-10 rounded-[8px] flex items-center gap-3">
 						<Search className="size-5" />
