@@ -4,7 +4,6 @@ export default function AuthLayout({ children }: Readonly<{ children: React.Reac
 	return (
 		<>
 			<Navbar />
-
 			{children}
 		</>
 	);

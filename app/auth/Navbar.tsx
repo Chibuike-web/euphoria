@@ -3,8 +3,8 @@
 import Image from "next/image";
 import logo from "@/app/assets/Logo.svg";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Menu, Search, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Menu, Search, X } from "lucide-react";
+
 import {
 	Select,
 	SelectContent,
@@ -12,14 +12,10 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import { useMobileNav } from "@/lib/Hooks";
 
 export default function Navbar() {
-	const [isOpen, setIsOpen] = useState(false);
-
-	const handleClick = () => {
-		setIsOpen((prev) => !prev);
-	};
-
+	const { isOpen, handleClick } = useMobileNav();
 	return (
 		<nav className="py-3 md:py-8">
 			<header className="w-full max-w-[1240px] mx-auto flex items-center justify-between px-6 xl:px-0">
@@ -66,56 +62,44 @@ export default function Navbar() {
 					{isOpen ? <X /> : <Menu />}
 				</button>
 			</header>
-			{isOpen && <MobileNav isOpen={isOpen} />}
+			{isOpen && <MobileNav />}
 		</nav>
 	);
 }
 
-function MobileNav({ isOpen }: { isOpen: boolean }) {
-	useEffect(() => {
-		if (isOpen) {
-			document.body.style.overflow = "hidden";
-		} else {
-			document.body.style.overflow = "";
-		}
-		return () => {
-			document.body.style.overflow = "";
-		};
-	}, [isOpen]);
+function MobileNav() {
 	return (
-		<div className="fixed top-[68.5px] bg-black/80 inset-0">
-			<div className="bg-white h-full px-6 py-10 flex flex-col justify-between">
-				<div className="flex flex-col gap-6">
-					<Select defaultValue="en-US">
-						<SelectTrigger className="w-full">
-							<SelectValue />
-						</SelectTrigger>
-						<SelectContent className="w-[var(--radix-select-trigger-width)]">
-							<SelectItem value="en-US">English (United States)</SelectItem>
-							<SelectItem value="en-UK">English (United Kingdom)</SelectItem>
-						</SelectContent>
-					</Select>
+		<div className="fixed top-[68.5px] inset-0 bg-white px-6 py-10 flex flex-col justify-between">
+			<div className="flex flex-col gap-6">
+				<Select defaultValue="en-US">
+					<SelectTrigger className="w-full">
+						<SelectValue />
+					</SelectTrigger>
+					<SelectContent className="w-[var(--radix-select-trigger-width)]">
+						<SelectItem value="en-US">English (United States)</SelectItem>
+						<SelectItem value="en-UK">English (United Kingdom)</SelectItem>
+					</SelectContent>
+				</Select>
 
-					<label className="bg-gray-100 px-2 h-10 rounded-[8px] flex items-center gap-3">
-						<Search className="size-5" />
-						<input
-							type="search"
-							name="search"
-							id="search"
-							placeholder="search"
-							className="border-none outline-none w-full"
-						/>
-					</label>
-				</div>
+				<label className="bg-gray-100 px-2 h-10 rounded-[8px] flex items-center gap-3">
+					<Search className="size-5" />
+					<input
+						type="search"
+						name="search"
+						id="search"
+						placeholder="search"
+						className="border-none outline-none w-full"
+					/>
+				</label>
+			</div>
 
-				<div className="flex flex-col items-center gap-2 ">
-					<Button variant="default" size="md" className="w-full">
-						Login
-					</Button>
-					<Button variant="outline" size="md" className="w-full">
-						Sign up
-					</Button>
-				</div>
+			<div className="flex flex-col items-center gap-2 ">
+				<Button variant="default" size="md" className="w-full">
+					Login
+				</Button>
+				<Button variant="outline" size="md" className="w-full">
+					Sign up
+				</Button>
 			</div>
 		</div>
 	);

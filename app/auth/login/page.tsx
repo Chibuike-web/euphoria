@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import { EyeOff } from "lucide-react";
 import Link from "next/link";
-import { usePassword } from "@/Hooks";
+import { usePassword } from "@/lib/Hooks";
 
 export default function Login() {
 	const { showPassword, handleShowPassword } = usePassword();

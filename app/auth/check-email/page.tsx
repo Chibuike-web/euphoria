@@ -18,7 +18,7 @@ export default function Verification() {
 					</figure>
 					<aside className="w-full xl:min-w-[567px] px-6 xl:px-0 lg:mt-16">
 						<h1 className="font-bold text-[24px] md:text-[40px]">Check Email</h1>
-						<p className="font-medium mb-12">
+						<p className="font-medium mb-12 text-secondary-foreground">
 							Please check your email inbox and click on the provided link to reset your password .
 							If you don’t receive email,{" "}
 							<span className="font-semibold">Click here to resend</span>

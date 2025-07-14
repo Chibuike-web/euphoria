@@ -22,7 +22,7 @@ export default function Verification() {
 					</figure>
 					<aside className="w-full xl:min-w-[567px] px-6 xl:px-0 lg:mt-16">
 						<h1 className="font-bold text-[24px] md:text-[40px]">Verification</h1>
-						<p className="font-medium mb-12">Verify your code</p>
+						<p className="font-medium mb-12 text-secondary-foreground">Verify your code</p>
 
 						<form action="">
 							<fieldset>
