@@ -1,9 +1,10 @@
 import React from "react";
 import hero from "@/app/assets/home/hero-image.jpg";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import { newArrivalItems, promoCardItems } from "./utils";
-import type { NewArrivalType, PromoCardType } from "./types";
+import { ArrowDown, ArrowLeft, ArrowRight } from "lucide-react";
+import { bigSavingZoneItems, newArrivalItems, promoCardItems } from "./utils";
+import type { BigSavingZoneType, NewArrivalType, PromoCardType } from "./types";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
 	return (
@@ -35,7 +36,7 @@ export default function Home() {
 				</div>
 			</section>
 
-			<section className="flex gap-6 flex-wrap w-full max-w-[1240px] mx-auto mt-[130px]">
+			<section className="flex gap-6 flex-wrap w-full max-w-[1240px] mx-auto mt-[130px] px-6 xl:px-0">
 				{promoCardItems.map((item) => (
 					<PromoCard
 						key={item.id}
@@ -48,7 +49,7 @@ export default function Home() {
 					/>
 				))}
 			</section>
-			<section className="flex flex-col gap-6 w-full max-w-[1240px] mx-auto mt-[130px]">
+			<section className="flex flex-col gap-6 w-full max-w-[1240px] mx-auto mt-[130px] px-6 xl:px-0">
 				<h3 className="flex items-center gap-[20px]">
 					<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />{" "}
 					<span className=" text-[24px] md:text-[34px] font-semibold">New Arrival</span>
@@ -61,6 +62,18 @@ export default function Home() {
 						))}
 					</div>
 					<ArrowRight />
+				</div>
+			</section>
+			<section className="flex flex-col gap-6 w-full max-w-[1240px] mx-auto mt-[130px] px-6 xl:px-0">
+				<h3 className="flex items-center gap-[20px]">
+					<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />{" "}
+					<span className=" text-[24px] md:text-[34px] font-semibold">Big Saving Zone</span>
+				</h3>
+
+				<div className="flex flex-wrap gap-6">
+					{bigSavingZoneItems.map((item, index) => (
+						<BigSavingZoneCard key={item.id} {...item} index={index} />
+					))}
 				</div>
 			</section>
 		</main>
@@ -84,8 +97,52 @@ function PromoCard({ image, label, title, promo, cta }: PromoCardType) {
 function NewArrivalCard({ label, image }: NewArrivalType) {
 	return (
 		<article className="w-full min-w-[263px]">
-			<Image src={image} alt={label} className="rounded-[24px]" />
+			<Image src={image} alt={label} className="rounded-[24px] col-span-[1/2]" />
 			<p className="mt-10 font-semibold text-[16px] md:text-[20px]">{label}</p>
+		</article>
+	);
+}
+
+type BigSavingZoneProps = BigSavingZoneType & {
+	index: number;
+};
+
+function BigSavingZoneCard(item: BigSavingZoneProps) {
+	const { title, desc, image, promo, limited, index } = item;
+
+	const articleStyles = [
+		"py-16 px-8 text-white",
+		"items-end py-16 px-8 text-white",
+		"items-end py-16 px-8 text-black",
+		"items-end py-16 px-16 text-black",
+		"items-end py-16 px-16 text-black",
+	];
+
+	let styles = articleStyles[index];
+
+	let contentStyles = "";
+
+	return (
+		<article
+			className={cn(
+				"w-full relative flex flex-col flex-1 min-w-[300px] overflow-hidden rounded-[16px] bg-cover bg-center bg-no-repeat",
+				styles
+			)}
+			style={{ backgroundImage: `url(${image.src})` }}
+		>
+			<div className="flex flex-col w-[164px]">
+				<h3 className="font-semibold text-[28px] mb-[8px]">{title}</h3>
+				<p className="font-semibold mb-[6px]">{desc}</p>
+				<p className="font-bold text-[18px] mb-8">{promo}</p>
+				<ArrowDown />
+				<button
+					className={cn("w-[111px] h-[34px] rounded-[4px] border border-white mt-10", {
+						"border-black": index === 2 || index === 3 || index === 4,
+					})}
+				>
+					SHOP NOW
+				</button>
+			</div>
 		</article>
 	);
 }
