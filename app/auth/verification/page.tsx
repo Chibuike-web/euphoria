@@ -4,7 +4,6 @@ import verification from "@/app/assets/auth/verification.png";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
 export default function Verification() {
 	return (

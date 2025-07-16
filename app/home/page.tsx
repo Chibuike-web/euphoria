@@ -1,5 +1,91 @@
 import React from "react";
+import hero from "@/app/assets/home/hero-image.jpg";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { newArrivalItems, promoCardItems } from "./utils";
+import type { NewArrivalType, PromoCardType } from "./types";
+import Image from "next/image";
 
 export default function Home() {
-	return <div>Chibuike</div>;
+	return (
+		<main>
+			<section
+				className="w-full relative bg-cover bg-center bg-no-repeat h-[450px] lg:h-[750px] flex items-center"
+				style={{ backgroundImage: `url(${hero.src})` }}
+			>
+				<div className="w-full relative max-w-[1386px] mx-auto flex pl-10 lg:pl-[153px]">
+					<button className="absolute left-2 lg:left-6 top-1/2 -translate-y-1/2">
+						<ArrowLeft className="size-5 lg:size-10 text-white" />
+					</button>
+					<button className="absolute right-2 lg:right-6 top-1/2 -translate-y-1/2">
+						<ArrowRight className="size-5 lg:size-10 text-white" />
+					</button>
+					<div className="w-full max-w-[300px] lg:max-w-[440px]">
+						<p className="text-white text-[16px] lg:text-[32px] mb-4">T-shirt / Tops</p>
+						<h1 className="text-white font-extrabold text-[48px] lg:text-[78px] leading-[1.2] mb-4">
+							Summer Value Pack
+						</h1>
+						<p className="text-white text-[16px] lg:text-[32px] mb-10">cool/colorful/comfy</p>
+						<button className="py-2 px-[32px] lg:py-4 lg:px-[72px] rounded-[8px] bg-white text-[16px] lg:text-[24px] font-bold">
+							Shop Now
+						</button>
+					</div>
+				</div>
+				<div className="w-[126px] h-[8px] rounded-full bg-white/40 absolute bottom-6 lg:bottom-10 left-1/2 -translate-x-1/2 overflow-hidden">
+					<span className="block h-full w-1/2 bg-white" />
+				</div>
+			</section>
+
+			<section className="flex gap-6 flex-wrap w-full max-w-[1240px] mx-auto mt-[130px]">
+				{promoCardItems.map((item) => (
+					<PromoCard
+						key={item.id}
+						id={item.id}
+						image={item.image}
+						label={item.label}
+						title={item.title}
+						promo={item.promo}
+						cta={item.cta}
+					/>
+				))}
+			</section>
+			<section className="flex flex-col gap-6 w-full max-w-[1240px] mx-auto mt-[130px]">
+				<h3 className="flex items-center gap-[20px]">
+					<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />{" "}
+					<span className=" text-[24px] md:text-[34px] font-semibold">New Arrival</span>
+				</h3>
+				<div className="flex items-center w-full gap-x-6 justify-between">
+					<ArrowLeft />
+					<div className="flex gap-6 overflow-auto">
+						{newArrivalItems.map((item) => (
+							<NewArrivalCard key={item.id} id={item.id} label={item.label} image={item.image} />
+						))}
+					</div>
+					<ArrowRight />
+				</div>
+			</section>
+		</main>
+	);
+}
+
+function PromoCard({ image, label, title, promo, cta }: PromoCardType) {
+	return (
+		<article
+			className="w-full md:flex-1 relative overflow-hidden rounded-[16px] py-12 px-8 text-white bg-cover bg-center bg-no-repeat"
+			style={{ backgroundImage: `url(${image.src})` }}
+		>
+			<span className="block font-medium mb-4">{label}</span>
+			<h3 className="text-[36px] font-bold mb-4 w-full max-w-[300px] leading-[1.2]">{title}</h3>
+			<p className="font-medium mb-10">{promo}</p>
+			<a className="underline font-semibold">{cta.label}</a>
+		</article>
+	);
+}
+
+function NewArrivalCard({ label, image }: NewArrivalType) {
+	return (
+		<article className="w-full min-w-[263px]">
+			<Image src={image} alt={label} className="rounded-[24px]" />
+			<p className="mt-10 font-semibold text-[16px] md:text-[20px]">{label}</p>
+		</article>
+	);
 }

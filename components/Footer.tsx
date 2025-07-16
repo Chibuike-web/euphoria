@@ -44,7 +44,7 @@ export default function Footer() {
 
 					<div className="flex flex-col gap-y-4">
 						<h2 className="text-[32px] font-bold">Download the App</h2>
-						<div className="flex gap-x-6">
+						<div className="flex gap-x-5">
 							<Image src={googlestore} alt="Google Playstore badge" width={135} height={40} />
 							<Image src={applestore} alt="Apple Playstore badge" width={135} height={40} />
 						</div>

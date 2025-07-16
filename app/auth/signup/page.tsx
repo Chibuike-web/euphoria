@@ -30,7 +30,7 @@ export default function Signup() {
 	return (
 		<main className="flex w-full justify-center items-center gap-6">
 			<section className="w-full max-w-[1240px]">
-				<div className="flex w-full gap-6 xl:gap-[77px]  flex-col lg:flex-row lg:justify-end">
+				<div className="flex w-full gap-6 xl:gap-[77px] flex-col lg:flex-row lg:justify-end">
 					<figure className="w-full xl:min-w-[694px] h-[400px] sm:h-[600px] lg:h-[952px]">
 						<Image
 							src={signupImage}
