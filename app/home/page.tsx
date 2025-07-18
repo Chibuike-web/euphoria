@@ -5,6 +5,8 @@ import { bigSavingZoneItems, newArrivalItems, promoCardItems } from "./utils";
 import type { BigSavingZoneType, NewArrivalType, PromoCardType } from "./types";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import ctaFirstImage from "@/app/assets/home/first-cta/cta-first-image.png";
+import ctaSecondImage from "@/app/assets/home/first-cta/cta-second-image.png";
 
 export default function Home() {
 	return (
@@ -76,6 +78,31 @@ export default function Home() {
 					))}
 				</div>
 			</section>
+
+			<section className=" max-w-[1240px] mx-auto my-[130px] px-6 xl:px-0 ">
+				<div className="flex flex-col lg:flex-row w-full rounded-[16px] overflow-hidden">
+					<figure
+						className=" w-full px-18 lg:max-w-[614px] text-white bg-cover bg-center bg-no-repeat"
+						style={{ backgroundImage: `url(${ctaFirstImage.src})` }}
+					>
+						<div className="py-[160px] h-full flex flex-col ">
+							<h3 className="font-extrabold text-[34px] mb-8">
+								WE MADE YOUR EVERYDAY FASHION BETTER!
+							</h3>
+							<p className="mb-12">
+								In our journey to improve everyday fashion, euphoria presents EVERYDAY wear range -
+								Comfortable & Affordable fashion 24/7
+							</p>
+							<button className="px-[44px] py-[12px] rounded-[8px] w-max bg-white text-secondary-foreground">
+								Shop Now
+							</button>
+						</div>
+					</figure>
+					<figure className="w-full lg:max-w-[626px]">
+						<Image src={ctaSecondImage} alt="" className="w-full h-full object-cover" />
+					</figure>
+				</div>
+			</section>
 		</main>
 	);
 }
@@ -120,8 +147,6 @@ function BigSavingZoneCard(item: BigSavingZoneProps) {
 
 	let styles = articleStyles[index];
 
-	let contentStyles = "";
-
 	return (
 		<article
 			className={cn(
@@ -134,7 +159,7 @@ function BigSavingZoneCard(item: BigSavingZoneProps) {
 				<h3 className="font-semibold text-[28px] mb-[8px]">{title}</h3>
 				<p className="font-semibold mb-[6px]">{desc}</p>
 				<p className="font-bold text-[18px] mb-8">{promo}</p>
-				<ArrowDown />
+				<ArrowDown className="ml-12" />
 				<button
 					className={cn("w-[111px] h-[34px] rounded-[4px] border border-white mt-10", {
 						"border-black": index === 2 || index === 3 || index === 4,
