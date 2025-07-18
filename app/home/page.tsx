@@ -1,8 +1,8 @@
 import React from "react";
 import hero from "@/app/assets/home/hero-image.jpg";
 import { ArrowDown, ArrowLeft, ArrowRight } from "lucide-react";
-import { bigSavingZoneItems, newArrivalItems, promoCardItems } from "./utils";
-import type { BigSavingZoneType, NewArrivalType, PromoCardType } from "./types";
+import { allProducts, promoCardItems } from "./utils";
+import type { Products, PromoCardType } from "./types";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import ctaFirstImage from "@/app/assets/home/first-cta/cta-first-image.png";
@@ -56,14 +56,18 @@ export default function Home() {
 					<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />{" "}
 					<span className=" text-[24px] md:text-[34px] font-semibold">New Arrival</span>
 				</h3>
-				<div className="flex items-center w-full gap-x-6 justify-between">
-					<ArrowLeft />
-					<div className="flex gap-6 overflow-auto">
-						{newArrivalItems.map((item) => (
-							<NewArrivalCard key={item.id} id={item.id} label={item.label} image={item.image} />
-						))}
+				<div className="w-full relative">
+					<ArrowLeft className="flex-shrink-0 absolute left-0 top-[120px]" />
+					<div className="flex w-full gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth px-8">
+						{allProducts.map(
+							(item) =>
+								item.title === "NewArrival" &&
+								item.products.map((i) => (
+									<NewArrivalCard key={i.id} id={i.id} name={i.name} image={i.image} />
+								))
+						)}
 					</div>
-					<ArrowRight />
+					<ArrowRight className="flex-shrink-0 absolute right-0 top-[120px]" />
 				</div>
 			</section>
 			<section className="flex flex-col gap-6 w-full max-w-[1240px] mx-auto mt-[130px] px-6 xl:px-0">
@@ -73,23 +77,25 @@ export default function Home() {
 				</h3>
 
 				<div className="flex flex-wrap gap-6">
-					{bigSavingZoneItems.map((item, index) => (
-						<BigSavingZoneCard key={item.id} {...item} index={index} />
-					))}
+					{allProducts.map(
+						(item) =>
+							item.title === "BigSavingZone" &&
+							item.products.map((i, index) => <BigSavingZoneCard key={i.id} {...i} index={index} />)
+					)}
 				</div>
 			</section>
 
-			<section className=" max-w-[1240px] mx-auto my-[130px] px-6 xl:px-0 ">
+			<section className=" max-w-[1240px] mx-auto mt-[130px] px-6 xl:px-0 ">
 				<div className="flex flex-col lg:flex-row w-full rounded-[16px] overflow-hidden">
 					<figure
-						className=" w-full px-18 lg:max-w-[614px] text-white bg-cover bg-center bg-no-repeat"
+						className=" w-full py-20 md:py-[160px] px-9 md:px-18 lg:max-w-[614px] text-white bg-cover bg-center bg-no-repeat"
 						style={{ backgroundImage: `url(${ctaFirstImage.src})` }}
 					>
-						<div className="py-[160px] h-full flex flex-col ">
-							<h3 className="font-extrabold text-[34px] mb-8">
+						<div className=" h-full flex flex-col ">
+							<h3 className="font-extrabold text-[24px] sm:text-[34px] mb-4 md:mb-8">
 								WE MADE YOUR EVERYDAY FASHION BETTER!
 							</h3>
-							<p className="mb-12">
+							<p className="mb-6 md:mb-12">
 								In our journey to improve everyday fashion, euphoria presents EVERYDAY wear range -
 								Comfortable & Affordable fashion 24/7
 							</p>
@@ -101,6 +107,34 @@ export default function Home() {
 					<figure className="w-full lg:max-w-[626px]">
 						<Image src={ctaSecondImage} alt="" className="w-full h-full object-cover" />
 					</figure>
+				</div>
+			</section>
+			<section className="flex flex-col gap-6 w-full max-w-[1240px] mx-auto mt-[130px] px-6 xl:px-0">
+				<h3 className="flex items-center gap-[20px]">
+					<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />{" "}
+					<span className=" text-[24px] md:text-[34px] font-semibold">Categories For Men</span>
+				</h3>
+
+				<div className="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-12">
+					{allProducts.map(
+						(item) =>
+							item.title === "CateogoriesForMen" &&
+							item.products.map((i) => <ProductCard key={i.id} {...i} />)
+					)}
+				</div>
+			</section>
+			<section className="flex flex-col gap-6 w-full max-w-[1240px] mx-auto mt-[130px] px-6 xl:px-0">
+				<h3 className="flex items-center gap-[20px]">
+					<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />{" "}
+					<span className=" text-[24px] md:text-[34px] font-semibold">Categories For Women</span>
+				</h3>
+
+				<div className="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-12">
+					{allProducts.map(
+						(item) =>
+							item.title === "CateogoriesForWomen" &&
+							item.products.map((i) => <ProductCard key={i.id} {...i} />)
+					)}
 				</div>
 			</section>
 		</main>
@@ -121,28 +155,28 @@ function PromoCard({ image, label, title, promo, cta }: PromoCardType) {
 	);
 }
 
-function NewArrivalCard({ label, image }: NewArrivalType) {
+function NewArrivalCard({ name, image }: Products) {
 	return (
-		<article className="w-full min-w-[263px]">
-			<Image src={image} alt={label} className="rounded-[24px] col-span-[1/2]" />
-			<p className="mt-10 font-semibold text-[16px] md:text-[20px]">{label}</p>
+		<article className="w-full min-w-[220px] snap-center">
+			<Image src={image} alt={name} className="rounded-[24px] w-full" width={262} height={262} />
+			<p className="mt-5 font-semibold text-[16px] md:text-[20px]">{name}</p>
 		</article>
 	);
 }
 
-type BigSavingZoneProps = BigSavingZoneType & {
+type BigSavingZoneProps = Products & {
 	index: number;
 };
 
 function BigSavingZoneCard(item: BigSavingZoneProps) {
-	const { title, desc, image, promo, limited, index } = item;
+	const { name, desc, image, promo, tags, index } = item;
 
 	const articleStyles = [
-		"py-16 px-8 text-white",
-		"items-end py-16 px-8 text-white",
-		"items-end py-16 px-8 text-black",
-		"items-end py-16 px-16 text-black",
-		"items-end py-16 px-16 text-black",
+		"py-8 md:py-16 px-8 text-white",
+		"items-end py-8 md:py-16 px-8 text-white",
+		"items-end py-8 md:py-16 px-8 text-black",
+		"items-end p-8 md:p-16 text-black",
+		"items-end p-8 md:p-16 text-black",
 	];
 
 	let styles = articleStyles[index];
@@ -150,16 +184,20 @@ function BigSavingZoneCard(item: BigSavingZoneProps) {
 	return (
 		<article
 			className={cn(
-				"w-full relative flex flex-col flex-1 min-w-[300px] overflow-hidden rounded-[16px] bg-cover bg-center bg-no-repeat",
+				"w-full relative flex flex-col flex-1 min-w-[280px] overflow-hidden rounded-[16px] bg-cover bg-center bg-no-repeat",
 				styles
 			)}
 			style={{ backgroundImage: `url(${image.src})` }}
 		>
 			<div className="flex flex-col w-[164px]">
-				<h3 className="font-semibold text-[28px] mb-[8px]">{title}</h3>
+				{tags &&
+					tags?.length > 0 &&
+					tags?.includes("limited") &&
+					tags?.map((item) => <span key={item}>{item}</span>)}
+				<h3 className="font-semibold text-[28px] mb-[8px]">{name}</h3>
 				<p className="font-semibold mb-[6px]">{desc}</p>
 				<p className="font-bold text-[18px] mb-8">{promo}</p>
-				<ArrowDown className="ml-12" />
+				<ArrowDown className="ml-12 " />
 				<button
 					className={cn("w-[111px] h-[34px] rounded-[4px] border border-white mt-10", {
 						"border-black": index === 2 || index === 3 || index === 4,
@@ -167,6 +205,22 @@ function BigSavingZoneCard(item: BigSavingZoneProps) {
 				>
 					SHOP NOW
 				</button>
+			</div>
+		</article>
+	);
+}
+
+function ProductCard(item: Products) {
+	const { name, image } = item;
+	return (
+		<article>
+			<Image src={image} alt={name} className="w-full rounded-[16px]" width={270} height={393} />
+			<div className="flex items-center justify-between w-full">
+				<div className="flex flex-col gap-1 mt-2">
+					<h4 className="font-bold text-[20px]">{name}</h4>
+					<p className="font-medium text-muted-foreground">Explore Now!</p>
+				</div>
+				<ArrowRight />
 			</div>
 		</article>
 	);

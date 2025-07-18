@@ -12,17 +12,19 @@ export type PromoCardType = {
 	};
 };
 
-export type NewArrivalType = {
+export type Products = {
 	id: string;
-	label: string;
+	name: string;
 	image: StaticImageData;
+	desc?: string;
+	tags?: string[];
+	price?: string;
+	promo?: string;
 };
 
-export type BigSavingZoneType = {
+export type AllProductsType = {
 	id: string;
 	title: string;
-	desc: string;
-	image: StaticImageData;
-	promo: string;
-	limited?: boolean;
+	type: "curated" | "category" | "promotional";
+	products: Products[];
 };

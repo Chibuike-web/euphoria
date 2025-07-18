@@ -8,7 +8,7 @@ export default function Footer() {
 	return (
 		<footer className="bg-secondary-foreground text-white py-16">
 			<div className="w-full max-w-[1240px] mx-auto flex flex-col gap-14 px-6 xl:px-0">
-				<div className="w-full grid grid-cols-1 gap-y-16 md:grid-cols-2 lg:grid-cols-[max-content_max-content_max-content_1fr] lg:gap-x-20">
+				<div className="w-full grid grid-cols-1 gap-y-12 md:grid-cols-2 lg:grid-cols-[max-content_max-content_max-content_1fr] lg:gap-x-20">
 					{footerItems.map((item) => (
 						<div key={item.id} className="flex flex-col gap-6">
 							<h3 className="font-bold text-[24px] md:text-[32px]">{item.heading}</h3>
@@ -44,9 +44,21 @@ export default function Footer() {
 
 					<div className="flex flex-col gap-y-4">
 						<h2 className="text-[32px] font-bold">Download the App</h2>
-						<div className="flex gap-x-5">
-							<Image src={googlestore} alt="Google Playstore badge" width={135} height={40} />
-							<Image src={applestore} alt="Apple Playstore badge" width={135} height={40} />
+						<div className="flex flex-col md:flex-row gap-5">
+							<Image
+								src={googlestore}
+								alt="Google Playstore badge"
+								width={135}
+								height={40}
+								className="w-full max-w-[200px]"
+							/>
+							<Image
+								src={applestore}
+								alt="Apple Playstore badge"
+								width={135}
+								height={40}
+								className="w-full max-w-[200px]"
+							/>
 						</div>
 					</div>
 				</div>
