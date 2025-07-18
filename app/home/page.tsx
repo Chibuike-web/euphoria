@@ -1,12 +1,32 @@
 import React from "react";
 import hero from "@/app/assets/home/hero-image.jpg";
 import { ArrowDown, ArrowLeft, ArrowRight } from "lucide-react";
-import { allProducts, promoCardItems } from "./utils";
-import type { Products, PromoCardType } from "./types";
+import { allProducts, brandLogos, feedback, getStars, promoCardItems } from "./utils";
+import type { AllProductsType, Feedback, PromoCardType } from "./types";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import ctaFirstImage from "@/app/assets/home/first-cta/cta-first-image.png";
 import ctaSecondImage from "@/app/assets/home/first-cta/cta-second-image.png";
+import ProductCard from "@/components/ProductCard";
+import { Star, StarHalf } from "lucide-react";
+import { uuid } from "zod";
+
+const { full, half, empty } = getStars(3.5);
+
+const categories = [
+	{ id: "shirts", label: "Shirts" },
+	{ id: "printed-tees", label: "Printed T-shirts" },
+	{ id: "plain-tees", label: "Plain T-shirts" },
+	{ id: "polo", label: "Polo Shirts" },
+	{ id: "hoodies", label: "Hoodies & Sweatshirtss" },
+	{ id: "shorts", label: "Shorts" },
+	{ id: "jeans", label: "Jeans" },
+	{ id: "activewear", label: "Activewear" },
+	{ id: "coats", label: "Coats & Jackets" },
+	{ id: "tees", label: "Tees & T-shirts " },
+	{ id: "boxers", label: "Boxers" },
+	{ id: "joggers", label: "Joggers" },
+];
 
 export default function Home() {
 	return (
@@ -59,13 +79,11 @@ export default function Home() {
 				<div className="w-full relative">
 					<ArrowLeft className="flex-shrink-0 absolute left-0 top-[120px]" />
 					<div className="flex w-full gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth px-8">
-						{allProducts.map(
-							(item) =>
-								item.title === "NewArrival" &&
-								item.products.map((i) => (
-									<NewArrivalCard key={i.id} id={i.id} name={i.name} image={i.image} />
-								))
-						)}
+						{allProducts
+							.filter((item) => item.tags?.[0].section === "NewArrival")
+							.map((i) => (
+								<NewArrivalCard key={i.id} id={i.id} name={i.name} image={i.image} />
+							))}
 					</div>
 					<ArrowRight className="flex-shrink-0 absolute right-0 top-[120px]" />
 				</div>
@@ -77,11 +95,11 @@ export default function Home() {
 				</h3>
 
 				<div className="flex flex-wrap gap-6">
-					{allProducts.map(
-						(item) =>
-							item.title === "BigSavingZone" &&
-							item.products.map((i, index) => <BigSavingZoneCard key={i.id} {...i} index={index} />)
-					)}
+					{allProducts
+						.filter((item) => item.tags?.[0].section === "BigSavingZone")
+						.map((i, index) => (
+							<BigSavingZoneCard key={i.id} {...i} index={index} />
+						))}
 				</div>
 			</section>
 
@@ -116,11 +134,12 @@ export default function Home() {
 				</h3>
 
 				<div className="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-12">
-					{allProducts.map(
-						(item) =>
-							item.title === "CateogoriesForMen" &&
-							item.products.map((i) => <ProductCard key={i.id} {...i} />)
-					)}
+					{allProducts
+						.filter((item) => item.gender === "men")
+						.slice(0, 8)
+						.map((i) => (
+							<HomeProductCard key={i?.id} {...i} />
+						))}
 				</div>
 			</section>
 			<section className="flex flex-col gap-6 w-full max-w-[1240px] mx-auto mt-[130px] px-6 xl:px-0">
@@ -130,11 +149,58 @@ export default function Home() {
 				</h3>
 
 				<div className="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-12">
-					{allProducts.map(
-						(item) =>
-							item.title === "CateogoriesForWomen" &&
-							item.products.map((i) => <ProductCard key={i.id} {...i} />)
-					)}
+					{allProducts
+						.filter((item) => item.gender === "women")
+						.slice(0, 4)
+						.map((i) => (
+							<HomeProductCard key={i?.id} {...i} />
+						))}
+				</div>
+			</section>
+			<section className="px-6 xl:px-0 overflow-hidden">
+				<div className="flex flex-col gap-6 w-full max-w-[1240px] py-8 md:py-12 text-white bg-secondary-foreground rounded-[20px] mx-auto mt-[130px]">
+					<div className="flex flex-col items-center">
+						<h3 className="text-center gap-[20px] font-bold text-[48px]">Top Brand Deal</h3>
+						<p className="text-center mt-6">
+							Up to <span>60%</span> off on brands
+						</p>
+
+						<div className="flex items-center justify-center gap-6 mt-16 overflow-auto w-full">
+							{brandLogos.map((item) => (
+								<span
+									key={item.id}
+									className="flex items-center justify-center rounded-[10px] bg-white min-w-[176px] h-[86px]"
+								>
+									<Image src={item.image} alt="" />
+								</span>
+							))}
+						</div>
+					</div>
+				</div>
+			</section>
+			<section className="flex flex-col gap-6 w-full max-w-[1240px] mx-auto mt-[130px] px-6 xl:px-0">
+				<h3 className="flex items-center gap-[20px]">
+					<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />{" "}
+					<span className=" text-[24px] md:text-[34px] font-semibold">In The Limelight</span>
+				</h3>
+
+				<div className="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-12">
+					{allProducts
+						.filter((item) => item.tags?.[0].section === "InTheLimelight")
+						.map((i) => (
+							<ProductCard key={i.id} {...i} />
+						))}
+				</div>
+			</section>
+			<section className="flex flex-col gap-6 w-full max-w-[1240px] mx-auto my-[130px] px-6 xl:px-0">
+				<h3 className="flex items-center gap-[20px]">
+					<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />{" "}
+					<span className=" text-[24px] md:text-[34px] font-semibold">Feedback</span>
+				</h3>
+				<div className="flex overflow-x-auto gap-x-5.5">
+					{feedback.map((item) => (
+						<Feedback key={item.id} {...item} />
+					))}
 				</div>
 			</section>
 		</main>
@@ -155,7 +221,7 @@ function PromoCard({ image, label, title, promo, cta }: PromoCardType) {
 	);
 }
 
-function NewArrivalCard({ name, image }: Products) {
+function NewArrivalCard({ name, image }: AllProductsType) {
 	return (
 		<article className="w-full min-w-[220px] snap-center">
 			<Image src={image} alt={name} className="rounded-[24px] w-full" width={262} height={262} />
@@ -164,19 +230,17 @@ function NewArrivalCard({ name, image }: Products) {
 	);
 }
 
-type BigSavingZoneProps = Products & {
+type BigSavingZoneProps = AllProductsType & {
 	index: number;
 };
 
-function BigSavingZoneCard(item: BigSavingZoneProps) {
-	const { name, desc, image, promo, tags, index } = item;
-
+function BigSavingZoneCard({ name, desc, image, promo, custom, index }: BigSavingZoneProps) {
 	const articleStyles = [
-		"py-8 md:py-16 px-8 text-white",
-		"items-end py-8 md:py-16 px-8 text-white",
-		"items-end py-8 md:py-16 px-8 text-black",
-		"items-end p-8 md:p-16 text-black",
-		"items-end p-8 md:p-16 text-black",
+		" px-8 text-white",
+		"items-end  px-8 text-white",
+		"items-end  px-8 text-black",
+		"items-end px-8 md:px-16 text-black",
+		"items-end px-8 md:px-16 text-black",
 	];
 
 	let styles = articleStyles[index];
@@ -184,24 +248,31 @@ function BigSavingZoneCard(item: BigSavingZoneProps) {
 	return (
 		<article
 			className={cn(
-				"w-full relative flex flex-col flex-1 min-w-[280px] overflow-hidden rounded-[16px] bg-cover bg-center bg-no-repeat",
+				"w-full relative flex flex-col justify-center flex-1 h-[393px] min-w-[200px] md:min-w-[300px] overflow-hidden rounded-[16px] bg-cover bg-center bg-no-repeat",
 				styles
 			)}
 			style={{ backgroundImage: `url(${image.src})` }}
 		>
 			<div className="flex flex-col w-[164px]">
-				{tags &&
-					tags?.length > 0 &&
-					tags?.includes("limited") &&
-					tags?.map((item) => <span key={item}>{item}</span>)}
+				{custom && (
+					<span className="bg-foreground w-[104px] h-[34px] rounded-[4px] flex items-center text-[12px] justify-center mb-6">
+						Limited Stock
+					</span>
+				)}
 				<h3 className="font-semibold text-[28px] mb-[8px]">{name}</h3>
-				<p className="font-semibold mb-[6px]">{desc}</p>
+				<p className="font-semibold mb-[6px] text-[12px]">{desc}</p>
 				<p className="font-bold text-[18px] mb-8">{promo}</p>
 				<ArrowDown className="ml-12 " />
 				<button
-					className={cn("w-[111px] h-[34px] rounded-[4px] border border-white mt-10", {
-						"border-black": index === 2 || index === 3 || index === 4,
-					})}
+					className={cn(
+						"w-[111px] h-[34px] rounded-[4px] border border-white mt-10",
+						{
+							"border-black": index === 2 || index === 3 || index === 4,
+						},
+						{
+							"mt-6": custom,
+						}
+					)}
 				>
 					SHOP NOW
 				</button>
@@ -210,18 +281,49 @@ function BigSavingZoneCard(item: BigSavingZoneProps) {
 	);
 }
 
-function ProductCard(item: Products) {
-	const { name, image } = item;
+function HomeProductCard({ name, image, category }: AllProductsType) {
+	let title = "";
+
+	for (const c of categories) {
+		if (c.id === category) {
+			title = c.label;
+			break;
+		}
+	}
 	return (
 		<article>
 			<Image src={image} alt={name} className="w-full rounded-[16px]" width={270} height={393} />
 			<div className="flex items-center justify-between w-full">
 				<div className="flex flex-col gap-1 mt-2">
-					<h4 className="font-bold text-[20px]">{name}</h4>
+					<h4 className="font-bold text-[20px]">{title}</h4>
 					<p className="font-medium text-muted-foreground">Explore Now!</p>
 				</div>
 				<ArrowRight />
 			</div>
+		</article>
+	);
+}
+
+function Feedback({ name, image, star, review }: Feedback) {
+	const { full, half, empty } = getStars(star);
+	return (
+		<article className="w-full min-w-[396px] border p-6 rounded-[16px]">
+			<div className="w-full flex items-start justify-between">
+				<div className="">
+					<Image src={image} alt="" />
+					<p className="text-[22px] font-medium mt-2">{name}</p>
+				</div>
+				<div className="flex items-center gap-1 text-yellow-500">
+					{Array.from({ length: full }).map((_, i) => (
+						<Star key={`full-${i}`} fill="currentColor" stroke="none" />
+					))}
+					{half === 1 && <StarHalf fill="currentColor" stroke="none" />}
+					{Array.from({ length: empty }).map((_, i) => (
+						<Star key={`empty-${i}`} />
+					))}
+				</div>
+			</div>
+			<p className="mt-4">{review}</p>
 		</article>
 	);
 }

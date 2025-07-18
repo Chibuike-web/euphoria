@@ -103,7 +103,7 @@ const navLinks: NavLinksType[] = [
 function MobileNav({ pathname }: { pathname: string }) {
 	return (
 		<div className="bg-white fixed top-[68.5px] z-[100] w-full px-6 py-10 h-[calc(100vh-68.5px)] ">
-			<div className="flex flex-col h-full justify-between overflow-auto">
+			<div className="flex flex-col h-full justify-between gap-y-20 overflow-auto">
 				<div className="flex flex-col gap-12">
 					<label className="bg-gray-100 px-2 h-10 rounded-[8px] flex items-center gap-3">
 						<Search className="size-5 text-muted-foreground" />

@@ -12,19 +12,41 @@ export type PromoCardType = {
 	};
 };
 
-export type Products = {
+export type AllProductsType = {
 	id: string;
 	name: string;
 	image: StaticImageData;
-	desc?: string;
-	tags?: string[];
-	price?: string;
+	gender?: "men" | "women" | "unisex";
+	price?: number;
 	promo?: string;
+	desc?: string;
+	brand?: string;
+	category?:
+		| "joggers"
+		| "printed-tees"
+		| "plain-tees"
+		| "shorts"
+		| "hoodies"
+		| "shirts"
+		| "polo"
+		| "jeans"
+		| "activewear"
+		| "boxers"
+		| "coats"
+		| "tees";
+	custom?: string;
+	tags?: Tags[];
 };
 
-export type AllProductsType = {
+type Tags = {
+	section?: string;
+	type?: string;
+};
+
+export type Feedback = {
 	id: string;
-	title: string;
-	type: "curated" | "category" | "promotional";
-	products: Products[];
+	image: StaticImageData;
+	name: string;
+	star: number;
+	review: string;
 };
