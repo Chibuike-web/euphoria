@@ -53,7 +53,7 @@ const NavLinks = ({ pathname }: { pathname: string }) => {
 	return (
 		<ul className="flex items-center gap-10 text-muted-foreground">
 			{navLinks.map((item) => {
-				const href = `/${item.id}` === "/shop" ? "/home" : `/${item.id}`;
+				const href = item.id === "shop" ? "/" : `/${item.id}`;
 				const isActive = pathname === href;
 				return (
 					<li key={item.id}>
@@ -117,7 +117,7 @@ function MobileNav({ pathname }: { pathname: string }) {
 					</label>
 					<ul className="flex flex-col text-[24px] gap-12 text-muted-foreground">
 						{navLinks.map((item) => {
-							const href = `/${item.id}` === "/shop" ? "/home" : `/${item.id}`;
+							const href = item.id === "shop" ? "/" : `/${item.id}`;
 							const isActive = pathname === href;
 							return (
 								<li key={item.id}>
