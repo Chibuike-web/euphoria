@@ -74,7 +74,7 @@ const Filter = () => {
 				</span>
 			</div>
 			{isShow && (
-				<div className="flex flex-col gap-4 p-6">
+				<div className="flex flex-col gap-4 p-6" onClick={(e) => e.stopPropagation()}>
 					{filter.map((item, index) => (
 						<div key={index} className="flex items-center justify-between">
 							<span>{item}</span>
@@ -101,7 +101,7 @@ const Price = () => {
 				/>
 			</div>
 			{isShow && (
-				<div className="flex flex-col gap-4 p-6">
+				<div className="flex flex-col gap-4 p-6" onClick={(e) => e.stopPropagation()}>
 					<Slider.Root
 						className="relative flex items-center select-none touch-none w-full h-5"
 						defaultValue={[25, 75]}
@@ -144,7 +144,10 @@ const Colors = () => {
 				/>
 			</div>
 			{isShow && (
-				<div className="grid grid-cols-4 gap-[20px] py-[20px] px-[24px]">
+				<div
+					className="grid grid-cols-4 gap-[20px] py-[20px] px-[24px]"
+					onClick={(e) => e.stopPropagation()}
+				>
 					{colors.map((color) => (
 						<div key={color.id} className="flex flex-col gap-4 items-center">
 							<span
@@ -235,7 +238,10 @@ const Size = () => {
 				/>
 			</div>
 			{isShow && (
-				<div className="grid grid-cols-3 gap-[20px] py-[20px] px-[24px]">
+				<div
+					className="grid grid-cols-3 gap-[20px] py-[20px] px-[24px]"
+					onClick={(e) => e.stopPropagation()}
+				>
 					{sizes.map((size) => (
 						<span
 							key={size.label}
@@ -308,7 +314,7 @@ const DressStyle = () => {
 					isShow ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
 				)}
 			>
-				<div className="flex flex-col gap-4 py-4">
+				<div className="flex flex-col gap-4 py-4" onClick={(e) => e.stopPropagation()}>
 					{dressStyle.map((item, index) => (
 						<div key={index} className="flex items-center justify-between">
 							<span>{item}</span>
