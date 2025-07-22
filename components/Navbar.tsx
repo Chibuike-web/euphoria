@@ -12,7 +12,7 @@ export default function Navbar() {
 	const pathname = usePathname();
 	const { isOpen, handleClick } = useMobileNav();
 	return (
-		<nav className="py-3 md:py-8">
+		<nav className="py-3 md:py-8 sticky top-0 bg-white z-[100] border-shadow">
 			<header className="w-full max-w-[1240px] mx-auto flex items-center justify-between px-6 xl:px-0">
 				<Image src={logo} alt="Brand Logo" className="w-full max-w-[92px]" width={92} height={45} />
 				<div className="hidden lg:flex items-center gap-8">
@@ -44,7 +44,7 @@ export default function Navbar() {
 					{isOpen ? <X /> : <Menu />}
 				</button>
 			</header>
-			{isOpen && <MobileNav pathname={pathname} />}
+			{isOpen && <MobileNav handleClick={handleClick} pathname={pathname} />}
 		</nav>
 	);
 }
@@ -100,7 +100,7 @@ const navLinks: NavLinksType[] = [
 	},
 ];
 
-function MobileNav({ pathname }: { pathname: string }) {
+function MobileNav({ handleClick, pathname }: { handleClick: () => void; pathname: string }) {
 	return (
 		<div className="bg-white fixed top-[68.5px] z-[100] w-full px-6 py-10 h-[calc(100vh-68.5px)] ">
 			<div className="flex flex-col h-full justify-between gap-y-20 overflow-auto">
@@ -127,6 +127,7 @@ function MobileNav({ pathname }: { pathname: string }) {
 											"transition-colors hover:text-foreground",
 											isActive && "text-foreground font-semibold"
 										)}
+										onClick={handleClick}
 									>
 										{item.text}
 									</Link>

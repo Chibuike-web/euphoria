@@ -6,7 +6,6 @@ import hAndM from "@/app/assets/home/brand-logos/h-and-m.png";
 import levis from "@/app/assets/home/brand-logos/levi's.png";
 import assn from "@/app/assets/home/brand-logos/assn.png";
 import puma from "@/app/assets/home/brand-logos/puma.png";
-
 import firstReview from "@/app/assets/home/reviews/first.png";
 import secondReview from "@/app/assets/home/reviews/second.png";
 import thirdReview from "@/app/assets/home/reviews/third.png";

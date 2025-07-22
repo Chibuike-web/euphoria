@@ -11,8 +11,8 @@ export default function ProductCard({ id, name, image, brand, price, gender }: A
 			</button>
 			<Link href={`/${gender}/${id}`}>
 				<Image src={image} alt={name} className="w-full rounded-[16px]" width={270} height={393} />
-				<div className="flex items-center justify-between w-full">
-					<div className="flex flex-col gap-1 mt-2">
+				<div className="flex items-center mt-2 justify-between w-full">
+					<div className="flex flex-col gap-1 ">
 						<h4 className="font-bold text-[20px]">{name}</h4>
 						<p className="font-medium text-muted-foreground">{brand}</p>
 					</div>

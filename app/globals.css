@@ -128,4 +128,8 @@ body {
 	body {
 		@apply bg-background text-foreground;
 	}
+
+	.border-shadow {
+		@apply shadow-[0_1px_0_var(--muted)];
+	}
 }
