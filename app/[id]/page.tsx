@@ -8,6 +8,7 @@ import { useMemo, useState } from "react";
 import { ChevronDown, ChevronRight, SlidersVertical } from "lucide-react";
 import * as Slider from "@radix-ui/react-slider";
 import clsx from "clsx";
+import { AnimatePresence, motion } from "motion/react";
 
 export default function Page() {
 	const { id } = useParams() as { id: string };
@@ -40,9 +41,15 @@ export default function Page() {
 	);
 }
 
+const dropdownVariants = {
+	hidden: { opacity: 0, height: 0 },
+	visible: { opacity: 1, height: "auto" },
+	exit: { opacity: 0, height: 0 },
+};
+
 const Sidebar = () => {
 	return (
-		<aside className="min-w-[295px] max-w-[295px] flex flex-col sticky top-[68.49px] md:top-[108.45px] border border-muted">
+		<aside className="min-w-[295px] max-w-[295px] flex flex-col sticky top-[68.49px] md:top-[108.45px] h-[calc(100vh-108px)] overflow-y-auto border border-muted ">
 			<Filter />
 			<Price />
 			<Colors />
@@ -73,18 +80,30 @@ const Filter = () => {
 					<SlidersVertical />
 				</span>
 			</div>
-			{isShow && (
-				<div className="flex flex-col gap-4 p-6" onClick={(e) => e.stopPropagation()}>
-					{filter.map((item, index) => (
-						<div key={index} className="flex items-center justify-between">
-							<span>{item}</span>
-							<span>
-								<ChevronRight />
-							</span>
+			<AnimatePresence>
+				{isShow && (
+					<motion.div
+						variants={dropdownVariants}
+						initial="hidden"
+						animate="visible"
+						exit="exit"
+						className="overflow-hidden"
+						transition={{ duration: 0.3 }}
+						onClick={(e) => e.stopPropagation()}
+					>
+						<div className="flex flex-col gap-4 p-6 ">
+							{filter.map((item, index) => (
+								<div key={index} className="flex items-center justify-between">
+									<span>{item}</span>
+									<span>
+										<ChevronRight />
+									</span>
+								</div>
+							))}
 						</div>
-					))}
-				</div>
-			)}
+					</motion.div>
+				)}
+			</AnimatePresence>
 		</button>
 	);
 };
@@ -100,35 +119,47 @@ const Price = () => {
 					className={clsx("transition-transform duration-300", isShow && "rotate-180")}
 				/>
 			</div>
-			{isShow && (
-				<div className="flex flex-col gap-4 p-6" onClick={(e) => e.stopPropagation()}>
-					<Slider.Root
-						className="relative flex items-center select-none touch-none w-full h-5"
-						defaultValue={[25, 75]}
-						value={price}
-						onValueChange={(val) => setPrice(val)}
-						max={100}
-						step={1}
+			<AnimatePresence>
+				{isShow && (
+					<motion.div
+						variants={dropdownVariants}
+						initial="hidden"
+						animate="visible"
+						exit="exit"
+						className="overflow-hidden"
+						onClick={(e) => e.stopPropagation()}
+						transition={{ duration: 0.3 }}
 					>
-						<Slider.Track className="bg-muted relative grow rounded-full h-2">
-							<Slider.Range className="absolute bg-primary rounded-full h-full" />
-						</Slider.Track>
-						<Slider.Thumb className="block w-5 h-5 bg-white border border-border rounded-full" />
-						<Slider.Thumb className="block w-5 h-5 bg-white border border-border rounded-full" />
-					</Slider.Root>
-
-					<div className="flex items-center gap-12">
-						{price.map((value) => (
-							<span
-								key={value}
-								className="w-[97px] h-8 rounded-[8px] border border-muted flex items-center justify-center "
+						<div className="flex flex-col gap-4 p-6">
+							<Slider.Root
+								className="relative flex items-center select-none touch-none w-full h-5"
+								defaultValue={[25, 75]}
+								value={price}
+								onValueChange={(val) => setPrice(val)}
+								max={100}
+								step={1}
 							>
-								${value}
-							</span>
-						))}
-					</div>
-				</div>
-			)}
+								<Slider.Track className="bg-muted relative grow rounded-full h-2">
+									<Slider.Range className="absolute bg-primary rounded-full h-full" />
+								</Slider.Track>
+								<Slider.Thumb className="block w-5 h-5 bg-white border border-border rounded-full" />
+								<Slider.Thumb className="block w-5 h-5 bg-white border border-border rounded-full" />
+							</Slider.Root>
+
+							<div className="flex items-center gap-12">
+								{price.map((value) => (
+									<span
+										key={value}
+										className="w-[97px] h-8 rounded-[8px] border border-muted flex items-center justify-center "
+									>
+										${value}
+									</span>
+								))}
+							</div>
+						</div>
+					</motion.div>
+				)}
+			</AnimatePresence>
 		</button>
 	);
 };
@@ -136,30 +167,40 @@ const Price = () => {
 const Colors = () => {
 	const [isShow, setIsShow] = useState(false);
 	return (
-		<button className="border-shadow" onClick={() => setIsShow((prev) => !prev)}>
+		<button className="border-shadow flex flex-col" onClick={() => setIsShow((prev) => !prev)}>
 			<div className="flex items-center justify-between w-full py-[20px] px-[24px] border-shadow">
 				<p className="text-[22px]">Colors</p>
 				<ChevronDown
 					className={clsx("transition-transform duration-300", isShow && "rotate-180")}
 				/>
 			</div>
-			{isShow && (
-				<div
-					className="grid grid-cols-4 gap-[20px] py-[20px] px-[24px]"
-					onClick={(e) => e.stopPropagation()}
-				>
-					{colors.map((color) => (
-						<div key={color.id} className="flex flex-col gap-4 items-center">
-							<span
-								className={`block ${color.colorStyle} size-[36px] rounded-[12px] ${
-									color.id === "white" && "border border-muted-foreground"
-								}`}
-							/>{" "}
-							<span className="text-[12px] font-semibold">{color.label}</span>
+
+			<AnimatePresence>
+				{isShow && (
+					<motion.div
+						variants={dropdownVariants}
+						initial="hidden"
+						animate="visible"
+						exit="exit"
+						className="overflow-hidden"
+						transition={{ duration: 0.3 }}
+						onClick={(e) => e.stopPropagation()}
+					>
+						<div className="grid grid-cols-4 gap-[20px] p-6 overflow-hidden">
+							{colors.map((color) => (
+								<div key={color.id} className="flex flex-col gap-4 items-center">
+									<span
+										className={`block ${color.colorStyle} size-[36px] rounded-[12px] ${
+											color.id === "white" && "border border-muted-foreground"
+										}`}
+									/>{" "}
+									<span className="text-[12px] font-semibold">{color.label}</span>
+								</div>
+							))}
 						</div>
-					))}
-				</div>
-			)}
+					</motion.div>
+				)}
+			</AnimatePresence>
 		</button>
 	);
 };
@@ -238,19 +279,26 @@ const Size = () => {
 				/>
 			</div>
 			{isShow && (
-				<div
-					className="grid grid-cols-3 gap-[20px] py-[20px] px-[24px]"
+				<motion.div
+					variants={dropdownVariants}
+					initial="hidden"
+					animate="visible"
+					exit="exit"
+					className="overflow-hidden"
+					transition={{ duration: 0.3 }}
 					onClick={(e) => e.stopPropagation()}
 				>
-					{sizes.map((size) => (
-						<span
-							key={size.label}
-							className="text-[12px] font-semibold border border-muted rounded-[8px] w-[61px] h-8 flex items-center justify-center"
-						>
-							{size.label}
-						</span>
-					))}
-				</div>
+					<div className="grid grid-cols-3 gap-[20px] py-[20px] px-[24px]">
+						{sizes.map((size) => (
+							<span
+								key={size.label}
+								className="text-[12px] font-semibold border border-muted rounded-[8px] w-[61px] h-8 flex items-center justify-center"
+							>
+								{size.label}
+							</span>
+						))}
+					</div>
+				</motion.div>
 			)}
 		</button>
 	);
@@ -297,24 +345,18 @@ const DressStyle = () => {
 	const [isShow, setIsShow] = useState(false);
 
 	return (
-		<div className="border-t border-muted">
-			<button
-				onClick={() => setIsShow((prev) => !prev)}
-				className="w-full flex items-center justify-between py-[20px] px-[24px]"
-			>
-				<p className="text-[22px]">Dress Style</p>
+		<button className="border-shadow" onClick={() => setIsShow((prev) => !prev)}>
+			<div className="flex items-center justify-between w-full py-[20px] px-[24px] border-shadow">
+				<p className="text-[22px]">Dress Styles</p>
 				<ChevronDown
 					className={clsx("transition-transform duration-300", isShow && "rotate-180")}
 				/>
-			</button>
-
-			<div
-				className={clsx(
-					"overflow-hidden transition-all duration-300 px-6",
-					isShow ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
-				)}
-			>
-				<div className="flex flex-col gap-4 py-4" onClick={(e) => e.stopPropagation()}>
+			</div>
+			{isShow && (
+				<div
+					className="flex flex-col gap-[20px] py-[20px] px-[24px]"
+					onClick={(e) => e.stopPropagation()}
+				>
 					{dressStyle.map((item, index) => (
 						<div key={index} className="flex items-center justify-between">
 							<span>{item}</span>
@@ -322,7 +364,7 @@ const DressStyle = () => {
 						</div>
 					))}
 				</div>
-			</div>
-		</div>
+			)}
+		</button>
 	);
 };
