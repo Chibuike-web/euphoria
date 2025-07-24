@@ -2,7 +2,7 @@
 
 import ProductCard from "@/components/ProductCard";
 import { useParams } from "next/navigation";
-import { toSentenceCase } from "../utils";
+import { toSentenceCase } from "../../utils";
 import { useAllProducts } from "@/lib/product";
 import { useMemo, useState } from "react";
 import { ChevronDown, ChevronRight, SlidersVertical } from "lucide-react";
@@ -11,11 +11,14 @@ import clsx from "clsx";
 import { AnimatePresence, motion } from "motion/react";
 
 export default function Page() {
-	const { id } = useParams() as { id: string };
+	const { gender } = useParams() as { gender: string };
 
 	const { data, isLoading, error } = useAllProducts();
 
-	const filtered = useMemo(() => data?.filter((item) => item.gender === id) || [], [data, id]);
+	const filtered = useMemo(
+		() => data?.filter((item) => item.gender === gender) || [],
+		[data, gender]
+	);
 
 	if (isLoading) return;
 	if (error) return <p className="mt-20 text-center">Something went wrong</p>;
@@ -25,7 +28,7 @@ export default function Page() {
 			<Sidebar />
 			<aside className="w-full">
 				<div className="w-full flex items-center justify-between my-[50px]">
-					<h1 className="text-2xl font-bold capitalize">{toSentenceCase(id)}'s Clothing</h1>
+					<h1 className="text-2xl font-bold capitalize">{toSentenceCase(gender)}'s Clothing</h1>
 					<div className="flex items-center gap-8 text-[18px]">
 						<p className="font-semibold">New</p>
 						<p>Recommended</p>

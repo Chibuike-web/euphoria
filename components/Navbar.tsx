@@ -53,8 +53,8 @@ const NavLinks = ({ pathname }: { pathname: string }) => {
 	return (
 		<ul className="flex items-center gap-10 text-muted-foreground">
 			{navLinks.map((item) => {
-				const href = item.id === "shop" ? "/" : `/${item.id}`;
-				const isActive = pathname === href;
+				const href = item.id === "shop" ? "/" : `/products/${item.id}`;
+				const isActive = href === "/" ? pathname === "/" : pathname.startsWith(href);
 				return (
 					<li key={item.id}>
 						<Link
