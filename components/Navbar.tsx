@@ -69,6 +69,8 @@ const NavLinks = ({ pathname }: { pathname: string }) => {
 					</li>
 				);
 			})}
+			<li className="hover:text-foreground cursor-pointer">Combos</li>
+			<li className="hover:text-foreground cursor-pointer">Joggers</li>
 		</ul>
 	);
 };
@@ -89,14 +91,6 @@ const navLinks: NavLinksType[] = [
 	{
 		id: "women",
 		text: "Women",
-	},
-	{
-		id: "combos",
-		text: "Combos",
-	},
-	{
-		id: "joggers",
-		text: "Joggers",
 	},
 ];
 

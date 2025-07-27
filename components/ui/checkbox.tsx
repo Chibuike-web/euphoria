@@ -1,29 +1,30 @@
-"use client";
-
-import * as React from "react";
-import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
-import { CheckIcon } from "lucide-react";
-
+import { useEffect, useState } from "react";
+import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { UseFormWatch } from "react-hook-form";
+import { FormData } from "@/lib/authSchema";
 
-function Checkbox({ className, ...props }: React.ComponentProps<typeof CheckboxPrimitive.Root>) {
+type CheckboxProps = {
+	id: string;
+	name: keyof FormData;
+	register: any;
+	watch: UseFormWatch<FormData>;
+};
+
+export function Checkbox({ id, name, register, watch }: CheckboxProps) {
+	const checked = watch(name);
+
 	return (
-		<CheckboxPrimitive.Root
-			data-slot="checkbox"
-			className={cn(
-				"peer border-input dark:bg-input/30 data-[state=checked]:bg-foreground data-[state=checked]:text-primary-foreground dark:data-[state=checked]:bg-primary data-[state=checked]:border-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive size-4 shrink-0 rounded-[4px] border shadow-xs transition-shadow outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
-				className
-			)}
-			{...props}
-		>
-			<CheckboxPrimitive.Indicator
-				data-slot="checkbox-indicator"
-				className="flex items-center justify-center text-current transition-none"
+		<label htmlFor={id} className="relative flex items-center gap-2 cursor-pointer select-none">
+			<input type="checkbox" id={id} {...register(name)} className="sr-only" />
+			<span
+				className={cn(
+					"size-4 flex items-center justify-center border rounded-[4px] transition-colors",
+					checked ? "bg-primary border-primary" : "bg-transparent border-input"
+				)}
 			>
-				<CheckIcon className="size-3.5" />
-			</CheckboxPrimitive.Indicator>
-		</CheckboxPrimitive.Root>
+				{checked && <Check className="text-white w-3 h-3" />}
+			</span>
+		</label>
 	);
 }
-
-export { Checkbox };

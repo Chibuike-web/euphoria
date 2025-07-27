@@ -8,7 +8,7 @@ export const passwordSchema = z
 		message: "Use 8 or more characters with a mix of letters, numbers & symbols",
 	});
 
-export const schema = z.object({
+export const authSchema = z.object({
 	email: z
 		.string()
 		.min(1, { message: "Email is required" })
@@ -17,6 +17,10 @@ export const schema = z.object({
 			message: "Email must be valid",
 		}),
 	password: passwordSchema,
+	terms: z.boolean().refine((val) => val === true, {
+		message: "Please accept the terms and conditions",
+	}),
+	subscribe: z.boolean().optional(),
 });
 
-export type FormData = z.infer<typeof schema>;
+export type FormData = z.infer<typeof authSchema>;

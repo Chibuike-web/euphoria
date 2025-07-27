@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
-import { EyeOff } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { usePassword } from "@/lib/Hooks";
 
@@ -40,13 +40,19 @@ export default function Login() {
 						</div>
 
 						<form action="" className="flex flex-col gap-8">
-							<fieldset>
+							<div>
 								<Label htmlFor="email" className="mb-[10px]">
 									Email Address
 								</Label>
-								<Input type="email" name="email" id="email" className="h-12" />
-							</fieldset>
-							<fieldset>
+								<Input
+									type="email"
+									name="email"
+									id="email"
+									placeholder="Enter your email address"
+									className="h-12"
+								/>
+							</div>
+							<div>
 								<div className="flex items-center justify-between w-full mb-[10px]">
 									<Label htmlFor="password">Password</Label>
 									<button
@@ -54,19 +60,28 @@ export default function Login() {
 										className="flex items-center gap-2"
 										onClick={handleShowPassword}
 									>
-										<EyeOff className="w-5 h-5" /> <span>Hide</span>
+										{showPassword ? (
+											<>
+												<EyeOff className="size-5" /> <span>Hide</span>
+											</>
+										) : (
+											<>
+												<Eye className="size-5" /> <span>Show</span>
+											</>
+										)}
 									</button>
 								</div>
 								<Input
 									type={showPassword ? "text" : "password"}
 									name="password"
 									id="password"
+									placeholder="Enter your password"
 									className="h-12"
 								/>
 								<Link href="/reset-password" className="mt-[10px] flex justify-self-end underline">
 									Forgot Password{" "}
 								</Link>
-							</fieldset>
+							</div>
 							<Button size="lg" className="w-full mt-12 mb-[10px]">
 								Sign in
 							</Button>

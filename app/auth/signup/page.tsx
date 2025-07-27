@@ -7,25 +7,53 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import Image from "next/image";
-import { EyeOff } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { usePassword } from "@/lib/Hooks";
 import { useForm } from "react-hook-form";
-import type { FormData } from "@/lib/schema";
+import type { FormData } from "@/lib/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { schema } from "@/lib/schema";
+import { authSchema } from "@/lib/authSchema";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Signup() {
 	const { showPassword, handleShowPassword } = usePassword();
-
 	const {
 		register,
+		watch,
+		reset,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<FormData>({ resolver: zodResolver(schema) });
+	} = useForm<FormData>({ resolver: zodResolver(authSchema) });
 
-	const onSubmit = (data: FormData) => {
+	const router = useRouter();
+	const onSubmit = async (data: FormData) => {
 		console.log(data);
+
+		try {
+			const res = await fetch("/api/signup", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(data),
+			});
+
+			if (!res.ok) {
+				const errorData = await res.json();
+				if (res.status === 400) {
+					throw new Error(errorData.error);
+				} else if (res.status === 409) {
+					router.push("/auth/login");
+				}
+				return;
+			}
+
+			const resData = await res.json();
+			console.log(resData.message);
+			reset();
+		} catch (err) {
+			console.error(err);
+		}
 	};
 	return (
 		<main className="flex w-full justify-center items-center gap-6">
@@ -57,7 +85,7 @@ export default function Signup() {
 						</div>
 
 						<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
-							<fieldset>
+							<div>
 								<Label htmlFor="email" className="mb-[10px]">
 									Email Address
 								</Label>
@@ -71,8 +99,8 @@ export default function Signup() {
 								{errors.email && (
 									<p className="mt-[10px] text-sm text-red-500">{errors.email.message}</p>
 								)}
-							</fieldset>
-							<fieldset>
+							</div>
+							<div>
 								<div className="flex items-center justify-between w-full mb-[10px]">
 									<Label htmlFor="password">Password</Label>
 									<button
@@ -80,7 +108,16 @@ export default function Signup() {
 										className="flex items-center gap-2"
 										onClick={handleShowPassword}
 									>
-										<EyeOff className="size-5" /> <span>Hide</span>
+										{showPassword ? (
+											<>
+												<EyeOff className="size-5" /> <span>Hide</span>
+											</>
+										) : (
+											<>
+												{" "}
+												<Eye className="size-5" /> <span>Show</span>
+											</>
+										)}
 									</button>
 								</div>
 								<Input
@@ -97,15 +134,21 @@ export default function Signup() {
 										Use 8 or more characters with a mix of letters, numbers & symbols
 									</p>
 								)}
-							</fieldset>
-							<div>
-								<div className="flex items-center gap-2">
-									<Checkbox id="terms1" />
-									<Label htmlFor="terms1">Agree to our Terms of use and Privacy Policy</Label>
+							</div>
+
+							<div className="flex flex-col gap-4">
+								<div>
+									<div className="flex items-center gap-2">
+										<Checkbox id="terms" name="terms" register={register} watch={watch} />
+										<label htmlFor="terms">Agree to our Terms of use and Privacy Policy </label>
+									</div>
+									{errors.terms && (
+										<p className="mt-[10px] text-sm text-red-500">{errors.terms.message}</p>
+									)}
 								</div>
-								<div className="flex items-center gap-2 mt-[18px]">
-									<Checkbox id="terms2" />
-									<Label htmlFor="terms2">Subscribe to our monthly newsletter</Label>
+								<div className="flex items-center gap-2">
+									<Checkbox id="subscribe" name="subscribe" register={register} watch={watch} />
+									<label htmlFor="subscribe"> Subscribe to our monthly newsletter</label>
 								</div>
 							</div>
 

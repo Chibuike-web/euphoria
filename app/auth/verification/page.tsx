@@ -24,12 +24,12 @@ export default function Verification() {
 						<p className="font-medium mb-12 text-secondary-foreground">Verify your code</p>
 
 						<form action="">
-							<fieldset>
+							<div>
 								<Label htmlFor="code" className="mb-[10px]">
 									Verification Code
 								</Label>
 								<Input type="text" name="code" id="code" className="h-12" />
-							</fieldset>
+							</div>
 
 							<Button size="lg" className="w-full mt-12 mb-[10px]">
 								Verify Code
