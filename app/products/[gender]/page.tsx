@@ -4,11 +4,10 @@ import ProductCard from "@/components/ProductCard";
 import { useParams } from "next/navigation";
 import { toSentenceCase } from "../../utils";
 import { useAllProducts } from "@/lib/product";
-import { useMemo, useState } from "react";
-import { ChevronDown, ChevronRight, SlidersVertical } from "lucide-react";
-import * as Slider from "@radix-ui/react-slider";
-import clsx from "clsx";
-import { AnimatePresence, motion } from "motion/react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { Colors, DressStyle, Filter, Price, Size } from "./FilterComponents";
+import { ArrowRight, ChevronDown, X } from "lucide-react";
+import { useDropdown } from "@/lib/Hooks";
 
 export default function Page() {
 	const { gender } = useParams() as { gender: string };
@@ -24,35 +23,63 @@ export default function Page() {
 	if (error) return <p className="mt-20 text-center">Something went wrong</p>;
 
 	return (
-		<section className="flex gap-6 items-start w-full max-w-[1240px] mx-auto px-6 xl:px-0 mb-[100px]">
-			<Sidebar />
-			<aside className="w-full">
-				<div className="w-full flex items-center justify-between my-[50px]">
-					<h1 className="text-2xl font-bold capitalize">{toSentenceCase(gender)}'s Clothing</h1>
-					<div className="flex items-center gap-8 text-[18px]">
-						<p className="font-semibold">New</p>
-						<p>Recommended</p>
+		<section className=" max-w-[1240px] mx-auto px-6 xl:px-0 mb-[100px]">
+			<div className="flex flex-col items-center md:flex-row gap-x-6 md:items-start w-full">
+				<SideBar />
+				<aside className="w-full">
+					<div className="w-full flex items-center justify-between my-[50px]">
+						<h1 className="text-2xl font-bold capitalize">{toSentenceCase(gender)}'s Clothing</h1>
+						<div className="flex items-center gap-4 text-[18px]">
+							<p className="font-semibold">New</p>
+							<p>Recommended</p>
+						</div>
 					</div>
-				</div>
-				<div className="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-6">
-					{filtered.map((item) => (
-						<ProductCard key={item.id} {...item} />
-					))}
-				</div>
-			</aside>
+					<div className="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-6">
+						{filtered.map((item) => (
+							<ProductCard key={item.id} {...item} />
+						))}
+					</div>
+				</aside>
+			</div>
+			{gender === "women" && <ClothingForWomenOnline />}
+			{gender === "women" && <BuyWomensClothing />}
 		</section>
 	);
 }
 
-const dropdownVariants = {
-	hidden: { opacity: 0, height: 0 },
-	visible: { opacity: 1, height: "auto" },
-	exit: { opacity: 0, height: 0 },
+const SideBar = () => {
+	const { isShow, setIsShow } = useDropdown();
+
+	useEffect(() => {
+		if (isShow) {
+			document.body.style.overflow = "hidden";
+		} else {
+			document.body.style.overflow = "";
+		}
+		return () => {
+			document.body.style.overflow = "";
+		};
+	}, [isShow]);
+	const handleClick = useCallback(() => {
+		setIsShow((prev) => !prev);
+	}, []);
+	return (
+		<>
+			<DeskstopSidebar />
+			<button
+				className="flex md:hidden font-sans text-[24px] py-4 items-center justify-between w-full"
+				onClick={handleClick}
+			>
+				Filters <ArrowRight />
+			</button>
+			{isShow && <MobileSidebar handleClick={handleClick} />}
+		</>
+	);
 };
 
-const Sidebar = () => {
+const DeskstopSidebar = () => {
 	return (
-		<aside className="min-w-[295px] max-w-[295px] flex flex-col sticky top-[68.49px] md:top-[108.45px] h-[calc(100vh-108px)] overflow-y-auto  ">
+		<aside className="min-w-[295px] max-w-[295px] hidden md:flex flex-col sticky top-[68.49px] md:top-[108.45px] h-[calc(100vh-108px)] xl:h-auto overflow-y-auto  ">
 			<Filter />
 			<Price />
 			<Colors />
@@ -62,334 +89,110 @@ const Sidebar = () => {
 	);
 };
 
-const filter = [
-	"Tops",
-	"Printed T-shirts",
-	"Plain T-shirts",
-	"Kurti",
-	"Boxers",
-	"Full sleeve Tshirts",
-	"Joggers",
-	"Pyjamas",
-	"Jeans",
-];
-const Filter = () => {
-	const [isShow, setIsShow] = useState(false);
+const MobileSidebar = ({ handleClick }: { handleClick: () => void }) => {
 	return (
-		<button className=" border border-muted" onClick={() => setIsShow((prev) => !prev)}>
-			<div className="flex items-center justify-between w-full py-[20px] px-[24px] border-shadow">
-				<p className="text-[22px]">Filter</p>
-				<span>
-					<SlidersVertical />
+		<aside className="w-full flex flex-col fixed z-[100] bg-white top-[68.49px] h-[calc(100vh-68.49px)] xl:h-auto overflow-y-auto ">
+			<button
+				onClick={handleClick}
+				className="py-2 bg-gray-300 rounded-full px-4 w-max self-center my-4"
+			>
+				Close
+			</button>
+			<Filter />
+			<Price />
+			<Colors />
+			<Size />
+			<DressStyle />
+		</aside>
+	);
+};
+
+const ClothingForWomenOnline = () => {
+	return (
+		<section className=" max-w-[1240px] mx-auto px-6 xl:px-0 mt-[100px]">
+			<h3 className="flex items-center gap-[20px]">
+				<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />
+				<span className=" text-[clamp(1.25rem,2vh,1.8rem)] font-semibold">
+					Clothing for Women Online in India
 				</span>
-			</div>
-			<AnimatePresence>
-				{isShow && (
-					<motion.div
-						variants={dropdownVariants}
-						initial="hidden"
-						animate="visible"
-						exit="exit"
-						className="overflow-hidden"
-						transition={{ duration: 0.3 }}
-						onClick={(e) => e.stopPropagation()}
-					>
-						<div className="flex flex-col gap-4 p-6 ">
-							{filter.map((item, index) => (
-								<div key={index} className="flex items-center justify-between">
-									<span>{item}</span>
-									<span>
-										<ChevronRight />
-									</span>
-								</div>
-							))}
-						</div>
-					</motion.div>
-				)}
-			</AnimatePresence>
-		</button>
+			</h3>
+			<h4>Reexplore Women's Clothing Collection Online at Euphoria</h4>
+			<p>
+				Women's Clothing – Are you searching for the best website to buy Clothing for Women online
+				in India? Well, your search for the coolest and most stylish womens clothing ends here. From
+				trendy Casual Womens Wear Online shopping to premium quality cotton women's apparel,
+				Euphoria has closet of Women Collection covered with the latest and best designs of Women's
+				Clothing Online.
+			</p>
+			<p>
+				Our collection of clothes for women will make you the trendsetter with an iconic resemblance
+				of choice in Womens Wear.{" "}
+			</p>
+			<h6>One-Stop Destination to Shop Every Clothing for Women: Euphoria</h6>
+			<p>
+				Today, Clothing for Women is gaining more popularity above all. This is because gone are the
+				days when women were used to carrying uncomfortable fashion. Today, a lady looks prettier
+				when she is in Casual Womens Wear which is a comfortable outfit. Concerning this, Euphoria
+				has a big fat range of Stylish Women's Clothing that would make her the winner wherever she
+				goes.{" "}
+			</p>
+			<p>
+				Our collection of clothes for women will make you the trendsetter with an iconic resemblance
+				of choice in Womens Wear. It is quite evident to say that there are very few Womens Clothing
+				online stores where you can buy Western Wear for Women comprising the premium material and
+				elegant design that you are always seeking for. Basically,{" "}
+			</p>
+			<button>See More</button>
+		</section>
 	);
 };
 
-const Price = () => {
-	const [price, setPrice] = useState([25, 75]);
-	const [isShow, setIsShow] = useState(false);
+const BuyWomensClothing = () => {
 	return (
-		<button
-			className="border-b border-l border-r border-muted"
-			onClick={() => setIsShow((prev) => !prev)}
-		>
-			<div className="flex items-center justify-between w-full py-[20px] px-[24px] border-shadow">
-				<p className="text-[22px]">Price</p>
-				<ChevronDown
-					className={clsx("transition-transform duration-300", isShow && "rotate-180")}
-				/>
+		<section className=" max-w-[1240px] mx-auto px-6 xl:px-0 my-[100px]">
+			<h3 className="flex items-center gap-[20px]">
+				<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />
+				<span className=" text-[clamp(1.25rem,2vh,1.8rem)] font-semibold">
+					Clothing for Women Online in India
+				</span>
+			</h3>
+			<div className="w-full flex bg-gray-50 text-[24px] font-medium text-gray-400 mt-9">
+				<div className="flex flex-col w-full max-w-[963px]">
+					<div className="border-r border-b border-gray-200 px-20 py-10 text-gray-600 ">
+						Women's Clothing
+					</div>
+					<div className="flex flex-col gap-y-13 px-20 py-10 border-r border-gray-200">
+						{womenClothing.map((item, index) => (
+							<span key={index}>{item}</span>
+						))}
+					</div>
+				</div>
+				<div className="flex flex-col w-full max-w-[257px]">
+					<div className="text-center py-10 text-gray-600 border-b border-gray-200">Best Price</div>
+					<div className="flex flex-col text-center py-10 gap-y-13">
+						{prices.map((item, index) => (
+							<span key={index}>₹{item}</span>
+						))}
+					</div>
+				</div>
 			</div>
-			<AnimatePresence>
-				{isShow && (
-					<motion.div
-						variants={dropdownVariants}
-						initial="hidden"
-						animate="visible"
-						exit="exit"
-						className="overflow-hidden"
-						onClick={(e) => e.stopPropagation()}
-						transition={{ duration: 0.3 }}
-					>
-						<div className="flex flex-col gap-4 p-6">
-							<Slider.Root
-								className="relative flex items-center select-none touch-none w-full h-5"
-								defaultValue={[25, 75]}
-								value={price}
-								onValueChange={(val) => setPrice(val)}
-								max={100}
-								step={1}
-							>
-								<Slider.Track className="bg-muted relative grow rounded-full h-2">
-									<Slider.Range className="absolute bg-primary rounded-full h-full" />
-								</Slider.Track>
-								<Slider.Thumb className="block w-5 h-5 bg-white border border-border rounded-full" />
-								<Slider.Thumb className="block w-5 h-5 bg-white border border-border rounded-full" />
-							</Slider.Root>
-
-							<div className="flex items-center gap-12">
-								{price.map((value) => (
-									<span
-										key={value}
-										className="w-[97px] h-8 rounded-[8px] border border-muted flex items-center justify-center "
-									>
-										${value}
-									</span>
-								))}
-							</div>
-						</div>
-					</motion.div>
-				)}
-			</AnimatePresence>
-		</button>
+		</section>
 	);
 };
 
-const Colors = () => {
-	const [isShow, setIsShow] = useState(false);
-	return (
-		<button
-			className="border-b border-l border-r border-muted flex flex-col"
-			onClick={() => setIsShow((prev) => !prev)}
-		>
-			<div className="flex items-center justify-between w-full py-[20px] px-[24px] border-shadow">
-				<p className="text-[22px]">Colors</p>
-				<ChevronDown
-					className={clsx("transition-transform duration-300", isShow && "rotate-180")}
-				/>
-			</div>
-
-			<AnimatePresence>
-				{isShow && (
-					<motion.div
-						variants={dropdownVariants}
-						initial="hidden"
-						animate="visible"
-						exit="exit"
-						className="overflow-hidden"
-						transition={{ duration: 0.3 }}
-						onClick={(e) => e.stopPropagation()}
-					>
-						<div className="grid grid-cols-4 gap-[20px] p-6 overflow-hidden">
-							{colors.map((color) => (
-								<div key={color.id} className="flex flex-col gap-4 items-center">
-									<span
-										className={`block ${color.colorStyle} size-[36px] rounded-[12px] ${
-											color.id === "white" && "border border-muted-foreground"
-										}`}
-									/>{" "}
-									<span className="text-[12px] font-semibold">{color.label}</span>
-								</div>
-							))}
-						</div>
-					</motion.div>
-				)}
-			</AnimatePresence>
-		</button>
-	);
-};
-
-const colors = [
-	{
-		id: "purple",
-		label: "Purple",
-		colorStyle: "bg-[#8434E1]",
-	},
-	{
-		id: "black",
-		label: "Black",
-		colorStyle: "bg-[#000000]",
-	},
-	{
-		id: "red",
-		label: "Red",
-		colorStyle: "bg-[#F35528]",
-	},
-	{
-		id: "orange",
-		label: "Orange",
-		colorStyle: "bg-[#F16F2B]",
-	},
-	{
-		id: "navy",
-		label: "Navy",
-		colorStyle: "bg-[#345EFF]",
-	},
-	{
-		id: "white",
-		label: "White",
-		colorStyle: "bg-[#ffffff]",
-	},
-	{
-		id: "broom",
-		label: "Broom",
-		colorStyle: "bg-[#D67E3B]",
-	},
-	{
-		id: "green",
-		label: "Green",
-		colorStyle: "bg-[#48BC4E]",
-	},
-	{
-		id: "yellow",
-		label: "Yellow",
-		colorStyle: "bg-[#FDC761]",
-	},
-	{
-		id: "grey",
-		label: "Grey",
-		colorStyle: "bg-[#E4E5E8]",
-	},
-	{
-		id: "pink",
-		label: "Pink",
-		colorStyle: "bg-[#E08D9D]",
-	},
-	{
-		id: "blue",
-		label: "Blue",
-		colorStyle: "bg-[#3FDEFF]",
-	},
+const womenClothing = [
+	"Pick Any 4- Womens Plain T-shirt Combo",
+	"Pick Any 4- Plain Womens Boxer Combo",
+	"Pick Any 4 - Women Plain Full Sleeve T-shirt Combo",
+	"Multicolor Checkered Long Casual Shirts for Women",
+	"Pick Any 2: Plain Boxy Casual Shirts for Women Combo",
+	"Blue Floral Anarkali Kurti",
+	"Jade Black Narrow Cut Flexible Women Jeggings",
+	"Mustard-yellow Solid Straight-Fit Women Pant",
+	"Women Pants Combo - Pick Any 2",
+	"Pista Green Solid Boxy Casual Shirts for Women",
+	"Plain Burgundy Womens Boxer",
+	"Striped Front Tie Casual Shirts for Women",
 ];
 
-const Size = () => {
-	const [isShow, setIsShow] = useState(false);
-	return (
-		<button
-			className="border-b border-l border-r border-muted"
-			onClick={() => setIsShow((prev) => !prev)}
-		>
-			<div className="flex items-center justify-between w-full py-[20px] px-[24px] border-shadow">
-				<p className="text-[22px]">Sizes</p>
-				<ChevronDown
-					className={clsx("transition-transform duration-300", isShow && "rotate-180")}
-				/>
-			</div>
-			<AnimatePresence>
-				{isShow && (
-					<motion.div
-						variants={dropdownVariants}
-						initial="hidden"
-						animate="visible"
-						exit="exit"
-						className="overflow-hidden"
-						transition={{ duration: 0.3 }}
-						onClick={(e) => e.stopPropagation()}
-					>
-						<div className="grid grid-cols-3 gap-[20px] py-[20px] px-[24px]">
-							{sizes.map((size) => (
-								<span
-									key={size.label}
-									className="text-[12px] font-semibold border border-muted rounded-[8px] w-[61px] h-8 flex items-center justify-center"
-								>
-									{size.label}
-								</span>
-							))}
-						</div>
-					</motion.div>
-				)}
-			</AnimatePresence>
-		</button>
-	);
-};
-
-const sizes = [
-	{
-		id: "xxs",
-		label: "XXS",
-	},
-	{
-		id: "xl",
-		label: "XL",
-	},
-	{
-		id: "xs",
-		label: "XS",
-	},
-	{
-		id: "s",
-		label: "S",
-	},
-	{
-		id: "l",
-		label: "L",
-	},
-	{
-		id: "xxl",
-		label: "XXL",
-	},
-	{
-		id: "3xl",
-		label: "3XL",
-	},
-	{
-		id: "4xl",
-		label: "4XL",
-	},
-];
-
-const dressStyle = ["Classic", "Casual", "Business", "Sports", "Elegant", "Formal (evening)"];
-
-const DressStyle = () => {
-	const [isShow, setIsShow] = useState(false);
-
-	return (
-		<button
-			className="border-b border-l border-r border-muted"
-			onClick={() => setIsShow((prev) => !prev)}
-		>
-			<div className="flex items-center justify-between w-full py-[20px] px-[24px] border-shadow">
-				<p className="text-[22px]">Dress Styles</p>
-				<ChevronDown
-					className={clsx("transition-transform duration-300", isShow && "rotate-180")}
-				/>
-			</div>
-			<AnimatePresence>
-				{isShow && (
-					<motion.div
-						variants={dropdownVariants}
-						initial="hidden"
-						animate="visible"
-						exit="exit"
-						className="overflow-hidden"
-						onClick={(e) => e.stopPropagation()}
-					>
-						<div className="flex flex-col gap-[20px] py-[20px] px-[24px]">
-							{dressStyle.map((item, index) => (
-								<div key={index} className="flex items-center justify-between">
-									<span>{item}</span>
-									<ChevronRight />
-								</div>
-							))}
-						</div>
-					</motion.div>
-				)}
-			</AnimatePresence>
-		</button>
-	);
-};
+const prices = [1099, 1099, 1399, 499, 799, 599, 998, 499, 800, 449, 349, 449];

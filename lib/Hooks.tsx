@@ -36,3 +36,11 @@ export function useMobileNav() {
 		handleClick,
 	};
 }
+
+export const useDropdown = () => {
+	const [isShow, setIsShow] = useState(false);
+	return {
+		isShow,
+		setIsShow,
+	};
+};
