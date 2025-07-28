@@ -184,17 +184,19 @@ export const allProducts: AllProductsType[] = [
 
 	{
 		id: uuidv4(),
-		name: "Tees & T-shirt",
+		name: "Blue Flower Print Crop",
 		image: "/assets/women/tees-and-t-shirt.png",
 		gender: "women",
+		brand: "Mellon's Brand",
 		price: 123,
 		category: "tees",
 	},
 	{
 		id: uuidv4(),
-		name: "Boxers",
+		name: "White T-shirts",
 		image: "/assets/women/boxers.png",
 		gender: "women",
+		brand: "Helen's Brand",
 		price: 123,
 		category: "boxers",
 	},

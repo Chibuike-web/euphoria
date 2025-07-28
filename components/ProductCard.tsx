@@ -13,7 +13,7 @@ export default function ProductCard({ id, name, image, brand, price, gender }: A
 				<Image src={image} alt={name} className="w-full rounded-[16px]" width={270} height={393} />
 				<div className="flex items-center mt-2 justify-between w-full">
 					<div className="flex flex-col gap-1 ">
-						<h4 className="font-bold text-[20px]">{name}</h4>
+						<h4 className="font-bold text-[clamp(1rem,2vh,1.25rem)]">{name}</h4>
 						<p className="font-medium text-muted-foreground">{brand}</p>
 					</div>
 					<span className="text-[14px] w-[83px] h-[37px] rounded-[8px] bg-muted font-semibold flex items-center justify-center">

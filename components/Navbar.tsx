@@ -111,16 +111,13 @@ function MobileNav({ handleClick, pathname }: { handleClick: () => void; pathnam
 					</label>
 					<ul className="flex flex-col text-[24px] gap-12 text-muted-foreground">
 						{navLinks.map((item) => {
-							const href = item.id === "shop" ? "/" : `/${item.id}`;
-							const isActive = pathname === href;
+							const href = item.id === "shop" ? "/" : `/products/${item.id}`;
+							const isActive = href === "/" ? pathname === "/" : pathname.startsWith(href);
 							return (
 								<li key={item.id}>
 									<Link
 										href={href}
-										className={cn(
-											"transition-colors hover:text-foreground",
-											isActive && "text-foreground font-semibold"
-										)}
+										className={cn(isActive && "text-foreground font-semibold")}
 										onClick={handleClick}
 									>
 										{item.text}
@@ -128,6 +125,8 @@ function MobileNav({ handleClick, pathname }: { handleClick: () => void; pathnam
 								</li>
 							);
 						})}
+						<li>Combos</li>
+						<li>Joggers</li>
 					</ul>
 				</div>
 				<div className="flex flex-col gap-y-[12px] text-muted-foreground">
