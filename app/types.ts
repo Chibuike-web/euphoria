@@ -21,6 +21,9 @@ export type AllProductsType = {
 	promo?: string;
 	desc?: string;
 	brand?: string;
+	rating?: number;
+	sizes?: string[];
+	colours?: string[];
 	category?:
 		| "joggers"
 		| "printed-tees"

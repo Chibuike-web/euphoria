@@ -108,6 +108,8 @@ export const allProducts: AllProductsType[] = [
 		gender: "men",
 		price: 100,
 		category: "shirts",
+		rating: 4,
+		sizes: ["XS", "S", "M", "L", "XL"],
 	},
 	{
 		id: uuidv4(),
@@ -116,6 +118,7 @@ export const allProducts: AllProductsType[] = [
 		gender: "men",
 		price: 100,
 		category: "printed-tees",
+		rating: 4.5,
 	},
 	{
 		id: uuidv4(),
@@ -124,6 +127,8 @@ export const allProducts: AllProductsType[] = [
 		gender: "men",
 		price: 100,
 		category: "plain-tees",
+		rating: 3,
+		sizes: ["XS", "S", "M", "L"],
 	},
 	{
 		id: uuidv4(),
@@ -132,6 +137,8 @@ export const allProducts: AllProductsType[] = [
 		gender: "men",
 		price: 100,
 		category: "polo",
+		rating: 3.5,
+		sizes: ["XS", "S", "L", "XL"],
 	},
 	{
 		id: uuidv4(),
@@ -140,6 +147,8 @@ export const allProducts: AllProductsType[] = [
 		gender: "men",
 		price: 100,
 		category: "hoodies",
+		rating: 4.5,
+		sizes: ["XS", "S", "M", "L", "XL"],
 	},
 	{
 		id: uuidv4(),
@@ -148,6 +157,8 @@ export const allProducts: AllProductsType[] = [
 		gender: "men",
 		price: 100,
 		category: "jeans",
+		rating: 3,
+		sizes: ["XS", "S", "M", "L", "XL"],
 	},
 	{
 		id: uuidv4(),
@@ -156,6 +167,8 @@ export const allProducts: AllProductsType[] = [
 		gender: "men",
 		price: 100,
 		category: "activewear",
+		rating: 4,
+		sizes: ["XS", "S", "M", "L", "XL"],
 	},
 	{
 		id: uuidv4(),
@@ -164,6 +177,8 @@ export const allProducts: AllProductsType[] = [
 		gender: "men",
 		price: 100,
 		category: "boxers",
+		rating: 5,
+		sizes: ["XS", "S", "M", "L", "XL"],
 	},
 	{
 		id: uuidv4(),
@@ -172,6 +187,8 @@ export const allProducts: AllProductsType[] = [
 		gender: "women",
 		price: 123,
 		category: "hoodies",
+		rating: 4.5,
+		sizes: ["XS", "S", "M", "L", "XL"],
 	},
 	{
 		id: uuidv4(),
@@ -180,6 +197,8 @@ export const allProducts: AllProductsType[] = [
 		gender: "women",
 		price: 123,
 		category: "coats",
+		rating: 3.5,
+		sizes: ["XS", "S", "M", "L", "XL"],
 	},
 
 	{
@@ -190,6 +209,8 @@ export const allProducts: AllProductsType[] = [
 		brand: "Mellon's Brand",
 		price: 123,
 		category: "tees",
+		rating: 3.5,
+		sizes: ["XS", "S", "M", "L", "XL"],
 	},
 	{
 		id: uuidv4(),
@@ -199,6 +220,8 @@ export const allProducts: AllProductsType[] = [
 		brand: "Helen's Brand",
 		price: 123,
 		category: "boxers",
+		rating: 2.5,
+		sizes: ["XS", "S", "M", "L", "XL"],
 	},
 	{
 		id: uuidv4(),
@@ -207,6 +230,8 @@ export const allProducts: AllProductsType[] = [
 		gender: "women",
 		price: 123,
 		brand: "Jhanvi's Brand",
+		rating: 4.5,
+		sizes: ["XS", "M", "L", "XL"],
 		tags: [
 			{
 				section: "InTheLimelight",
@@ -221,6 +246,8 @@ export const allProducts: AllProductsType[] = [
 		gender: "women",
 		price: 123,
 		brand: "AS's Brand",
+		rating: 3.5,
+		sizes: ["XS", "S", "M", "L"],
 		tags: [
 			{
 				section: "InTheLimelight",
@@ -235,6 +262,8 @@ export const allProducts: AllProductsType[] = [
 		gender: "women",
 		price: 123,
 		brand: "MM's Brand",
+		rating: 4.5,
+		sizes: ["XS", "S", "M", "L", "XL"],
 		tags: [
 			{
 				section: "InTheLimelight",
@@ -249,6 +278,8 @@ export const allProducts: AllProductsType[] = [
 		gender: "women",
 		price: 123,
 		brand: "Nike's Brand",
+		rating: 3.5,
+		sizes: ["XS", "S", "M", "L", "XL"],
 		tags: [
 			{
 				section: "InTheLimelight",
