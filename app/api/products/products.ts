@@ -129,7 +129,27 @@ export const allProducts: AllProductsType[] = [
 		category: "plain-tees",
 		rating: 3,
 		sizes: ["XS", "S", "M", "L"],
+
+		productDesc:
+			"Premium combed cotton blend. Breathable fabric ideal for warm climates. Modern straight cut. Resistant to shrinking. Vibrant prints made using eco-friendly inks.",
+		userComments: [{ id: uuidv4(), comment: "Super soft and fits perfectly!" }],
+		questionAndAnswer: [
+			{
+				id: uuidv4(),
+				question: "Is this machine washable?",
+				answer: "Yes, it's safe for both machine and hand wash.",
+			},
+		],
+		extra: [
+			{ id: uuidv4(), label: "Fabric", info: "Combed Cotton" },
+			{ id: uuidv4(), label: "Pattern", info: "Graphic" },
+			{ id: uuidv4(), label: "Fit", info: "Slim-fit" },
+			{ id: uuidv4(), label: "Neck", info: "V-Neck" },
+			{ id: uuidv4(), label: "Sleeve", info: "Short-sleeves" },
+			{ id: uuidv4(), label: "Style", info: "Urban Casual" },
+		],
 	},
+
 	{
 		id: uuidv4(),
 		name: "Polo T-shirts",
@@ -144,6 +164,42 @@ export const allProducts: AllProductsType[] = [
 			{ name: "yellow", colorCode: "bg-[#EDD146]" },
 			{ name: "pink", colorCode: "bg-[#EB84B0]" },
 			{ name: "red-brown", colorCode: "bg-[#9C1F35]" },
+		],
+		productDesc:
+			"100% Bio-washed Cotton – makes the fabric extra soft & silky. Flexible ribbed crew neck. Precisely stitched with no pilling & no fading. Provide  all-time comfort. Anytime, anywhere. Infinite range of matte-finish HD prints.",
+		userComments: [{ id: uuidv4(), comment: "" }],
+		questionAndAnswer: [{ id: uuidv4(), question: "", answer: "" }],
+		extra: [
+			{
+				id: uuidv4(),
+				label: "Fabric",
+				info: "Bio-washed Cotton",
+			},
+			{
+				id: uuidv4(),
+				label: "Pattern",
+				info: "Printed",
+			},
+			{
+				id: uuidv4(),
+				label: "Fit",
+				info: "Regular-fit",
+			},
+			{
+				id: uuidv4(),
+				label: "Neck",
+				info: "Rounde Neck",
+			},
+			{
+				id: uuidv4(),
+				label: "Steeve",
+				info: "Half-sleeves",
+			},
+			{
+				id: uuidv4(),
+				label: "Style",
+				info: "Bio-washed Cotton",
+			},
 		],
 	},
 	{
@@ -161,6 +217,24 @@ export const allProducts: AllProductsType[] = [
 			{ name: "pink", colorCode: "bg-[#EB84B0]" },
 			{ name: "red-brown", colorCode: "bg-[#9C1F35]" },
 		],
+		productDesc:
+			"Lightweight linen blend perfect for summer wear. Breathable and airy. Designed with a relaxed silhouette. Minimalistic prints for a classy look.",
+		userComments: [{ id: uuidv4(), comment: "Great for beach vacations!" }],
+		questionAndAnswer: [
+			{
+				id: uuidv4(),
+				question: "Does it wrinkle easily?",
+				answer: "A little, as it's a natural linen blend. Ironing recommended.",
+			},
+		],
+		extra: [
+			{ id: uuidv4(), label: "Fabric", info: "Linen Blend" },
+			{ id: uuidv4(), label: "Pattern", info: "Minimal Print" },
+			{ id: uuidv4(), label: "Fit", info: "Relaxed-fit" },
+			{ id: uuidv4(), label: "Neck", info: "Mandarin Collar" },
+			{ id: uuidv4(), label: "Sleeve", info: "3/4th sleeves" },
+			{ id: uuidv4(), label: "Style", info: "Smart Casual" },
+		],
 	},
 	{
 		id: uuidv4(),
@@ -176,6 +250,24 @@ export const allProducts: AllProductsType[] = [
 			{ name: "yellow", colorCode: "bg-[#EDD146]" },
 			{ name: "pink", colorCode: "bg-[#EB84B0]" },
 			{ name: "red-brown", colorCode: "bg-[#9C1F35]" },
+		],
+		productDesc:
+			"Heavyweight cotton with a fleece lining for warmth. Durable stitching and pre-shrunk. Designed for winter layering. Bold matte-finish graphics.",
+		userComments: [{ id: uuidv4(), comment: "Very warm. Wore it all through last winter." }],
+		questionAndAnswer: [
+			{
+				id: uuidv4(),
+				question: "Is the inside brushed or smooth?",
+				answer: "It has a brushed fleece inner lining.",
+			},
+		],
+		extra: [
+			{ id: uuidv4(), label: "Fabric", info: "Heavy Cotton Fleece" },
+			{ id: uuidv4(), label: "Pattern", info: "Solid with print" },
+			{ id: uuidv4(), label: "Fit", info: "Oversized" },
+			{ id: uuidv4(), label: "Neck", info: "Crew Neck" },
+			{ id: uuidv4(), label: "Sleeve", info: "Full-sleeves" },
+			{ id: uuidv4(), label: "Style", info: "Streetwear" },
 		],
 	},
 	{
@@ -225,6 +317,24 @@ export const allProducts: AllProductsType[] = [
 			{ name: "pink", colorCode: "bg-[#EB84B0]" },
 			{ name: "red-brown", colorCode: "bg-[#9C1F35]" },
 		],
+		productDesc:
+			"Organic bamboo cotton. Naturally antimicrobial and odor-resistant. Ultra-lightweight and sustainable. Designed for active movement.",
+		userComments: [{ id: uuidv4(), comment: "Best workout shirt I’ve ever worn!" }],
+		questionAndAnswer: [
+			{
+				id: uuidv4(),
+				question: "Is this good for running?",
+				answer: "Absolutely. It's moisture-wicking and breathable, perfect for workouts.",
+			},
+		],
+		extra: [
+			{ id: uuidv4(), label: "Fabric", info: "Bamboo Cotton" },
+			{ id: uuidv4(), label: "Pattern", info: "Plain" },
+			{ id: uuidv4(), label: "Fit", info: "Athletic-fit" },
+			{ id: uuidv4(), label: "Neck", info: "Scoop Neck" },
+			{ id: uuidv4(), label: "Sleeve", info: "Sleeveless" },
+			{ id: uuidv4(), label: "Style", info: "Performance Wear" },
+		],
 	},
 	{
 		id: uuidv4(),
@@ -240,6 +350,24 @@ export const allProducts: AllProductsType[] = [
 			{ name: "yellow", colorCode: "bg-[#EDD146]" },
 			{ name: "pink", colorCode: "bg-[#EB84B0]" },
 			{ name: "red-brown", colorCode: "bg-[#9C1F35]" },
+		],
+		productDesc:
+			"Organic bamboo cotton. Naturally antimicrobial and odor-resistant. Ultra-lightweight and sustainable. Designed for active movement.",
+		userComments: [{ id: uuidv4(), comment: "Best workout shirt I’ve ever worn!" }],
+		questionAndAnswer: [
+			{
+				id: uuidv4(),
+				question: "Is this good for running?",
+				answer: "Absolutely. It's moisture-wicking and breathable, perfect for workouts.",
+			},
+		],
+		extra: [
+			{ id: uuidv4(), label: "Fabric", info: "Bamboo Cotton" },
+			{ id: uuidv4(), label: "Pattern", info: "Plain" },
+			{ id: uuidv4(), label: "Fit", info: "Athletic-fit" },
+			{ id: uuidv4(), label: "Neck", info: "Scoop Neck" },
+			{ id: uuidv4(), label: "Sleeve", info: "Sleeveless" },
+			{ id: uuidv4(), label: "Style", info: "Performance Wear" },
 		],
 	},
 
@@ -259,6 +387,24 @@ export const allProducts: AllProductsType[] = [
 			{ name: "pink", colorCode: "bg-[#EB84B0]" },
 			{ name: "red-brown", colorCode: "bg-[#9C1F35]" },
 		],
+		productDesc:
+			"Organic bamboo cotton. Naturally antimicrobial and odor-resistant. Ultra-lightweight and sustainable. Designed for active movement.",
+		userComments: [{ id: uuidv4(), comment: "Best workout shirt I’ve ever worn!" }],
+		questionAndAnswer: [
+			{
+				id: uuidv4(),
+				question: "Is this good for running?",
+				answer: "Absolutely. It's moisture-wicking and breathable, perfect for workouts.",
+			},
+		],
+		extra: [
+			{ id: uuidv4(), label: "Fabric", info: "Bamboo Cotton" },
+			{ id: uuidv4(), label: "Pattern", info: "Plain" },
+			{ id: uuidv4(), label: "Fit", info: "Athletic-fit" },
+			{ id: uuidv4(), label: "Neck", info: "Scoop Neck" },
+			{ id: uuidv4(), label: "Sleeve", info: "Sleeveless" },
+			{ id: uuidv4(), label: "Style", info: "Performance Wear" },
+		],
 	},
 	{
 		id: uuidv4(),
@@ -276,6 +422,24 @@ export const allProducts: AllProductsType[] = [
 			{ name: "pink", colorCode: "bg-[#EB84B0]" },
 			{ name: "red-brown", colorCode: "bg-[#9C1F35]" },
 		],
+		productDesc:
+			"Organic bamboo cotton. Naturally antimicrobial and odor-resistant. Ultra-lightweight and sustainable. Designed for active movement.",
+		userComments: [{ id: uuidv4(), comment: "Best workout shirt I’ve ever worn!" }],
+		questionAndAnswer: [
+			{
+				id: uuidv4(),
+				question: "Is this good for running?",
+				answer: "Absolutely. It's moisture-wicking and breathable, perfect for workouts.",
+			},
+		],
+		extra: [
+			{ id: uuidv4(), label: "Fabric", info: "Bamboo Cotton" },
+			{ id: uuidv4(), label: "Pattern", info: "Plain" },
+			{ id: uuidv4(), label: "Fit", info: "Athletic-fit" },
+			{ id: uuidv4(), label: "Neck", info: "Scoop Neck" },
+			{ id: uuidv4(), label: "Sleeve", info: "Sleeveless" },
+			{ id: uuidv4(), label: "Style", info: "Performance Wear" },
+		],
 	},
 	{
 		id: uuidv4(),
@@ -291,6 +455,24 @@ export const allProducts: AllProductsType[] = [
 			{ name: "yellow", colorCode: "bg-[#EDD146]" },
 			{ name: "pink", colorCode: "bg-[#EB84B0]" },
 			{ name: "red-brown", colorCode: "bg-[#9C1F35]" },
+		],
+		productDesc:
+			"Organic bamboo cotton. Naturally antimicrobial and odor-resistant. Ultra-lightweight and sustainable. Designed for active movement.",
+		userComments: [{ id: uuidv4(), comment: "Best workout shirt I’ve ever worn!" }],
+		questionAndAnswer: [
+			{
+				id: uuidv4(),
+				question: "Is this good for running?",
+				answer: "Absolutely. It's moisture-wicking and breathable, perfect for workouts.",
+			},
+		],
+		extra: [
+			{ id: uuidv4(), label: "Fabric", info: "Bamboo Cotton" },
+			{ id: uuidv4(), label: "Pattern", info: "Plain" },
+			{ id: uuidv4(), label: "Fit", info: "Athletic-fit" },
+			{ id: uuidv4(), label: "Neck", info: "Scoop Neck" },
+			{ id: uuidv4(), label: "Sleeve", info: "Sleeveless" },
+			{ id: uuidv4(), label: "Style", info: "Performance Wear" },
 		],
 		tags: [
 			{
@@ -314,6 +496,24 @@ export const allProducts: AllProductsType[] = [
 			{ name: "pink", colorCode: "bg-[#EB84B0]" },
 			{ name: "red-brown", colorCode: "bg-[#9C1F35]" },
 		],
+		productDesc:
+			"Organic bamboo cotton. Naturally antimicrobial and odor-resistant. Ultra-lightweight and sustainable. Designed for active movement.",
+		userComments: [{ id: uuidv4(), comment: "Best workout shirt I’ve ever worn!" }],
+		questionAndAnswer: [
+			{
+				id: uuidv4(),
+				question: "Is this good for running?",
+				answer: "Absolutely. It's moisture-wicking and breathable, perfect for workouts.",
+			},
+		],
+		extra: [
+			{ id: uuidv4(), label: "Fabric", info: "Bamboo Cotton" },
+			{ id: uuidv4(), label: "Pattern", info: "Plain" },
+			{ id: uuidv4(), label: "Fit", info: "Athletic-fit" },
+			{ id: uuidv4(), label: "Neck", info: "Scoop Neck" },
+			{ id: uuidv4(), label: "Sleeve", info: "Sleeveless" },
+			{ id: uuidv4(), label: "Style", info: "Performance Wear" },
+		],
 		tags: [
 			{
 				section: "InTheLimelight",
@@ -336,6 +536,24 @@ export const allProducts: AllProductsType[] = [
 			{ name: "pink", colorCode: "bg-[#EB84B0]" },
 			{ name: "red-brown", colorCode: "bg-[#9C1F35]" },
 		],
+		productDesc:
+			"Organic bamboo cotton. Naturally antimicrobial and odor-resistant. Ultra-lightweight and sustainable. Designed for active movement.",
+		userComments: [{ id: uuidv4(), comment: "Best workout shirt I’ve ever worn!" }],
+		questionAndAnswer: [
+			{
+				id: uuidv4(),
+				question: "Is this good for running?",
+				answer: "Absolutely. It's moisture-wicking and breathable, perfect for workouts.",
+			},
+		],
+		extra: [
+			{ id: uuidv4(), label: "Fabric", info: "Bamboo Cotton" },
+			{ id: uuidv4(), label: "Pattern", info: "Plain" },
+			{ id: uuidv4(), label: "Fit", info: "Athletic-fit" },
+			{ id: uuidv4(), label: "Neck", info: "Scoop Neck" },
+			{ id: uuidv4(), label: "Sleeve", info: "Sleeveless" },
+			{ id: uuidv4(), label: "Style", info: "Performance Wear" },
+		],
 		tags: [
 			{
 				section: "InTheLimelight",
@@ -357,6 +575,24 @@ export const allProducts: AllProductsType[] = [
 			{ name: "yellow", colorCode: "bg-[#EDD146]" },
 			{ name: "pink", colorCode: "bg-[#EB84B0]" },
 			{ name: "red-brown", colorCode: "bg-[#9C1F35]" },
+		],
+		productDesc:
+			"Soft-touch polyester with wrinkle resistance. Travel-friendly and easy to maintain. Unisex design with minimal logo embroidery.",
+		userComments: [{ id: uuidv4(), comment: "Didn’t crease even after hours of wear." }],
+		questionAndAnswer: [
+			{
+				id: uuidv4(),
+				question: "Can I iron this?",
+				answer: "You usually won’t need to, but yes—use low heat if you must.",
+			},
+		],
+		extra: [
+			{ id: uuidv4(), label: "Fabric", info: "Soft Polyester" },
+			{ id: uuidv4(), label: "Pattern", info: "Solid" },
+			{ id: uuidv4(), label: "Fit", info: "Unisex" },
+			{ id: uuidv4(), label: "Neck", info: "Boat Neck" },
+			{ id: uuidv4(), label: "Sleeve", info: "Cap sleeves" },
+			{ id: uuidv4(), label: "Style", info: "Everyday Utility" },
 		],
 		tags: [
 			{

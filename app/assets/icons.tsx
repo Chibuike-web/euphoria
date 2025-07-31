@@ -93,7 +93,7 @@ export function FacebookIcon({ className = "" }: { className?: string }) {
 	);
 }
 
-export function SecurePaymentIcon() {
+export function CardIcon() {
 	return (
 		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path
@@ -105,7 +105,7 @@ export function SecurePaymentIcon() {
 	);
 }
 
-export function SizeFitIcon() {
+export function ShirtIcon() {
 	return (
 		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path
@@ -116,7 +116,7 @@ export function SizeFitIcon() {
 	);
 }
 
-export function FreeShipping() {
+export function TruckIcon() {
 	return (
 		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path
@@ -127,7 +127,7 @@ export function FreeShipping() {
 	);
 }
 
-export function FreeReturn() {
+export function UndoIcon() {
 	return (
 		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path

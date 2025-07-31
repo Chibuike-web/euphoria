@@ -12,7 +12,10 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { Colors, Sizes } from "./Components";
+import { Colors, ProductHighlights, Sizes } from "./components";
+import { AllProductsType } from "@/app/types";
+import { useActive } from "@/lib/Hooks";
+import { cn } from "@/lib/utils";
 
 export default function ProductDetail() {
 	const { gender, id } = useParams();
@@ -95,8 +98,102 @@ export default function ProductDetail() {
 						</span>
 					</div>
 					<span className="w-full h-[1px] bg-muted flex my-10" />
+
+					<ProductHighlights />
 				</aside>
 			</section>
+
+			<ProductDescription product={product} />
 		</main>
 	);
 }
+
+function ProductDescription({ product }: { product: AllProductsType }) {
+	return (
+		<section className=" max-w-[1240px] mx-auto px-6 xl:px-0 mb-[100px]">
+			<h3 className="flex items-center gap-[20px] mb-[30px]">
+				<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />
+				<span className=" text-[clamp(1.25rem,2vh,1.8rem)] font-semibold">Product Description</span>
+			</h3>
+			<div>
+				<aside>
+					<ProductDescriptionTabs product={product} />
+				</aside>
+				<aside>
+					<figure></figure>
+				</aside>
+			</div>
+		</section>
+	);
+}
+
+function ProductDescriptionTabs({ product }: { product: AllProductsType }) {
+	const { active, setActive } = useActive(0);
+
+	const renderActiveTabContent = () => {
+		switch (active) {
+			case 0:
+				return <Description product={product} />;
+			case 1:
+				return <UserComments product={product} />;
+			case 2:
+				return <QuestionAndAnswer product={product} />;
+			default:
+				return null;
+		}
+	};
+	return (
+		<div className="flex flex-col">
+			<div className="flex gap-6 items-center">
+				{["Description", "UserComments", "Question & Answer"].map((item, index) => (
+					<button onClick={() => setActive(index)} key={index}>
+						<div className="flex items-center gap-1.5">
+							<span className={cn("text-gray-500", active == index && "text-gray-700 font-medium")}>
+								{item}
+							</span>
+							{index === 1 ? (
+								<span className="text-[10px] size-5 flex items-center justify-center text-white bg-[#8A33FD] rounded-[4px]">
+									{product.userComments?.length ?? 0}
+								</span>
+							) : index === 2 ? (
+								<span className="text-[10px] size-5 flex items-center justify-center text-white bg-primary rounded-[4px]">
+									{product.questionAndAnswer?.length ?? 0}
+								</span>
+							) : null}
+						</div>
+					</button>
+				))}
+			</div>
+			{renderActiveTabContent()}
+		</div>
+	);
+}
+
+const Description = ({ product }: { product: AllProductsType }) => {
+	return <div>{product.productDesc}</div>;
+};
+
+const UserComments = ({ product }: { product: AllProductsType }) => {
+	return (
+		<>
+			{product.userComments?.map(({ id, comment }) => (
+				<div key={id}>
+					<p>{comment}</p>
+				</div>
+			))}
+		</>
+	);
+};
+
+const QuestionAndAnswer = ({ product }: { product: AllProductsType }) => {
+	return (
+		<>
+			{product.questionAndAnswer?.map(({ id, question, answer }) => (
+				<div key={id}>
+					<p>{question}</p>
+					<p>{answer}</p>
+				</div>
+			))}
+		</>
+	);
+};
