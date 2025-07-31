@@ -139,6 +139,12 @@ export const allProducts: AllProductsType[] = [
 		category: "polo",
 		rating: 3.5,
 		sizes: ["XS", "S", "L", "XL"],
+		colors: [
+			{ name: "black", colorCode: "bg-[#3C4242]" },
+			{ name: "yellow", colorCode: "bg-[#EDD146]" },
+			{ name: "pink", colorCode: "bg-[#EB84B0]" },
+			{ name: "red-brown", colorCode: "bg-[#9C1F35]" },
+		],
 	},
 	{
 		id: uuidv4(),
@@ -149,6 +155,12 @@ export const allProducts: AllProductsType[] = [
 		category: "hoodies",
 		rating: 4.5,
 		sizes: ["XS", "S", "M", "L", "XL"],
+		colors: [
+			{ name: "black", colorCode: "bg-[#3C4242]" },
+			{ name: "yellow", colorCode: "bg-[#EDD146]" },
+			{ name: "pink", colorCode: "bg-[#EB84B0]" },
+			{ name: "red-brown", colorCode: "bg-[#9C1F35]" },
+		],
 	},
 	{
 		id: uuidv4(),
@@ -159,6 +171,12 @@ export const allProducts: AllProductsType[] = [
 		category: "jeans",
 		rating: 3,
 		sizes: ["XS", "S", "M", "L", "XL"],
+		colors: [
+			{ name: "black", colorCode: "bg-[#3C4242]" },
+			{ name: "yellow", colorCode: "bg-[#EDD146]" },
+			{ name: "pink", colorCode: "bg-[#EB84B0]" },
+			{ name: "red-brown", colorCode: "bg-[#9C1F35]" },
+		],
 	},
 	{
 		id: uuidv4(),
@@ -169,6 +187,12 @@ export const allProducts: AllProductsType[] = [
 		category: "activewear",
 		rating: 4,
 		sizes: ["XS", "S", "M", "L", "XL"],
+		colors: [
+			{ name: "black", colorCode: "bg-[#3C4242]" },
+			{ name: "yellow", colorCode: "bg-[#EDD146]" },
+			{ name: "pink", colorCode: "bg-[#EB84B0]" },
+			{ name: "red-brown", colorCode: "bg-[#9C1F35]" },
+		],
 	},
 	{
 		id: uuidv4(),
@@ -179,6 +203,12 @@ export const allProducts: AllProductsType[] = [
 		category: "boxers",
 		rating: 5,
 		sizes: ["XS", "S", "M", "L", "XL"],
+		colors: [
+			{ name: "black", colorCode: "bg-[#3C4242]" },
+			{ name: "yellow", colorCode: "bg-[#EDD146]" },
+			{ name: "pink", colorCode: "bg-[#EB84B0]" },
+			{ name: "red-brown", colorCode: "bg-[#9C1F35]" },
+		],
 	},
 	{
 		id: uuidv4(),
@@ -189,6 +219,12 @@ export const allProducts: AllProductsType[] = [
 		category: "hoodies",
 		rating: 4.5,
 		sizes: ["XS", "S", "M", "L", "XL"],
+		colors: [
+			{ name: "black", colorCode: "bg-[#3C4242]" },
+			{ name: "yellow", colorCode: "bg-[#EDD146]" },
+			{ name: "pink", colorCode: "bg-[#EB84B0]" },
+			{ name: "red-brown", colorCode: "bg-[#9C1F35]" },
+		],
 	},
 	{
 		id: uuidv4(),
@@ -199,6 +235,12 @@ export const allProducts: AllProductsType[] = [
 		category: "coats",
 		rating: 3.5,
 		sizes: ["XS", "S", "M", "L", "XL"],
+		colors: [
+			{ name: "black", colorCode: "bg-[#3C4242]" },
+			{ name: "yellow", colorCode: "bg-[#EDD146]" },
+			{ name: "pink", colorCode: "bg-[#EB84B0]" },
+			{ name: "red-brown", colorCode: "bg-[#9C1F35]" },
+		],
 	},
 
 	{
@@ -211,6 +253,12 @@ export const allProducts: AllProductsType[] = [
 		category: "tees",
 		rating: 3.5,
 		sizes: ["XS", "S", "M", "L", "XL"],
+		colors: [
+			{ name: "black", colorCode: "bg-[#3C4242]" },
+			{ name: "yellow", colorCode: "bg-[#EDD146]" },
+			{ name: "pink", colorCode: "bg-[#EB84B0]" },
+			{ name: "red-brown", colorCode: "bg-[#9C1F35]" },
+		],
 	},
 	{
 		id: uuidv4(),
@@ -222,6 +270,12 @@ export const allProducts: AllProductsType[] = [
 		category: "boxers",
 		rating: 2.5,
 		sizes: ["XS", "S", "M", "L", "XL"],
+		colors: [
+			{ name: "black", colorCode: "bg-[#3C4242]" },
+			{ name: "yellow", colorCode: "bg-[#EDD146]" },
+			{ name: "pink", colorCode: "bg-[#EB84B0]" },
+			{ name: "red-brown", colorCode: "bg-[#9C1F35]" },
+		],
 	},
 	{
 		id: uuidv4(),
@@ -232,6 +286,12 @@ export const allProducts: AllProductsType[] = [
 		brand: "Jhanvi's Brand",
 		rating: 4.5,
 		sizes: ["XS", "M", "L", "XL"],
+		colors: [
+			{ name: "black", colorCode: "bg-[#3C4242]" },
+			{ name: "yellow", colorCode: "bg-[#EDD146]" },
+			{ name: "pink", colorCode: "bg-[#EB84B0]" },
+			{ name: "red-brown", colorCode: "bg-[#9C1F35]" },
+		],
 		tags: [
 			{
 				section: "InTheLimelight",
@@ -248,6 +308,12 @@ export const allProducts: AllProductsType[] = [
 		brand: "AS's Brand",
 		rating: 3.5,
 		sizes: ["XS", "S", "M", "L"],
+		colors: [
+			{ name: "black", colorCode: "bg-[#3C4242]" },
+			{ name: "yellow", colorCode: "bg-[#EDD146]" },
+			{ name: "pink", colorCode: "bg-[#EB84B0]" },
+			{ name: "red-brown", colorCode: "bg-[#9C1F35]" },
+		],
 		tags: [
 			{
 				section: "InTheLimelight",
@@ -264,6 +330,12 @@ export const allProducts: AllProductsType[] = [
 		brand: "MM's Brand",
 		rating: 4.5,
 		sizes: ["XS", "S", "M", "L", "XL"],
+		colors: [
+			{ name: "black", colorCode: "bg-[#3C4242]" },
+			{ name: "yellow", colorCode: "bg-[#EDD146]" },
+			{ name: "pink", colorCode: "bg-[#EB84B0]" },
+			{ name: "red-brown", colorCode: "bg-[#9C1F35]" },
+		],
 		tags: [
 			{
 				section: "InTheLimelight",
@@ -280,6 +352,12 @@ export const allProducts: AllProductsType[] = [
 		brand: "Nike's Brand",
 		rating: 3.5,
 		sizes: ["XS", "S", "M", "L", "XL"],
+		colors: [
+			{ name: "black", colorCode: "bg-[#3C4242]" },
+			{ name: "yellow", colorCode: "bg-[#EDD146]" },
+			{ name: "pink", colorCode: "bg-[#EB84B0]" },
+			{ name: "red-brown", colorCode: "bg-[#9C1F35]" },
+		],
 		tags: [
 			{
 				section: "InTheLimelight",

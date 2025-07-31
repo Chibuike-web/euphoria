@@ -1,11 +1,18 @@
 "use client";
 import { getStars, toSentenceCase } from "@/app/utils";
+import { Button } from "@/components/ui/button";
 import { useAllProducts } from "@/lib/product";
-import { ArrowRight, ChevronRight, MessageSquareText, Star, StarHalf } from "lucide-react";
+import {
+	ArrowRight,
+	ChevronRight,
+	MessageSquareText,
+	ShoppingCart,
+	Star,
+	StarHalf,
+} from "lucide-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-
-const ALL_SIZES = ["XS", "S", "M", "L", "XL"];
+import { Colors, Sizes } from "./Components";
 
 export default function ProductDetail() {
 	const { gender, id } = useParams();
@@ -21,7 +28,7 @@ export default function ProductDetail() {
 		<main>
 			<section className=" max-w-[1240px] mx-auto px-6 xl:px-0 mb-[100px] flex items-start gap-[74px]">
 				<aside className="flex items-center gap-6 w-full max-w-[630px]">
-					<div></div>
+					<div className="w-[80px] bg-red-500 h-[80px]"></div>
 
 					<figure className="w-full max-w-[520px] h-[785px] overflow-hidden">
 						<Image
@@ -72,26 +79,22 @@ export default function ProductDetail() {
 								<ArrowRight />
 							</div>
 						</div>
-						<div className="flex items-center gap-4 mb-6">
-							{ALL_SIZES.map((size, index) => {
-								const isAvailable = product.sizes && product.sizes.includes(size);
-								return (
-									<button
-										key={index}
-										className={`size-10 flex items-center justify-center text-[14px] text-gray-700 font-medium border border-gray-400 rounded-[12px] ${
-											!isAvailable && "opacity-50"
-										}`}
-									>
-										{size}
-									</button>
-								);
-							})}
-						</div>
+						<Sizes sizes={product.sizes || []} />
 						<div>
-							<p>Colours Available</p>
-							<div></div>
+							<p className="mb-6">Colours Available</p>
+							<Colors colors={product.colors || []} />
 						</div>
 					</div>
+					<div className="flex items-center gap-4 mt-10 font-semibold">
+						<Button className="has-[>svg]:px-10" size="md">
+							<ShoppingCart />
+							<span>Add to cart</span>
+						</Button>
+						<span className="flex px-10 h-10 rounded-[8px] border border-primary items-center justify-center">
+							${product.price}
+						</span>
+					</div>
+					<span className="w-full h-[1px] bg-muted flex my-10" />
 				</aside>
 			</section>
 		</main>

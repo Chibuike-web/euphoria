@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 import { toSentenceCase } from "../../utils";
 import { useAllProducts } from "@/lib/product";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Colors, DressStyle, Filter, Price, Size } from "./FilterComponents";
+import { Colors, DressStyle, Filter, Price, Size } from "./filter-components";
 import { ArrowRight, ChevronDown, X } from "lucide-react";
 import { useDropdown } from "@/lib/Hooks";
 

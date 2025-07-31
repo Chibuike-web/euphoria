@@ -23,7 +23,7 @@ export type AllProductsType = {
 	brand?: string;
 	rating?: number;
 	sizes?: string[];
-	colours?: string[];
+	colors?: Color[];
 	category?:
 		| "joggers"
 		| "printed-tees"
@@ -44,6 +44,10 @@ export type AllProductsType = {
 type Tags = {
 	section?: string;
 	type?: string;
+};
+export type Color = {
+	name: string;
+	colorCode: string;
 };
 
 export type Feedback = {
