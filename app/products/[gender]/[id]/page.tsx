@@ -2,6 +2,7 @@
 import { getStars, toSentenceCase } from "@/app/utils";
 import { Button } from "@/components/ui/button";
 import { useProductById } from "@/lib/product";
+import videoImage from "@/app/assets/video-image.png";
 import {
 	ArrowRight,
 	ChevronRight,
@@ -113,12 +114,17 @@ function ProductDescription({ product }: { product: AllProductsType }) {
 				<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />
 				<span className=" text-[clamp(1.25rem,2vh,1.8rem)] font-semibold">Product Description</span>
 			</h3>
-			<div>
-				<div>
-					<ProductDescriptionTabs product={product} />
-				</div>
-				<div>
-					<div></div>
+			<div className="flex gap-[95px] items-start">
+				<ProductDescriptionTabs product={product} />
+
+				<div className="w-full max-w-[532px] h-[328px] rounded-[20px] overflow-hidden">
+					<Image
+						src={videoImage}
+						alt="Image of a female"
+						width={274}
+						height={393}
+						className="w-full h-full object-cover"
+					/>
 				</div>
 			</div>
 		</section>
@@ -141,12 +147,17 @@ function ProductDescriptionTabs({ product }: { product: AllProductsType }) {
 		}
 	};
 	return (
-		<div className="flex flex-col">
+		<div className="flex flex-col w-full max-w-[610px]">
 			<div className="flex gap-6 items-center">
 				{["Description", "UserComments", "Question & Answer"].map((item, index) => (
 					<button onClick={() => setActive(index)} key={index}>
-						<div className="flex items-center gap-1.5">
-							<span className={cn("text-gray-500", active == index && "text-gray-700 font-medium")}>
+						<div className="flex items-center gap-1.5 relative">
+							<span
+								className={cn(
+									"text-gray-500 text-[18px]",
+									active == index && "text-gray-700 font-medium"
+								)}
+							>
 								{item}
 							</span>
 							{index === 1 ? (
@@ -158,17 +169,50 @@ function ProductDescriptionTabs({ product }: { product: AllProductsType }) {
 									{product.questionAndAnswer?.length ?? 0}
 								</span>
 							) : null}
+							{active === index && (
+								<span className="absolute bottom-[-8px] block w-[32px] h-[2px] bg-primary" />
+							)}
 						</div>
 					</button>
 				))}
 			</div>
-			{renderActiveTabContent()}
+			<div className="mt-6">{renderActiveTabContent()}</div>
 		</div>
 	);
 }
 
 const Description = ({ product }: { product: AllProductsType }) => {
-	return <div>{product.productDesc}</div>;
+	return (
+		<div>
+			{product.productDesc}
+
+			<div className="grid grid-cols-3 mt-6 rounded-[12px] overflow-hidden">
+				{product.extra?.map(({ id, label, info }, index) => {
+					let borderStyle = null;
+					if (index === 0 || index === 1) {
+						borderStyle = "border-r border-muted-foreground/15 ";
+					} else if (index === 3 || index === 4) {
+						borderStyle = "border-r border-muted-foreground/15 border-t";
+					} else if (index === 5) {
+						borderStyle = " border-muted-foreground/15 border-t ";
+					}
+
+					return (
+						<div
+							key={id}
+							className={cn(
+								"flex flex-col gap-[12px] text-[14px] px-10 py-6 bg-muted",
+								borderStyle
+							)}
+						>
+							<span className="text-muted-foreground">{label}</span>
+							<span className="font-medium">{info}</span>
+						</div>
+					);
+				})}
+			</div>
+		</div>
+	);
 };
 
 const UserComments = ({ product }: { product: AllProductsType }) => {

@@ -25,7 +25,7 @@ export function Colors({ colors }: { colors: Color[] }) {
 }
 
 export function Sizes({ sizes }: { sizes: string[] }) {
-	const { active, setActive } = useActive(2);
+	const { active, setActive } = useActive(!sizes ? 0 : null);
 	return (
 		<div className="flex items-center gap-4 mb-6">
 			{ALL_SIZES.map((size, index) => {
@@ -50,7 +50,7 @@ export function Sizes({ sizes }: { sizes: string[] }) {
 
 export function ProductHighlights() {
 	return (
-		<ul className="grid grdi-cols-1 md:grid-cols-2 gap-y-5">
+		<ul className="grid grid-cols-1 md:grid-cols-2 gap-y-5">
 			{highlights.map((item, index) => (
 				<li key={index} className="flex items-center space-x-2">
 					<span className="size-11 rounded-full flex items-center justify-center bg-muted">
