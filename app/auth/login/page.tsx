@@ -9,24 +9,52 @@ import Image from "next/image";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { usePassword } from "@/lib/Hooks";
-import { authSchema, loginSchema, LoginType } from "@/lib/authSchema";
-import z from "zod";
+import { loginSchema, LoginType } from "@/lib/authSchema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
 	const { showPassword, handleShowPassword } = usePassword();
+	const [loginError, setLoginError] = useState("");
+	const router = useRouter();
 
 	const {
 		register,
 		reset,
+		setError,
 		handleSubmit,
 		formState: { errors, isSubmitting },
 	} = useForm({ resolver: zodResolver(loginSchema) });
 
 	const onSubmit = async (data: LoginType) => {
+		const { email, password } = data;
 		try {
-		} catch (err) {}
+			const res = await fetch("/api/login", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ email, password }),
+			});
+
+			if (!res.ok) {
+				const errorData = await res.json();
+
+				if (res.status === 404) {
+					setLoginError(errorData.error);
+					return;
+				}
+				if (res.status === 401) {
+					setError("password", { message: errorData.error });
+					return;
+				}
+			}
+
+			const data = await res.json();
+			router.push("/");
+		} catch (err) {
+			console.error(err);
+		}
 	};
 	return (
 		<main className="flex w-full justify-center items-center gap-6">
@@ -56,6 +84,11 @@ export default function Login() {
 						</div>
 
 						<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
+							{loginError && (
+								<p className="inline-block bg-red-100 text-red-800 font-medium px-3 py-2 text-center rounded-[4px]">
+									{loginError}
+								</p>
+							)}
 							<div>
 								<Label htmlFor="email" className="mb-[10px]">
 									Email Address
@@ -106,8 +139,19 @@ export default function Login() {
 									Forgot Password{" "}
 								</Link>
 							</div>
-							<Button size="lg" className="w-full mt-12 mb-[10px]">
-								Sign in
+							<Button
+								size="lg"
+								className="w-full mt-12 mb-[10px] disabled:opacity-50"
+								disabled={isSubmitting}
+							>
+								{isSubmitting ? (
+									<span className="flex gap-2 items-center justify-center">
+										<div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+										Signing in...
+									</span>
+								) : (
+									"Sign in"
+								)}
 							</Button>
 						</form>
 

@@ -47,7 +47,7 @@ export const allProducts: AllProductsType[] = [
 	{
 		id: uuidv4(),
 		name: "Printed T-Shirts",
-		image: "assets/big-saving-zone/big-saving-zone-two.png",
+		image: "/assets/big-saving-zone/big-saving-zone-two.png",
 		gender: "unisex",
 		promo: "UP TO 40% OFF",
 		desc: "New Designs Every Week",

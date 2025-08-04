@@ -15,16 +15,17 @@ import type { FormData } from "@/lib/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authSchema } from "@/lib/authSchema";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Signup() {
 	const { showPassword, handleShowPassword } = usePassword();
+	const [signupError, setSignupError] = useState("");
 	const {
 		register,
 		watch,
 		reset,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, isSubmitting },
 	} = useForm<FormData>({ resolver: zodResolver(authSchema) });
 
 	const router = useRouter();
@@ -39,8 +40,10 @@ export default function Signup() {
 			if (!res.ok) {
 				const errorData = await res.json();
 				if (res.status === 400) {
+					setSignupError(errorData.error);
 					throw new Error(errorData.error);
 				} else if (res.status === 409) {
+					setSignupError(errorData.error);
 					router.push("/auth/login");
 				}
 				return;
@@ -82,7 +85,11 @@ export default function Signup() {
 								<span>Continue With Twitter</span>
 							</Button>
 						</div>
-
+						{signupError && (
+							<p className="inline-block bg-red-100 text-red-800 text-sm font-medium px-3 py-1 rounded-full">
+								{signupError}
+							</p>
+						)}
 						<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
 							<div>
 								<Label htmlFor="email" className="mb-[10px]">
@@ -151,8 +158,19 @@ export default function Signup() {
 								</div>
 							</div>
 
-							<Button size="lg" className="w-full mt-12 mb-[10px]">
-								Sign up
+							<Button
+								size="lg"
+								className="w-full mt-12 mb-[10px] disabled:opacity-50"
+								disabled={isSubmitting}
+							>
+								{isSubmitting ? (
+									<span className="flex gap-2 items-center justify-center">
+										<div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+										Signing up...
+									</span>
+								) : (
+									"Sign up"
+								)}
 							</Button>
 						</form>
 

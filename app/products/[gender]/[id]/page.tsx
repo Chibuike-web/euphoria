@@ -1,7 +1,7 @@
 "use client";
 import { getStars, toSentenceCase } from "@/app/utils";
 import { Button } from "@/components/ui/button";
-import { useAllProducts } from "@/lib/product";
+import { useProductById } from "@/lib/product";
 import {
 	ArrowRight,
 	ChevronRight,
@@ -18,13 +18,11 @@ import { useActive } from "@/lib/Hooks";
 import { cn } from "@/lib/utils";
 
 export default function ProductDetail() {
-	const { gender, id } = useParams();
-	const { data, isPending, error } = useAllProducts();
-
-	const product = data?.find((u) => u.id === id);
+	const { gender, id } = useParams() as { gender: string; id: string };
+	const { data: product, isPending, error } = useProductById(id);
 
 	if (isPending) return <h1>Loading....</h1>;
-	if (!product) return <h1>Product not found</h1>;
+	if (!product || error) return <h1>Product not found</h1>;
 
 	const { full, half, empty } = getStars(product.rating ?? 0) || { full: 0, half: 0, empty: 0 };
 	return (

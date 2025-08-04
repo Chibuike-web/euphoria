@@ -62,7 +62,7 @@ export default function Footer() {
 						</div>
 					</div>
 				</div>
-				<p className="text-center font-bold text-[18px]">
+				<p className="text-center text-[16px]">
 					Copyright © 2023 Euphoria Folks Pvt Ltd. All rights reserved.
 				</p>
 			</div>

@@ -3,23 +3,19 @@
 import ProductCard from "@/components/ProductCard";
 import { useParams } from "next/navigation";
 import { toSentenceCase } from "../../utils";
-import { useAllProducts } from "@/lib/product";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useProductsByGender } from "@/lib/product";
+import { useCallback, useEffect, useMemo } from "react";
 import { Colors, DressStyle, Filter, Price, Size } from "./filter-components";
-import { ArrowRight, ChevronDown, X } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useDropdown } from "@/lib/Hooks";
+import { AllProductsType } from "@/app/types";
 
 export default function Page() {
 	const { gender } = useParams() as { gender: string };
 
-	const { data, isLoading, error } = useAllProducts();
+	const { data: products, isPending, error } = useProductsByGender(gender);
 
-	const filtered = useMemo(
-		() => data?.filter((item) => item.gender === gender) || [],
-		[data, gender]
-	);
-
-	if (isLoading) return;
+	if (isPending) return <p>Loading....</p>;
 	if (error) return <p className="mt-20 text-center">Something went wrong</p>;
 
 	return (
@@ -35,7 +31,7 @@ export default function Page() {
 						</div>
 					</div>
 					<div className="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-6">
-						{filtered.map((item) => (
+						{products.map((item: AllProductsType) => (
 							<ProductCard key={item.id} {...item} />
 						))}
 					</div>

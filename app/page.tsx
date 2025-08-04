@@ -309,7 +309,7 @@ function HomeProductCard({ name, image, category }: AllProductsType) {
 function Feedback({ name, image, star, review }: Feedback) {
 	const { full, half, empty } = getStars(star);
 	return (
-		<article className="w-full min-w-[396px] border p-6 rounded-[16px]">
+		<article className="w-full min-w-[325px] border p-6 rounded-[16px]">
 			<div className="w-full flex items-start justify-between">
 				<div className="">
 					<Image src={image} alt="" />
