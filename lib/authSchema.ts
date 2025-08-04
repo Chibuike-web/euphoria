@@ -24,3 +24,10 @@ export const authSchema = z.object({
 });
 
 export type FormData = z.infer<typeof authSchema>;
+
+export const loginSchema = authSchema.pick({
+	email: true,
+	password: true,
+});
+
+export type LoginType = z.infer<typeof loginSchema>;

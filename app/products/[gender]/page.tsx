@@ -26,7 +26,7 @@ export default function Page() {
 		<section className=" max-w-[1240px] mx-auto px-6 xl:px-0 mb-[100px]">
 			<div className="flex flex-col items-center md:flex-row gap-x-6 md:items-start w-full">
 				<SideBar />
-				<aside className="w-full">
+				<div className="w-full">
 					<div className="w-full flex items-center justify-between my-[50px]">
 						<h1 className="text-2xl font-bold capitalize">{toSentenceCase(gender)}'s Clothing</h1>
 						<div className="flex items-center gap-4 text-[18px]">
@@ -39,7 +39,7 @@ export default function Page() {
 							<ProductCard key={item.id} {...item} />
 						))}
 					</div>
-				</aside>
+				</div>
 			</div>
 			{gender === "women" && <ClothingForWomenOnline />}
 			{gender === "women" && <BuyWomensClothing />}
@@ -80,19 +80,19 @@ const SideBar = () => {
 
 const DeskstopSidebar = () => {
 	return (
-		<aside className="min-w-[295px] max-w-[295px] hidden md:flex flex-col sticky top-[68.49px] md:top-[108.45px] h-[calc(100vh-108px)] xl:h-auto overflow-y-auto  ">
+		<div className="min-w-[295px] max-w-[295px] hidden md:flex flex-col sticky top-[68.49px] md:top-[108.45px] h-[calc(100vh-108px)] xl:h-auto overflow-y-auto  ">
 			<Filter />
 			<Price />
 			<Colors />
 			<Size />
 			<DressStyle />
-		</aside>
+		</div>
 	);
 };
 
 const MobileSidebar = ({ handleClick }: { handleClick: () => void }) => {
 	return (
-		<aside className="w-full flex flex-col fixed z-[100] bg-white top-[68.49px] h-[calc(100vh-68.49px)] xl:h-auto overflow-y-auto ">
+		<div className="w-full flex flex-col fixed z-[100] bg-white top-[68.49px] h-[calc(100vh-68.49px)] xl:h-auto overflow-y-auto ">
 			<button
 				onClick={handleClick}
 				className="py-2 bg-gray-300 rounded-full px-4 w-max self-center my-4"
@@ -104,7 +104,7 @@ const MobileSidebar = ({ handleClick }: { handleClick: () => void }) => {
 			<Colors />
 			<Size />
 			<DressStyle />
-		</aside>
+		</div>
 	);
 };
 

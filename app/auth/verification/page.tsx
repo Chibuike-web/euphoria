@@ -10,7 +10,7 @@ export default function Verification() {
 		<main className="flex w-full justify-center items-center gap-6">
 			<section className="w-full max-w-[1240px]">
 				<div className="flex w-full gap-6 xl:gap-[77px] flex-col lg:flex-row lg:justify-end">
-					<figure className="w-full xl:min-w-[694px] h-[400px] sm:h-[600px] lg:h-[952px]">
+					<div className="w-full xl:min-w-[694px] h-[400px] sm:h-[600px] lg:h-[952px]">
 						<Image
 							src={verification}
 							alt="Image of Fashionistas"
@@ -18,8 +18,8 @@ export default function Verification() {
 							height={952}
 							className="w-full h-full object-cover object-top"
 						/>
-					</figure>
-					<aside className="w-full xl:min-w-[567px] px-6 xl:px-0 lg:mt-16">
+					</div>
+					<div className="w-full xl:min-w-[567px] px-6 xl:px-0 lg:mt-16">
 						<h1 className="font-bold text-[24px] md:text-[40px]">Verification</h1>
 						<p className="font-medium mb-12 text-secondary-foreground">Verify your code</p>
 
@@ -35,7 +35,7 @@ export default function Verification() {
 								Verify Code
 							</Button>
 						</form>
-					</aside>
+					</div>
 				</div>
 			</section>
 		</main>

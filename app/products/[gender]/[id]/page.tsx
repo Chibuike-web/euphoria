@@ -30,10 +30,10 @@ export default function ProductDetail() {
 	return (
 		<main>
 			<section className=" max-w-[1240px] mx-auto px-6 xl:px-0 mb-[100px] flex items-start gap-[74px]">
-				<aside className="flex items-center gap-6 w-full max-w-[630px]">
+				<div className="flex items-center gap-6 w-full max-w-[630px]">
 					<div className="w-[80px] bg-red-500 h-[80px]"></div>
 
-					<figure className="w-full max-w-[520px] h-[785px] overflow-hidden">
+					<div className="w-full max-w-[520px] h-[785px] overflow-hidden">
 						<Image
 							src={product.image}
 							alt={product.name}
@@ -41,9 +41,9 @@ export default function ProductDetail() {
 							height={370}
 							className="w-full h-full object-cover"
 						/>
-					</figure>
-				</aside>
-				<aside className="w-full max-w-[534px]">
+					</div>
+				</div>
+				<div className="w-full max-w-[534px]">
 					<div className="flex items-center gap-2 mt-8">
 						<span>Shop</span>
 						<ChevronRight />
@@ -100,7 +100,7 @@ export default function ProductDetail() {
 					<span className="w-full h-[1px] bg-muted flex my-10" />
 
 					<ProductHighlights />
-				</aside>
+				</div>
 			</section>
 
 			<ProductDescription product={product} />
@@ -116,12 +116,12 @@ function ProductDescription({ product }: { product: AllProductsType }) {
 				<span className=" text-[clamp(1.25rem,2vh,1.8rem)] font-semibold">Product Description</span>
 			</h3>
 			<div>
-				<aside>
+				<div>
 					<ProductDescriptionTabs product={product} />
-				</aside>
-				<aside>
-					<figure></figure>
-				</aside>
+				</div>
+				<div>
+					<div></div>
+				</div>
 			</div>
 		</section>
 	);

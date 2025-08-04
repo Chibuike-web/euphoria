@@ -32,9 +32,10 @@ export default function Navbar() {
 					<button className="p-[12px] rounded-[8px] bg-accent">
 						<Heart className="size-[20px]" />
 					</button>
-					<button className="p-[12px] rounded-[8px] bg-accent">
+					<Link href="/auth/signup" className="p-[12px] rounded-[8px] bg-accent">
 						<UserRound className="size-[20px]" />
-					</button>
+					</Link>
+
 					<button className="p-[12px] rounded-[8px] bg-accent">
 						<ShoppingCart className="size-[20px]" />
 					</button>
@@ -136,12 +137,16 @@ function MobileNav({ handleClick, pathname }: { handleClick: () => void; pathnam
 						</span>
 						<span>Favorites</span>
 					</button>
-					<button className="px-[24px] py-[20px] rounded-[16px] bg-accent flex gap-4 items-center text-[32px]">
+					<Link
+						href="/auth/signup"
+						title="signup"
+						className="px-[24px] py-[20px] rounded-[16px] bg-accent flex gap-4 items-center text-[32px]"
+					>
 						<span>
 							<UserRound className="size-[32px]" />
 						</span>
 						<span>Profile</span>
-					</button>
+					</Link>
 					<button className="px-[24px] py-[20px] rounded-[16px] bg-accent flex gap-4 items-center text-[32px]">
 						<span>
 							<ShoppingCart className="size-[32px]" />

@@ -18,8 +18,8 @@ import Link from "next/link";
 export default function Navbar() {
 	const { isOpen, handleClick } = useMobileNav();
 	return (
-		<nav className="py-3 md:py-8">
-			<header className="w-full max-w-[1240px] mx-auto flex items-center justify-between px-6 xl:px-0">
+		<header className="py-3 md:py-8">
+			<nav className="w-full max-w-[1240px] mx-auto flex items-center justify-between px-6 xl:px-0">
 				<div className="flex items-center gap-10">
 					<Image
 						src={logo}
@@ -66,15 +66,15 @@ export default function Navbar() {
 				<button type="button" className="lg:hidden" onClick={handleClick}>
 					{isOpen ? <X /> : <Menu />}
 				</button>
-			</header>
+			</nav>
 			{isOpen && <MobileNav />}
-		</nav>
+		</header>
 	);
 }
 
 function MobileNav() {
 	return (
-		<div className="fixed top-[68.5px] z-[100] inset-0 bg-white px-6 py-10 flex flex-col justify-between">
+		<nav className="fixed top-[68.5px] z-[100] inset-0 bg-white px-6 py-10 flex flex-col justify-between">
 			<div className="flex flex-col gap-6">
 				<Select defaultValue="en-US">
 					<SelectTrigger className="w-full">
@@ -106,6 +106,6 @@ function MobileNav() {
 					Sign up
 				</Button>
 			</div>
-		</div>
+		</nav>
 	);
 }

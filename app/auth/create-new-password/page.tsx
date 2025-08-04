@@ -38,7 +38,7 @@ export default function CreateNewPassword() {
 		<main className="flex w-full justify-center items-center gap-6">
 			<section className="w-full max-w-[1240px]">
 				<div className="flex w-full gap-6 xl:gap-[77px]  flex-col lg:flex-row lg:justify-end">
-					<figure className="w-full xl:min-w-[694px] h-[400px] sm:h-[600px] lg:h-[952px]">
+					<div className="w-full xl:min-w-[694px] h-[400px] sm:h-[600px] lg:h-[952px]">
 						<Image
 							src={createNewPassowrdImage}
 							alt="Image of Fashionistas"
@@ -46,15 +46,15 @@ export default function CreateNewPassword() {
 							height={952}
 							className="w-full h-full object-cover object-top"
 						/>
-					</figure>
-					<aside className="w-full xl:min-w-[567px] px-6 xl:px-0 lg:mt-16">
+					</div>
+					<div className="w-full xl:min-w-[567px] px-6 xl:px-0 lg:mt-16">
 						<h1 className="font-bold text-[24px] md:text-[40px]">Create New Password</h1>
 						<p className="font-medium mb-12 text-secondary-foreground">
 							Your new password must be different from previous used passwords.
 						</p>
 
 						<form onSubmit={handleSubmit(onSubmit)} className="w-full">
-							<fieldset className="mb-8">
+							<div className="mb-8">
 								<div className="flex items-center justify-between w-full mb-[10px]">
 									<Label htmlFor="password">Password</Label>
 									<button
@@ -78,8 +78,8 @@ export default function CreateNewPassword() {
 										Use 8 or more characters with a mix of letters, numbers & symbols
 									</p>
 								)}
-							</fieldset>
-							<fieldset>
+							</div>
+							<div>
 								<div className="flex items-center justify-between w-full mb-[10px]">
 									<Label htmlFor="confirmPassword">Confirm password</Label>
 									<button
@@ -99,12 +99,12 @@ export default function CreateNewPassword() {
 								{errors.confirmPassword && (
 									<p className="mt-[10px] text-sm text-red-500">{errors.confirmPassword.message}</p>
 								)}
-							</fieldset>
+							</div>
 							<Button size="lg" className="w-full mt-12 mb-[10px]">
 								Reset Password
 							</Button>
 						</form>
-					</aside>
+					</div>
 				</div>
 			</section>
 		</main>

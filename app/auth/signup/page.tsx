@@ -29,8 +29,6 @@ export default function Signup() {
 
 	const router = useRouter();
 	const onSubmit = async (data: FormData) => {
-		console.log(data);
-
 		try {
 			const res = await fetch("/api/signup", {
 				method: "POST",
@@ -50,6 +48,7 @@ export default function Signup() {
 
 			const resData = await res.json();
 			console.log(resData.message);
+			router.push("/auth/login");
 			reset();
 		} catch (err) {
 			console.error(err);
@@ -59,7 +58,7 @@ export default function Signup() {
 		<main className="flex w-full justify-center items-center gap-6">
 			<section className="w-full max-w-[1240px]">
 				<div className="flex w-full gap-6 xl:gap-[77px] flex-col lg:flex-row lg:justify-end">
-					<figure className="w-full xl:min-w-[694px] h-[400px] sm:h-[600px] lg:h-[952px]">
+					<div className="w-full xl:min-w-[694px] h-[400px] sm:h-[600px] lg:h-[952px]">
 						<Image
 							src={signupImage}
 							alt="Image of Fashionistas"
@@ -67,8 +66,8 @@ export default function Signup() {
 							height={952}
 							className="w-full h-full object-cover object-top"
 						/>
-					</figure>
-					<aside className="w-full xl:min-w-[567px] px-6 xl:px-0 lg:mt-16">
+					</div>
+					<div className="w-full xl:min-w-[567px] px-6 xl:px-0 lg:mt-16">
 						<h1 className="font-bold text-[24px] md:text-[40px]">Sign Up</h1>
 						<p className="font-medium mb-12 text-secondary-foreground">
 							Sign up for free to access to in any of our products{" "}
@@ -163,7 +162,7 @@ export default function Signup() {
 								Login
 							</Link>
 						</p>
-					</aside>
+					</div>
 				</div>
 			</section>
 		</main>

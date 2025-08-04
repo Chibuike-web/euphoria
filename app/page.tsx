@@ -105,7 +105,7 @@ export default async function Home() {
 
 			<section className=" max-w-[1240px] mx-auto mt-[130px] px-6 xl:px-0 ">
 				<div className="flex flex-col lg:flex-row w-full rounded-[16px] overflow-hidden">
-					<figure
+					<div
 						className=" w-full py-20 md:py-[160px] px-9 md:px-18 lg:max-w-[614px] text-white bg-cover bg-center bg-no-repeat"
 						style={{ backgroundImage: `url(${ctaFirstImage.src})` }}
 					>
@@ -121,10 +121,10 @@ export default async function Home() {
 								Shop Now
 							</button>
 						</div>
-					</figure>
-					<figure className="w-full lg:max-w-[626px]">
+					</div>
+					<div className="w-full lg:max-w-[626px]">
 						<Image src={ctaSecondImage} alt="" className="w-full h-full object-cover" />
-					</figure>
+					</div>
 				</div>
 			</section>
 			<section className="flex flex-col gap-6 w-full max-w-[1240px] mx-auto mt-[130px] px-6 xl:px-0">
