@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { AllProductsType } from "@/app/types";
 
 export const useProductsByGender = (gender: string) =>
-	useQuery({
+	useQuery<AllProductsType>({
 		queryKey: ["product", gender],
 		queryFn: async () => {
 			const res = await fetch(`/api/products/gender/${gender}`);
@@ -14,7 +14,7 @@ export const useProductsByGender = (gender: string) =>
 	});
 
 export const useProductById = (id: string) =>
-	useQuery({
+	useQuery<AllProductsType>({
 		queryKey: ["product", id],
 		queryFn: async () => {
 			const res = await fetch(`/api/products/id/${id}`);

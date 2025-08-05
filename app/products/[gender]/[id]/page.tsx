@@ -7,6 +7,7 @@ import {
 	ArrowRight,
 	ChevronRight,
 	MessageSquareText,
+	PlayIcon,
 	ShoppingCart,
 	Star,
 	StarHalf,
@@ -18,6 +19,11 @@ import { AllProductsType } from "@/app/types";
 import { useActive } from "@/lib/Hooks";
 import { cn } from "@/lib/utils";
 
+export type NewProduct = AllProductsType & {
+	quantity: number;
+	shipping: number | "FREE";
+};
+
 export default function ProductDetail() {
 	const { gender, id } = useParams() as { gender: string; id: string };
 	const { data: product, isPending, error } = useProductById(id);
@@ -26,22 +32,11 @@ export default function ProductDetail() {
 	if (!product || error) return <h1>Product not found</h1>;
 
 	const { full, half, empty } = getStars(product.rating ?? 0) || { full: 0, half: 0, empty: 0 };
+
 	return (
 		<main>
-			<section className=" max-w-[1240px] mx-auto px-6 xl:px-0 mb-[100px] flex items-start gap-[74px]">
-				<div className="flex items-center gap-6 w-full max-w-[630px]">
-					<div className="w-[80px] bg-red-500 h-[80px]"></div>
-
-					<div className="w-full max-w-[520px] h-[785px] overflow-hidden">
-						<Image
-							src={product.image}
-							alt={product.name}
-							width={282}
-							height={370}
-							className="w-full h-full object-cover"
-						/>
-					</div>
-				</div>
+			<section className=" max-w-[1240px] mx-auto px-6 xl:px-0 mb-[100px] flex flex-col lg:flex-row items-start gap-[74px]">
+				<DesktopCarousel product={product} />
 				<div className="w-full max-w-[534px]">
 					<div className="flex items-center gap-2 mt-8">
 						<span>Shop</span>
@@ -107,6 +102,24 @@ export default function ProductDetail() {
 	);
 }
 
+function DesktopCarousel({ product }: { product: AllProductsType }) {
+	return (
+		<div className="flex items-center gap-6 w-full max-w-[630px]">
+			<div className="w-[80px] bg-red-500 h-[80px]"></div>
+
+			<div className="w-full max-w-[520px] h-[785px] overflow-hidden">
+				<Image
+					src={product.image}
+					alt={product.name}
+					width={282}
+					height={370}
+					className="w-full h-full object-cover"
+				/>
+			</div>
+		</div>
+	);
+}
+
 function ProductDescription({ product }: { product: AllProductsType }) {
 	return (
 		<section className=" max-w-[1240px] mx-auto px-6 xl:px-0 mb-[100px]">
@@ -114,17 +127,21 @@ function ProductDescription({ product }: { product: AllProductsType }) {
 				<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />
 				<span className=" text-[clamp(1.25rem,2vh,1.8rem)] font-semibold">Product Description</span>
 			</h3>
-			<div className="flex gap-[95px] items-start">
+			<div className="flex flex-col lg:flex-row gap-[95px] items-start">
 				<ProductDescriptionTabs product={product} />
 
-				<div className="w-full max-w-[532px] h-[328px] rounded-[20px] overflow-hidden">
-					<Image
-						src={videoImage}
-						alt="Image of a female"
-						width={274}
-						height={393}
-						className="w-full h-full object-cover"
-					/>
+				<div
+					className="w-full lg:w-[532px] h-[328px] bg-cover bg-center rounded-[20px] overflow-hidden relative flex-col"
+					style={{ backgroundImage: `url(${videoImage.src})` }}
+				>
+					<div className="bg-black/25 inset-0 absolute top-0" />
+					<span className="absolute left-1/2  top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white rounded-full size-14 flex items-center justify-center ">
+						<PlayIcon strokeWidth="0" className="fill-gray-700" />
+					</span>
+					<span className="absolute top-4 right-4 text-white z-[10]">1:00M</span>
+					<span className="absolute left-1/2 -translate-x-1/2 text-white z-[10] bottom-8">
+						Raven Hoodie with black colored design
+					</span>
 				</div>
 			</div>
 		</section>
@@ -147,11 +164,11 @@ function ProductDescriptionTabs({ product }: { product: AllProductsType }) {
 		}
 	};
 	return (
-		<div className="flex flex-col w-full max-w-[610px]">
-			<div className="flex gap-6 items-center">
+		<div className="flex flex-col w-full lg:w-[610px]">
+			<div className="flex flex-col gap-6 lg:flex-row lg:items-center">
 				{["Description", "UserComments", "Question & Answer"].map((item, index) => (
-					<button onClick={() => setActive(index)} key={index}>
-						<div className="flex items-center gap-1.5 relative">
+					<button onClick={() => setActive(index)} key={index} className="">
+						<div className="flex items-center text-left leading-[1.2] gap-1.5 relative">
 							<span
 								className={cn(
 									"text-gray-500 text-[18px]",
@@ -161,16 +178,16 @@ function ProductDescriptionTabs({ product }: { product: AllProductsType }) {
 								{item}
 							</span>
 							{index === 1 ? (
-								<span className="text-[10px] size-5 flex items-center justify-center text-white bg-[#8A33FD] rounded-[4px]">
+								<span className="text-[10px] size-5 flex items-center justify-center text-white bg-[#8A33FD] rounded-[4px] flex-shrink-0">
 									{product.userComments?.length ?? 0}
 								</span>
 							) : index === 2 ? (
-								<span className="text-[10px] size-5 flex items-center justify-center text-white bg-primary rounded-[4px]">
+								<span className="text-[10px] size-5 flex items-center justify-center text-white bg-primary rounded-[4px] flex-shrink-0">
 									{product.questionAndAnswer?.length ?? 0}
 								</span>
 							) : null}
 							{active === index && (
-								<span className="absolute bottom-[-8px] block w-[32px] h-[2px] bg-primary" />
+								<span className="absolute bottom-[-8px] block w-[32px] h-[2px] bg-primary flex-shrink-0" />
 							)}
 						</div>
 					</button>
@@ -201,7 +218,7 @@ const Description = ({ product }: { product: AllProductsType }) => {
 						<div
 							key={id}
 							className={cn(
-								"flex flex-col gap-[12px] text-[14px] px-10 py-6 bg-muted",
+								"flex flex-col gap-[12px] text-[14px] px-[min(2rem,20%)] py-6 bg-muted",
 								borderStyle
 							)}
 						>

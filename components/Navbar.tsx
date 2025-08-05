@@ -6,15 +6,30 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { useMobileNav } from "@/lib/Hooks";
+import { useMediaQuery, useMobileNav } from "@/lib/Hooks";
+import { useMemo } from "react";
 
 export default function Navbar() {
 	const pathname = usePathname();
 	const { isOpen, handleClick } = useMobileNav();
+	const isDesktop = useMediaQuery("(min-width: 1024px)");
+
+	const shouldShowMobileNav = useMemo(() => {
+		return isOpen && !isDesktop;
+	}, [isOpen, isDesktop]);
+
 	return (
 		<nav className="py-3 md:py-8 sticky top-0 bg-white z-[100] border-shadow">
 			<header className="w-full max-w-[1240px] mx-auto flex items-center justify-between px-6 xl:px-0">
-				<Image src={logo} alt="Brand Logo" className="w-full max-w-[92px]" width={92} height={45} />
+				<Link href="/">
+					<Image
+						src={logo}
+						alt="Brand Logo"
+						className="w-full max-w-[92px]"
+						width={92}
+						height={45}
+					/>
+				</Link>
 				<div className="hidden lg:flex items-center gap-8">
 					<NavLinks pathname={pathname} />
 					<label className="bg-gray-100 px-2 h-10 rounded-[8px] hidden lg:flex items-center gap-3">
@@ -45,7 +60,7 @@ export default function Navbar() {
 					{isOpen ? <X /> : <Menu />}
 				</button>
 			</header>
-			{isOpen && <MobileNav handleClick={handleClick} pathname={pathname} />}
+			{shouldShowMobileNav && <MobileNav handleClick={handleClick} pathname={pathname} />}
 		</nav>
 	);
 }

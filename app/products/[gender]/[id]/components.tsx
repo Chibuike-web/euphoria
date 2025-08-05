@@ -1,22 +1,22 @@
 import { CardIcon, ShirtIcon, TruckIcon, UndoIcon } from "@/app/assets/icons";
+import { useColor } from "@/app/store/useColorStore";
+import { useSize } from "@/app/store/useSizeStore";
 import { Color } from "@/app/types";
-import { useActive } from "@/lib/Hooks";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
 
 const ALL_SIZES = ["XS", "S", "M", "L", "XL"];
 
 export function Colors({ colors }: { colors: Color[] }) {
-	const { active, setActive } = useActive(0);
+	const { colorIndex, setColorIndex } = useColor(0);
 	return (
 		<div className="flex items-center gap-5">
 			{colors?.map(({ name, colorCode }, index) => (
 				<button
-					onClick={() => setActive(index)}
+					onClick={() => setColorIndex(index)}
 					key={name}
 					className={cn(
 						`rounded-full size-6 flex border border-white ${colorCode}`,
-						active === index && "ring ring-black"
+						colorIndex === index && "ring ring-black"
 					)}
 				/>
 			))}
@@ -25,19 +25,19 @@ export function Colors({ colors }: { colors: Color[] }) {
 }
 
 export function Sizes({ sizes }: { sizes: string[] }) {
-	const { active, setActive } = useActive(!sizes ? 0 : null);
+	const { sizeIndex, setSizeIndex } = useSize(sizes);
 	return (
 		<div className="flex items-center gap-4 mb-6">
 			{ALL_SIZES.map((size, index) => {
 				const isAvailable = sizes && sizes.includes(size);
 				return (
 					<button
-						onClick={() => setActive(index)}
+						onClick={() => setSizeIndex(index)}
 						key={index}
 						className={cn(
 							"size-10 flex items-center justify-center text-[14px] text-gray-700 font-medium border border-gray-400 rounded-[12px]",
 							!isAvailable && "opacity-50 pointer-events-none",
-							active === index && "bg-gray-900 text-white border-0"
+							sizeIndex === index && "bg-gray-900 text-white border-0"
 						)}
 					>
 						{size}

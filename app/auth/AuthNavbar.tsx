@@ -21,13 +21,15 @@ export default function Navbar() {
 		<header className="py-3 md:py-8">
 			<nav className="w-full max-w-[1240px] mx-auto flex items-center justify-between px-6 xl:px-0">
 				<div className="flex items-center gap-10">
-					<Image
-						src={logo}
-						alt="Brand Logo"
-						className="w-full max-w-[92px]"
-						width={92}
-						height={45}
-					/>
+					<Link href="/">
+						<Image
+							src={logo}
+							alt="Brand Logo"
+							className="w-full max-w-[92px]"
+							width={92}
+							height={45}
+						/>
+					</Link>
 
 					<Select defaultValue="en-US">
 						<SelectTrigger className="w-[250px] hidden lg:flex">

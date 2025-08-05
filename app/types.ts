@@ -61,3 +61,13 @@ export type Feedback = {
 	star: number;
 	review: string;
 };
+
+export type CartItemType = {
+	id: string;
+	name: string;
+	size: string;
+	color: string;
+	price: number;
+	quantity: number;
+	shipping: "FREE" | number;
+};
