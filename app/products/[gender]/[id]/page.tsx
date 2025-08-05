@@ -18,6 +18,9 @@ import { Colors, ProductHighlights, Sizes } from "./components";
 import { AllProductsType } from "@/app/types";
 import { useActive } from "@/lib/Hooks";
 import { cn } from "@/lib/utils";
+import { useCartItems } from "@/app/store/useCart";
+import { useSize } from "@/app/store/useSizeStore";
+import { useColor } from "@/app/store/useColorStore";
 
 export type NewProduct = AllProductsType & {
 	quantity: number;
@@ -26,12 +29,32 @@ export type NewProduct = AllProductsType & {
 
 export default function ProductDetail() {
 	const { gender, id } = useParams() as { gender: string; id: string };
+	const { updateCartItems, cartItems } = useCartItems();
+	const { sizeIndex } = useSize();
+	const { colorIndex } = useColor();
 	const { data: product, isPending, error } = useProductById(id);
 
 	if (isPending) return <h1>Loading....</h1>;
 	if (!product || error) return <h1>Product not found</h1>;
 
 	const { full, half, empty } = getStars(product.rating ?? 0) || { full: 0, half: 0, empty: 0 };
+	const selectedSize = product.sizes?.[sizeIndex as number];
+	const selectedColor = product.colors?.[colorIndex as number].name;
+	const isExist = cartItems.some((item) => item.id === product.id && item.size === selectedSize);
+
+	const handleAddToCart = () => {
+		if (!selectedSize || !selectedColor || !product.price) return;
+		if (isExist) return;
+		updateCartItems({
+			id: product.id,
+			name: product.name,
+			color: selectedColor,
+			size: selectedSize,
+			price: product.price,
+			quantity: 1,
+			shipping: "FREE",
+		});
+	};
 
 	return (
 		<main>
@@ -83,7 +106,12 @@ export default function ProductDetail() {
 						</div>
 					</div>
 					<div className="flex items-center gap-4 mt-10 font-semibold">
-						<Button className="has-[>svg]:px-10" size="md">
+						<Button
+							className="has-[>svg]:px-10 disabled:opacity-50"
+							size="md"
+							disabled={isExist}
+							onClick={handleAddToCart}
+						>
 							<ShoppingCart />
 							<span>Add to cart</span>
 						</Button>
@@ -139,7 +167,7 @@ function ProductDescription({ product }: { product: AllProductsType }) {
 						<PlayIcon strokeWidth="0" className="fill-gray-700" />
 					</span>
 					<span className="absolute top-4 right-4 text-white z-[10]">1:00M</span>
-					<span className="absolute left-1/2 -translate-x-1/2 text-white z-[10] bottom-8">
+					<span className="absolute left-1/2 -translate-x-1/2 text-white z-[10] bottom-8 text-nowrap text-[22px] font-medium">
 						Raven Hoodie with black colored design
 					</span>
 				</div>

@@ -17,6 +17,8 @@ export default function Navbar() {
 	const shouldShowMobileNav = useMemo(() => {
 		return isOpen && !isDesktop;
 	}, [isOpen, isDesktop]);
+	const isAccount = pathname === "/account";
+	const isCart = pathname === "/cart";
 
 	return (
 		<nav className="py-3 md:py-8 sticky top-0 bg-white z-[100] border-shadow">
@@ -47,13 +49,22 @@ export default function Navbar() {
 					<button className="p-[12px] rounded-[8px] bg-accent">
 						<Heart className="size-[20px]" />
 					</button>
-					<Link href="/auth/signup" className="p-[12px] rounded-[8px] bg-accent">
+					<Link
+						href="/auth/signup"
+						className={cn(
+							"p-[12px] rounded-[8px]",
+							isAccount ? "bg-primary text-white" : "bg-accent"
+						)}
+					>
 						<UserRound className="size-[20px]" />
 					</Link>
 
-					<button className="p-[12px] rounded-[8px] bg-accent">
+					<Link
+						href="/cart"
+						className={cn("p-[12px] rounded-[8px]", isCart ? "bg-primary text-white" : "bg-accent")}
+					>
 						<ShoppingCart className="size-[20px]" />
-					</button>
+					</Link>
 				</div>
 
 				<button type="button" className="lg:hidden" onClick={handleClick}>

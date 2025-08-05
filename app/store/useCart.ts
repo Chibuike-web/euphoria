@@ -45,7 +45,7 @@ const useCartItemStore = create<CartItemStoreType>((set, get) => ({
 	},
 }));
 
-export const useCartItem = () => {
+export const useCartItems = () => {
 	const cartItems = useCartItemStore((state) => state.cartItems);
 	const updateCartItems = useCartItemStore((state) => state.updateCartItems);
 	const increaseItemQuantity = useCartItemStore((state) => state.increaseItemQuantity);

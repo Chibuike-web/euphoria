@@ -10,8 +10,8 @@ const useSizeStore = create<SizeType>((set) => ({
 	setSizeIndex: (value) => set({ sizeIndex: value }),
 }));
 
-export const useSize = (sizes: string[]) => {
-	const sizeIndex = useSizeStore((state) => (sizes.length === 0 ? null : state.sizeIndex));
+export const useSize = (sizes?: string[]) => {
+	const sizeIndex = useSizeStore((state) => (sizes?.length === 0 ? null : state.sizeIndex));
 	const setSizeIndex = useSizeStore((state) => state.setSizeIndex);
 
 	return {

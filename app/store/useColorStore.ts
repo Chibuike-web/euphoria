@@ -10,7 +10,7 @@ const useColorStore = create<ColorType>((set) => ({
 	setColorIndex: (index) => set({ colorIndex: index }),
 }));
 
-export const useColor = (value: number) => {
+export const useColor = (value?: number) => {
 	const colorIndex = useColorStore((state) => (value ? value : state.colorIndex));
 	const setColorIndex = useColorStore((state) => state.setColorIndex);
 
