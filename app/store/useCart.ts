@@ -7,6 +7,8 @@ type CartItemStoreType = {
 	increaseItemQuantity: (id: string, size: string, color: string) => void;
 	decreaseItemQuantity: (id: string, size: string, color: string) => void;
 	removeItemFromCart: (id: string, size: string, color: string) => void;
+	getCartTotal: () => number;
+	getShippingTotal: () => number;
 };
 
 const useCartItemStore = create<CartItemStoreType>((set, get) => ({
@@ -45,6 +47,15 @@ const useCartItemStore = create<CartItemStoreType>((set, get) => ({
 		const updated = items.filter((item) => !(item.id === id && item.size === size && item.color));
 		set({ cartItems: updated });
 	},
+	getCartTotal: () => {
+		return get().cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+	},
+	getShippingTotal: () => {
+		return get().cartItems.reduce(
+			(acc, item) => acc + (typeof item.shipping === "number" ? item.shipping : 0),
+			0
+		);
+	},
 }));
 
 export const useCartItems = () => {
@@ -53,6 +64,8 @@ export const useCartItems = () => {
 	const increaseItemQuantity = useCartItemStore((state) => state.increaseItemQuantity);
 	const decreaseItemQuantity = useCartItemStore((state) => state.decreaseItemQuantity);
 	const removeItemFromCart = useCartItemStore((state) => state.removeItemFromCart);
+	const getCartTotal = useCartItemStore((state) => state.getCartTotal);
+	const getShippingTotal = useCartItemStore((state) => state.getShippingTotal);
 
 	return {
 		cartItems,
@@ -60,5 +73,7 @@ export const useCartItems = () => {
 		increaseItemQuantity,
 		decreaseItemQuantity,
 		removeItemFromCart,
+		getCartTotal,
+		getShippingTotal,
 	};
 };

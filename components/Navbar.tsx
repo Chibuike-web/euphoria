@@ -122,6 +122,7 @@ const navLinks: NavLinksType[] = [
 ];
 
 function MobileNav({ handleClick, pathname }: { handleClick: () => void; pathname: string }) {
+	const isCart = pathname === "/cart";
 	return (
 		<div className="bg-white fixed top-[68.5px] z-[100] w-full px-6 py-10 h-[calc(100vh-68.5px)] ">
 			<div className="flex flex-col h-full justify-between gap-y-20 overflow-auto">
@@ -173,12 +174,18 @@ function MobileNav({ handleClick, pathname }: { handleClick: () => void; pathnam
 						</span>
 						<span>Profile</span>
 					</Link>
-					<button className="px-[24px] py-[20px] rounded-[16px] bg-accent flex gap-4 items-center text-[32px]">
-						<span>
-							<ShoppingCart className="size-[32px]" />
-						</span>
+
+					<Link
+						href="/cart"
+						onClick={handleClick}
+						className={cn(
+							"px-[24px] py-[20px] rounded-[16px] bg-accent flex gap-4 items-center text-[32px]",
+							isCart ? "bg-primary text-white" : "bg-accent"
+						)}
+					>
+						<ShoppingCart className="size-[32px]" />
 						<span>Cart</span>
-					</button>
+					</Link>
 				</div>
 			</div>
 		</div>
