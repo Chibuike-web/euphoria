@@ -317,7 +317,7 @@ function Feedback({ name, image, star, review }: Feedback) {
 				</div>
 				<div className="flex items-center gap-1 text-yellow-500">
 					{Array.from({ length: full }).map((_, i) => (
-						<Star key={`full-${i}`} className="fill-current stroke-none" />
+						<Star key={`full-${i}`} className="fill-current" />
 					))}
 					{half === 1 && (
 						<div className="relative">

@@ -64,6 +64,7 @@ export type Feedback = {
 
 export type CartItemType = {
 	id: string;
+	image: StaticImageData;
 	name: string;
 	size: string;
 	color: string;

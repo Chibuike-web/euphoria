@@ -40,13 +40,13 @@ export default function ProductDetail() {
 	const { full, half, empty } = getStars(product.rating ?? 0) || { full: 0, half: 0, empty: 0 };
 	const selectedSize = product.sizes?.[sizeIndex as number];
 	const selectedColor = product.colors?.[colorIndex as number].name;
-	const isExist = cartItems.some((item) => item.id === product.id && item.size === selectedSize);
 
 	const handleAddToCart = () => {
 		if (!selectedSize || !selectedColor || !product.price) return;
 		if (isExist) return;
 		updateCartItems({
 			id: product.id,
+			image: product.image,
 			name: product.name,
 			color: selectedColor,
 			size: selectedSize,
@@ -55,6 +55,9 @@ export default function ProductDetail() {
 			shipping: "FREE",
 		});
 	};
+	const isExist = cartItems.some(
+		(item) => item.id === product.id && item.size === selectedSize && item.color === selectedColor
+	);
 
 	return (
 		<main>
@@ -73,7 +76,7 @@ export default function ProductDetail() {
 					<div className="flex items-center gap-4 mt-8">
 						<div className="flex items-center gap-1 text-yellow-500">
 							{Array.from({ length: full }).map((_, i) => (
-								<Star key={`full-${i}`} className="fill-current stroke-none" />
+								<Star key={`full-${i}`} className="fill-current" />
 							))}
 							{half === 1 && (
 								<div className="relative">
