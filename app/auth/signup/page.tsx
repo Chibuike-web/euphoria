@@ -15,7 +15,7 @@ import type { FormData } from "@/lib/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authSchema } from "@/lib/authSchema";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 export default function Signup() {
 	const { showPassword, handleShowPassword } = usePassword();
@@ -57,6 +57,13 @@ export default function Signup() {
 			console.error(err);
 		}
 	};
+
+	useLayoutEffect(() => {
+		const storedUserInfo = sessionStorage.getItem("userInfo");
+		if (storedUserInfo) {
+			router.push("/");
+		}
+	}, []);
 	return (
 		<main className="flex w-full justify-center items-center gap-6">
 			<section className="w-full max-w-[1240px]">

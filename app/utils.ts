@@ -104,3 +104,10 @@ export function toSentenceCase(str: string): string {
 	if (!str) return "";
 	return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
+
+export function maskEmail(email: string): string {
+	const [name, domain] = email.split("@");
+	if (!name || !domain) return email;
+	const visible = name.slice(0, 2); // keep first 2 chars
+	return `${visible}****@${domain}`;
+}

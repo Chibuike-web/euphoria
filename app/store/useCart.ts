@@ -44,7 +44,9 @@ const useCartItemStore = create<CartItemStoreType>((set, get) => ({
 	},
 	removeItemFromCart: (id: string, size: string, color: string) => {
 		const items = get().cartItems;
-		const updated = items.filter((item) => !(item.id === id && item.size === size && item.color));
+		const updated = items.filter(
+			(item) => !(item.id === id && item.size === size && item.color === color)
+		);
 		set({ cartItems: updated });
 	},
 	getCartTotal: () => {

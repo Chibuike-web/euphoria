@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils";
 import { useCartItems } from "@/app/store/useCart";
 import { useSize } from "@/app/store/useSizeStore";
 import { useColor } from "@/app/store/useColorStore";
+import { useState } from "react";
 
 export type NewProduct = AllProductsType & {
 	quantity: number;
@@ -33,6 +34,7 @@ export default function ProductDetail() {
 	const { sizeIndex } = useSize();
 	const { colorIndex } = useColor();
 	const { data: product, isPending, error } = useProductById(id);
+	const [status, setStatus] = useState<"idle" | "added">("idle");
 
 	if (isPending) return <h1>Loading....</h1>;
 	if (!product || error) return <h1>Product not found</h1>;
@@ -54,11 +56,27 @@ export default function ProductDetail() {
 			quantity: 1,
 			shipping: "FREE",
 		});
+		setStatus("added");
+
+		setTimeout(() => {
+			setStatus("idle");
+		}, 2000);
 	};
 	const isExist = cartItems.some(
 		(item) => item.id === product.id && item.size === selectedSize && item.color === selectedColor
 	);
 
+	let cartButtonLabel = null;
+
+	if (isExist) {
+		if (status === "added") {
+			cartButtonLabel = "Added to cart";
+		} else {
+			cartButtonLabel = "Already in cart";
+		}
+	} else {
+		cartButtonLabel = "Add to cart";
+	}
 	return (
 		<main>
 			<section className=" max-w-[1240px] mx-auto px-6 xl:px-0 mb-[100px] flex flex-col lg:flex-row items-start gap-[74px]">
@@ -116,7 +134,7 @@ export default function ProductDetail() {
 							onClick={handleAddToCart}
 						>
 							<ShoppingCart />
-							<span>Add to cart</span>
+							<span>{cartButtonLabel}</span>
 						</Button>
 						<span className="flex px-10 h-10 rounded-[8px] border border-primary items-center justify-center">
 							${product.price}

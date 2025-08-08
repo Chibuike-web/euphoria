@@ -24,7 +24,9 @@ export default function Cart() {
 						Add something to make it happy!
 					</p>
 
-					<Button>Continue Shopping</Button>
+					<Button asChild>
+						<Link href="/">Continue Shopping</Link>
+					</Button>
 				</div>
 			</main>
 		);

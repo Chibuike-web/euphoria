@@ -1,12 +1,45 @@
+"use client";
+
+import { useColor } from "@/app/store/useColorStore";
+import { useSize } from "@/app/store/useSizeStore";
+import { useWishlist } from "@/app/store/useWishlist";
 import { AllProductsType } from "@/app/types";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function ProductCard({ id, name, image, brand, price, gender }: AllProductsType) {
+export default function ProductCard({
+	id,
+	name,
+	image,
+	brand,
+	price,
+	gender,
+	colors,
+	sizes,
+}: AllProductsType) {
+	const { addToWishlist } = useWishlist();
+	const { colorIndex } = useColor();
+	const { sizeIndex } = useSize();
+	const selectedColor = colors?.[colorIndex as number].name;
+	const selectedSize = sizes?.[sizeIndex as number];
+	if (!selectedSize || !selectedColor || !price) return;
 	return (
 		<article className="relative">
-			<button className="absolute right-3 top-3 md:right-6 md:top-6 size-8 flex items-center justify-center bg-white rounded-full">
+			<button
+				onClick={() =>
+					addToWishlist({
+						id: id,
+						image: image,
+						name: name,
+						color: selectedColor,
+						size: selectedSize,
+						price: price,
+						quantity: 1,
+					})
+				}
+				className="absolute right-3 top-3 md:right-6 md:top-6 size-8 flex items-center justify-center bg-white rounded-full"
+			>
 				<Heart className="size-4" />
 			</button>
 			<Link href={`/products/${gender}/${id}`}>

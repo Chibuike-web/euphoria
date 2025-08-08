@@ -6,17 +6,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { useMediaQuery, useMobileNav } from "@/lib/Hooks";
+import { useMediaQuery, useMobileNav, useUser } from "@/lib/Hooks";
 import { useMemo } from "react";
 
 export default function Navbar() {
 	const pathname = usePathname();
 	const { isOpen, handleClick } = useMobileNav();
 	const isDesktop = useMediaQuery("(min-width: 1024px)");
+	const user = useUser();
 
 	const shouldShowMobileNav = useMemo(() => {
 		return isOpen && !isDesktop;
 	}, [isOpen, isDesktop]);
+
+	const accountLink = user ? "/account?tab=my-orders" : "/auth/signup";
 	const isAccount = pathname === "/account";
 	const isCart = pathname === "/cart";
 
@@ -46,11 +49,11 @@ export default function Navbar() {
 					</label>
 				</div>
 				<div className="hidden lg:flex items-center gap-x-[12px] text-muted-foreground">
-					<button className="p-[12px] rounded-[8px] bg-accent">
+					<Link href="/account?tab=wishlist" className="p-[12px] rounded-[8px] bg-accent">
 						<Heart className="size-[20px]" />
-					</button>
+					</Link>
 					<Link
-						href="/auth/signup"
+						href={accountLink}
 						className={cn(
 							"p-[12px] rounded-[8px]",
 							isAccount ? "bg-primary text-white" : "bg-accent"
@@ -71,7 +74,15 @@ export default function Navbar() {
 					{isOpen ? <X /> : <Menu />}
 				</button>
 			</header>
-			{shouldShowMobileNav && <MobileNav handleClick={handleClick} pathname={pathname} />}
+			{shouldShowMobileNav && (
+				<MobileNav
+					handleClick={handleClick}
+					pathname={pathname}
+					isCart={isCart}
+					isAccount={isAccount}
+					accountLink={accountLink}
+				/>
+			)}
 		</nav>
 	);
 }
@@ -121,8 +132,21 @@ const navLinks: NavLinksType[] = [
 	},
 ];
 
-function MobileNav({ handleClick, pathname }: { handleClick: () => void; pathname: string }) {
-	const isCart = pathname === "/cart";
+function MobileNav({
+	handleClick,
+	pathname,
+	isCart,
+	isAccount,
+	accountLink,
+}: {
+	handleClick: () => void;
+	pathname: string;
+	isCart: boolean;
+	isAccount: boolean;
+	accountLink: string;
+}) {
+	const user = useUser();
+
 	return (
 		<div className="bg-white fixed top-[68.5px] z-[100] w-full px-6 py-10 h-[calc(100vh-68.5px)] ">
 			<div className="flex flex-col h-full justify-between gap-y-20 overflow-auto">
@@ -158,16 +182,21 @@ function MobileNav({ handleClick, pathname }: { handleClick: () => void; pathnam
 					</ul>
 				</div>
 				<div className="flex flex-col gap-y-[12px] text-muted-foreground">
-					<button className="px-[24px] py-[20px] rounded-[16px] bg-accent flex gap-4 items-center text-[32px]">
+					<Link
+						href="/account?tab=wishlist"
+						className="px-[24px] py-[20px] rounded-[16px] bg-accent flex gap-4 items-center text-[32px]"
+					>
 						<span>
 							<Heart className="size-[32px]" />
 						</span>
 						<span>Favorites</span>
-					</button>
+					</Link>
 					<Link
-						href="/auth/signup"
-						title="signup"
-						className="px-[24px] py-[20px] rounded-[16px] bg-accent flex gap-4 items-center text-[32px]"
+						href={accountLink}
+						className={cn(
+							"px-[24px] py-[20px] rounded-[16px] flex gap-4 items-center text-[32px]",
+							isAccount ? "bg-primary text-white" : "bg-accent"
+						)}
 					>
 						<span>
 							<UserRound className="size-[32px]" />

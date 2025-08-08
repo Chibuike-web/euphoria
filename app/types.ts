@@ -64,11 +64,11 @@ export type Feedback = {
 
 export type CartItemType = {
 	id: string;
-	image: StaticImageData;
+	image: StaticImageData | string;
 	name: string;
 	size: string;
 	color: string;
 	price: number;
 	quantity: number;
-	shipping: "FREE" | number;
+	shipping?: "FREE" | number;
 };

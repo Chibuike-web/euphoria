@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useUserValue } from "@/app/store/useUserValue";
 
 export const usePassword = () => {
 	const [showPassword, setShowPassword] = useState(false);
@@ -72,4 +73,22 @@ export const useMediaQuery = (query: string): boolean => {
 	}, [query]);
 
 	return matches;
+};
+
+export const useUser = () => {
+	const { user, setUser } = useUserValue();
+
+	useEffect(() => {
+		const storedUserInfo = sessionStorage.getItem("userInfo");
+		if (storedUserInfo) {
+			try {
+				const parsed = JSON.parse(storedUserInfo);
+				setUser(parsed);
+			} catch (e) {
+				console.error("Invalid user data in sessionStorage");
+			}
+		}
+	}, []);
+
+	return user;
 };
