@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { colors, dressStyle, filter, sizes } from "./utils";
 import * as Slider from "@radix-ui/react-slider";
-import { useDropdown } from "@/lib/Hooks";
 
 const dropdownVariants = {
 	hidden: { opacity: 0, height: 0 },
@@ -13,7 +12,7 @@ const dropdownVariants = {
 };
 
 export const DressStyle = () => {
-	const [isShow, setIsShow] = useState(false);
+	const [isShow, setIsShow] = useState(true);
 
 	return (
 		<button
@@ -50,7 +49,7 @@ export const DressStyle = () => {
 };
 
 export const Filter = () => {
-	const [isShow, setIsShow] = useState(false);
+	const [isShow, setIsShow] = useState(true);
 	return (
 		<button className=" border border-muted" onClick={() => setIsShow((prev) => !prev)}>
 			<div className="flex items-center justify-between w-full py-[20px] px-[24px] border-shadow">
@@ -89,7 +88,7 @@ export const Filter = () => {
 
 export const Price = () => {
 	const [price, setPrice] = useState([25, 75]);
-	const { isShow, setIsShow } = useDropdown();
+	const [isShow, setIsShow] = useState(true);
 	return (
 		<button
 			className="border-b border-l border-r border-muted"
@@ -145,7 +144,7 @@ export const Price = () => {
 };
 
 export const Colors = () => {
-	const [isShow, setIsShow] = useState(false);
+	const [isShow, setIsShow] = useState(true);
 	return (
 		<button
 			className="border-b border-l border-r border-muted flex flex-col"
@@ -187,7 +186,7 @@ export const Colors = () => {
 };
 
 export const Size = () => {
-	const [isShow, setIsShow] = useState(false);
+	const [isShow, setIsShow] = useState(true);
 	return (
 		<button
 			className="border-b border-l border-r border-muted"

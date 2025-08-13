@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 type MyInfoType = {
 	id: string;
 	label: string;
-	value: string;
+	value: string | null;
 };
 
 export default function MyInfo() {
@@ -15,12 +15,11 @@ export default function MyInfo() {
 	const [info, setInfo] = useState<MyInfoType[] | null>(null);
 
 	useEffect(() => {
-		console.log(user);
 		const myInfo = [
 			{
 				id: uuidv4(),
 				label: "Your Name",
-				value: "",
+				value: null,
 			},
 			{
 				id: uuidv4(),
@@ -30,7 +29,7 @@ export default function MyInfo() {
 			{
 				id: uuidv4(),
 				label: "Phone Number",
-				value: "",
+				value: null,
 			},
 			{
 				id: uuidv4(),
@@ -43,13 +42,16 @@ export default function MyInfo() {
 	return (
 		<div>
 			<h1 className="text-[28px] font-semibold">My Info</h1>
-			<p>Contact Details</p>
-			<div>
+			<p className="font-semibold text-[22px] my-5">Contact Details</p>
+			<div className="flex flex-col gap-6">
 				{info?.map((item) => (
-					<div key={item.id}>
-						<div>
-							<span>{item.label}</span>
-							<span>{item.value}</span>
+					<div
+						key={item.id}
+						className="flex w-full items-center justify-between pb-[20px] border-b border-black/15"
+					>
+						<div className="flex flex-col text-[18px]">
+							<span className="text-black/50">{item.label}</span>
+							<span className="font-medium">{item.value || `Enter your ${item.label}`}</span>
 						</div>
 						<button>Change</button>
 					</div>

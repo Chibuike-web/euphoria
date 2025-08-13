@@ -1,4 +1,4 @@
-import { authSchema } from "@/lib/authSchema";
+import { emailSignupSchema } from "@/lib/authSchema";
 import { NextRequest, NextResponse } from "next/server";
 import { users } from "@/app/api/lib/fakeDB";
 import bcrypt from "bcryptjs";
@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs";
 export async function POST(request: NextRequest) {
 	const data = await request.json();
 
-	const validatedData = authSchema.safeParse(data);
+	const validatedData = emailSignupSchema.safeParse(data);
 
 	if (!validatedData.success) {
 		return NextResponse.json({ error: "Invalid data" }, { status: 400 });
@@ -24,6 +24,7 @@ export async function POST(request: NextRequest) {
 		email,
 		password: hashedPassword,
 		terms,
+		provider: "email" as const,
 	};
 
 	users.push(newUser);

@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { authSchema } from "./authSchema";
+import { emailSignupSchema, googleSignupSchema } from "./authSchema";
 
-export const userSchema = authSchema.extend({});
+export const userSchema = z.union([emailSignupSchema, googleSignupSchema]);
 
 export type UserType = z.infer<typeof userSchema>;

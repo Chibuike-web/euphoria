@@ -20,7 +20,11 @@ export async function POST(request: NextRequest) {
 		return NextResponse.json({ error: "User does not exist" }, { status: 404 });
 	}
 
-	const isMatch = await bcrypt.compare(password, user?.password);
+	if (user.provider !== "email") {
+		return NextResponse.json({ error: "This account uses Google sign-in" }, { status: 400 });
+	}
+
+	const isMatch = await bcrypt.compare(password, user.password);
 
 	if (!isMatch) {
 		return NextResponse.json({ error: "Wrong password" }, { status: 401 });

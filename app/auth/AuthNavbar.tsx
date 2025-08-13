@@ -69,12 +69,12 @@ export default function Navbar() {
 					{isOpen ? <X /> : <Menu />}
 				</button>
 			</nav>
-			{isOpen && <MobileNav />}
+			{isOpen && <MobileNav handleClick={handleClick} />}
 		</header>
 	);
 }
 
-function MobileNav() {
+function MobileNav({ handleClick }: { handleClick: () => void }) {
 	return (
 		<nav className="fixed top-[68.5px] z-[100] inset-0 bg-white px-6 py-10 flex flex-col justify-between">
 			<div className="flex flex-col gap-6">
@@ -101,11 +101,11 @@ function MobileNav() {
 			</div>
 
 			<div className="flex flex-col items-center gap-2 ">
-				<Button variant="default" size="md" className="w-full">
-					Login
+				<Button variant="default" size="md" className="w-full" onClick={handleClick} asChild>
+					<Link href="/auth/login">Login</Link>
 				</Button>
-				<Button variant="outline" size="md" className="w-full">
-					Sign up
+				<Button variant="outline" size="md" className="w-full" onClick={handleClick} asChild>
+					<Link href="/auth/signup">Sign up</Link>
 				</Button>
 			</div>
 		</nav>

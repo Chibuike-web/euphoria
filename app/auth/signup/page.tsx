@@ -13,23 +13,30 @@ import { usePassword } from "@/lib/Hooks";
 import { useForm } from "react-hook-form";
 import type { FormData } from "@/lib/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { authSchema } from "@/lib/authSchema";
+import { emailSignupSchema } from "@/lib/authSchema";
 import { useRouter } from "next/navigation";
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 export default function Signup() {
 	const { showPassword, handleShowPassword } = usePassword();
 	const [signupError, setSignupError] = useState("");
 	const {
 		register,
+		setValue,
 		watch,
 		reset,
 		handleSubmit,
 		formState: { errors, isSubmitting },
-	} = useForm<FormData>({ resolver: zodResolver(authSchema) });
+	} = useForm<FormData>({ resolver: zodResolver(emailSignupSchema) });
 
 	const router = useRouter();
+
+	useEffect(() => {
+		setValue("provider", "email");
+	}, [setValue]);
+
 	const onSubmit = async (data: FormData) => {
+		console.log("click");
 		try {
 			const res = await fetch("/api/signup", {
 				method: "POST",
@@ -58,12 +65,17 @@ export default function Signup() {
 		}
 	};
 
+	const handleGoogleAuth = () => {
+		window.location.href = "http://localhost:3000/api/google";
+	};
+
 	useLayoutEffect(() => {
 		const storedUserInfo = sessionStorage.getItem("userInfo");
 		if (storedUserInfo) {
 			router.push("/");
 		}
 	}, []);
+
 	return (
 		<main className="flex w-full justify-center items-center gap-6">
 			<section className="w-full max-w-[1240px]">
@@ -83,7 +95,7 @@ export default function Signup() {
 							Sign up for free to access to in any of our products{" "}
 						</p>
 						<div className="flex flex-col gap-[20px] mb-12">
-							<Button variant="outline" size="lg" className="w-full">
+							<Button variant="outline" size="lg" className="w-full" onClick={handleGoogleAuth}>
 								<GoogleLogo />
 								<span>Continue With Google</span>
 							</Button>

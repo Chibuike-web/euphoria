@@ -8,7 +8,7 @@ export const passwordSchema = z
 		message: "Use 8 or more characters with a mix of letters, numbers & symbols",
 	});
 
-export const authSchema = z.object({
+const baseSchema = z.object({
 	email: z
 		.string()
 		.min(1, { message: "Email is required" })
@@ -16,18 +16,32 @@ export const authSchema = z.object({
 		.refine((val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val), {
 			message: "Email must be valid",
 		}),
-	password: passwordSchema,
 	terms: z.boolean().refine((val) => val === true, {
 		message: "Please accept the terms and conditions",
 	}),
 	subscribe: z.boolean().optional(),
+	provider: z.enum(["email", "google"]),
 });
 
-export type FormData = z.infer<typeof authSchema>;
+export const emailSignupSchema = baseSchema.extend({
+	password: passwordSchema,
+	provider: z.literal("email"),
+});
 
-export const loginSchema = authSchema.pick({
-	email: true,
-	password: true,
+export const googleSignupSchema = baseSchema.extend({
+	provider: z.literal("google"),
+});
+
+export type FormData = z.infer<typeof emailSignupSchema>;
+
+export const loginSchema = z.object({
+	email: z
+		.string()
+		.min(1, { message: "Email is required" })
+		.refine((val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val), {
+			message: "Email must be valid",
+		}),
+	password: passwordSchema,
 });
 
 export type LoginType = z.infer<typeof loginSchema>;
