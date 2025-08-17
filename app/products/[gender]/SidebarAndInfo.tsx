@@ -38,7 +38,7 @@ export const SideBar = () => {
 
 const DeskstopSidebar = () => {
 	return (
-		<div className="min-w-[295px] max-w-[295px] hidden md:flex flex-col sticky top-[68.49px] md:top-[108.45px] h-[calc(100vh-108px)] xl:h-auto overflow-y-auto  ">
+		<div className="min-w-[295px] max-w-[295px] hidden md:flex flex-col sticky top-[68.49px] md:top-[108.45px] h-[calc(100vh-108px)] overflow-y-auto  ">
 			<Filter />
 			<Price />
 			<Colors />

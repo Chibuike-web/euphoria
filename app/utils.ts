@@ -111,3 +111,18 @@ export function maskEmail(email: string): string {
 	const visible = name.slice(0, 2); // keep first 2 chars
 	return `${visible}****@${domain}`;
 }
+
+export const categories = [
+	{ id: "shirts", label: "Shirts" },
+	{ id: "printed-tees", label: "Printed T-shirts" },
+	{ id: "plain-tees", label: "Plain T-shirts" },
+	{ id: "polo", label: "Polo Shirts" },
+	{ id: "hoodies", label: "Hoodies & Sweatshirtss" },
+	{ id: "shorts", label: "Shorts" },
+	{ id: "jeans", label: "Jeans" },
+	{ id: "activewear", label: "Activewear" },
+	{ id: "coats", label: "Coats & Jackets" },
+	{ id: "tees", label: "Tees & T-shirts " },
+	{ id: "boxers", label: "Boxers" },
+	{ id: "joggers", label: "Joggers" },
+];

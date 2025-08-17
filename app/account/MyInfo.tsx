@@ -34,7 +34,7 @@ export default function MyInfo() {
 			{
 				id: uuidv4(),
 				label: "Password",
-				value: `${user?.password}`,
+				value: user?.provider === "email" ? user?.password : "",
 			},
 		];
 		setInfo(myInfo);

@@ -1,34 +1,19 @@
-import React from "react";
 import hero from "@/app/assets/home/hero-image.jpg";
-import { ArrowDown, ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { brandLogos, feedback, getStars, promoCardItems } from "./utils";
-import type { AllProductsType, Feedback, PromoCardType } from "./types";
+import type { Feedback, PromoCardType } from "./types";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
 import ctaFirstImage from "@/app/assets/home/first-cta/cta-first-image.png";
 import ctaSecondImage from "@/app/assets/home/first-cta/cta-second-image.png";
-import ProductCard from "@/components/ProductCard";
 import { Star, StarHalf } from "lucide-react";
+import { Suspense } from "react";
+import NewArrivalSection from "@/components/NewArrivalSection";
+import BigSavingZoneSection from "@/components/BigSavingZoneSection";
+import CategoriesForMenSection from "@/components/CategoriesForMenSection";
+import CategoriesForWomenSection from "@/components/CategoriesForWomenSection";
+import InTheLimeLightSection from "@/components/InTheLimeLightSection";
 
-const categories = [
-	{ id: "shirts", label: "Shirts" },
-	{ id: "printed-tees", label: "Printed T-shirts" },
-	{ id: "plain-tees", label: "Plain T-shirts" },
-	{ id: "polo", label: "Polo Shirts" },
-	{ id: "hoodies", label: "Hoodies & Sweatshirtss" },
-	{ id: "shorts", label: "Shorts" },
-	{ id: "jeans", label: "Jeans" },
-	{ id: "activewear", label: "Activewear" },
-	{ id: "coats", label: "Coats & Jackets" },
-	{ id: "tees", label: "Tees & T-shirts " },
-	{ id: "boxers", label: "Boxers" },
-	{ id: "joggers", label: "Joggers" },
-];
-
-export default async function Home() {
-	const res = await fetch("http://localhost:3000/api/products");
-	const json = await res.json();
-	const allProducts: AllProductsType[] = json.data;
+export default function Home() {
 	return (
 		<main>
 			<section
@@ -71,37 +56,21 @@ export default async function Home() {
 					/>
 				))}
 			</section>
-			<section className="flex flex-col gap-6 w-full max-w-[1240px] mx-auto mt-[130px] px-6 xl:px-0">
-				<h3 className="flex items-center gap-[20px]">
-					<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />{" "}
-					<span className=" text-[24px] md:text-[34px] font-semibold">New Arrival</span>
-				</h3>
-				<div className="w-full relative">
-					<ArrowLeft className="flex-shrink-0 absolute left-0 top-[120px]" />
-					<div className="flex w-full gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth px-8">
-						{allProducts
-							.filter((item) => item.tags?.[0].section === "NewArrival")
-							.map((i) => (
-								<NewArrivalCard key={i.id} id={i.id} name={i.name} image={i.image} />
-							))}
-					</div>
-					<ArrowRight className="flex-shrink-0 absolute right-0 top-[120px]" />
-				</div>
-			</section>
-			<section className="flex flex-col gap-6 w-full max-w-[1240px] mx-auto mt-[130px] px-6 xl:px-0">
-				<h3 className="flex items-center gap-[20px]">
-					<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />{" "}
-					<span className=" text-[24px] md:text-[34px] font-semibold">Big Saving Zone</span>
-				</h3>
+			<Suspense
+				fallback={
+					<div className=" justify-self-center self-center flex">Loading New Arrivals...</div>
+				}
+			>
+				<NewArrivalSection />
+			</Suspense>
 
-				<div className="flex flex-wrap gap-6">
-					{allProducts
-						.filter((item) => item.tags?.[0].section === "BigSavingZone")
-						.map((i, index) => (
-							<BigSavingZoneCard key={i.id} {...i} index={index} />
-						))}
-				</div>
-			</section>
+			<Suspense
+				fallback={
+					<div className=" justify-self-center self-center flex">Loading Big Saving Zone...</div>
+				}
+			>
+				<BigSavingZoneSection />
+			</Suspense>
 
 			<section className=" max-w-[1240px] mx-auto mt-[130px] px-6 xl:px-0 ">
 				<div className="flex flex-col lg:flex-row w-full rounded-[16px] overflow-hidden">
@@ -127,36 +96,26 @@ export default async function Home() {
 					</div>
 				</div>
 			</section>
-			<section className="flex flex-col gap-6 w-full max-w-[1240px] mx-auto mt-[130px] px-6 xl:px-0">
-				<h3 className="flex items-center gap-[20px]">
-					<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />{" "}
-					<span className=" text-[24px] md:text-[34px] font-semibold">Categories For Men</span>
-				</h3>
 
-				<div className="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-12">
-					{allProducts
-						.filter((item) => item.gender === "men")
-						.slice(0, 8)
-						.map((i) => (
-							<HomeProductCard key={i?.id} {...i} />
-						))}
-				</div>
-			</section>
-			<section className="flex flex-col gap-6 w-full max-w-[1240px] mx-auto mt-[130px] px-6 xl:px-0">
-				<h3 className="flex items-center gap-[20px]">
-					<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />{" "}
-					<span className=" text-[24px] md:text-[34px] font-semibold">Categories For Women</span>
-				</h3>
+			<Suspense
+				fallback={
+					<div className=" justify-self-center self-center flex">
+						Loading Categories For Women...
+					</div>
+				}
+			>
+				<CategoriesForMenSection />
+			</Suspense>
 
-				<div className="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-12">
-					{allProducts
-						.filter((item) => item.gender === "women")
-						.slice(0, 4)
-						.map((i) => (
-							<HomeProductCard key={i.id} {...i} />
-						))}
-				</div>
-			</section>
+			<Suspense
+				fallback={
+					<div className=" justify-self-center self-center flex">
+						Loading Categories For Women...
+					</div>
+				}
+			>
+				<CategoriesForWomenSection />
+			</Suspense>
 			<section className="px-6 xl:px-0 overflow-hidden">
 				<div className="flex flex-col gap-6 w-full max-w-[1240px] py-8 md:py-12 text-white bg-secondary-foreground rounded-[20px] mx-auto mt-[130px]">
 					<div className="flex flex-col items-center">
@@ -178,20 +137,13 @@ export default async function Home() {
 					</div>
 				</div>
 			</section>
-			<section className="flex flex-col gap-6 w-full max-w-[1240px] mx-auto mt-[130px] px-6 xl:px-0">
-				<h3 className="flex items-center gap-[20px]">
-					<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />{" "}
-					<span className=" text-[24px] md:text-[34px] font-semibold">In The Limelight</span>
-				</h3>
-
-				<div className="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-12">
-					{allProducts
-						.filter((item) => item.tags?.[0].section === "InTheLimelight")
-						.map((i) => (
-							<ProductCard key={i.id} {...i} />
-						))}
-				</div>
-			</section>
+			<Suspense
+				fallback={
+					<div className=" justify-self-center self-center flex">Loading In the lime light ...</div>
+				}
+			>
+				<InTheLimeLightSection />
+			</Suspense>
 			<section className="flex flex-col gap-6 w-full max-w-[1240px] mx-auto my-[130px] px-6 xl:px-0">
 				<h3 className="flex items-center gap-[20px]">
 					<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />{" "}
@@ -217,91 +169,6 @@ function PromoCard({ image, label, title, promo, cta }: PromoCardType) {
 			<h3 className="text-[36px] font-bold mb-4 w-full max-w-[300px] leading-[1.2]">{title}</h3>
 			<p className="font-medium mb-10">{promo}</p>
 			<a className="underline font-semibold">{cta.label}</a>
-		</article>
-	);
-}
-
-function NewArrivalCard({ name, image }: AllProductsType) {
-	return (
-		<article className="w-full min-w-[220px] snap-center">
-			<Image src={image} alt={name} className="rounded-[24px] w-full" width={262} height={262} />
-			<p className="mt-5 font-semibold text-[16px] md:text-[20px]">{name}</p>
-		</article>
-	);
-}
-
-type BigSavingZoneProps = AllProductsType & {
-	index: number;
-};
-
-function BigSavingZoneCard({ name, desc, image, promo, custom, index }: BigSavingZoneProps) {
-	const articleStyles = [
-		" px-8 text-white",
-		"items-end  px-8 text-white",
-		"items-end  px-8 text-black",
-		"items-end px-8 md:px-16 text-black",
-		"items-end px-8 md:px-16 text-black",
-	];
-
-	let styles = articleStyles[index];
-
-	return (
-		<article
-			className={cn(
-				"w-full relative flex flex-col justify-center flex-1 h-[393px] min-w-[200px] md:min-w-[300px] overflow-hidden rounded-[16px] bg-cover bg-center bg-no-repeat",
-				styles
-			)}
-			style={{
-				backgroundImage: `url(${typeof image === "string" ? image : image.src})`,
-			}}
-		>
-			<div className="flex flex-col w-[164px]">
-				{custom && (
-					<span className="bg-foreground w-[104px] h-[34px] rounded-[4px] flex items-center text-[12px] justify-center mb-6">
-						Limited Stock
-					</span>
-				)}
-				<h3 className="font-semibold text-[28px] mb-[8px]">{name}</h3>
-				<p className="font-semibold mb-[6px] text-[12px]">{desc}</p>
-				<p className="font-bold text-[18px] mb-8">{promo}</p>
-				<ArrowDown className="ml-12 " />
-				<button
-					className={cn(
-						"w-[111px] h-[34px] rounded-[4px] border border-white mt-10",
-						{
-							"border-black": index === 2 || index === 3 || index === 4,
-						},
-						{
-							"mt-6": custom,
-						}
-					)}
-				>
-					SHOP NOW
-				</button>
-			</div>
-		</article>
-	);
-}
-
-function HomeProductCard({ name, image, category }: AllProductsType) {
-	let title = "";
-
-	for (const c of categories) {
-		if (c.id === category) {
-			title = c.label;
-			break;
-		}
-	}
-	return (
-		<article>
-			<Image src={image} alt={name} className="w-full rounded-[16px]" width={270} height={393} />
-			<div className="flex items-center justify-between w-full">
-				<div className="flex flex-col gap-1 mt-2">
-					<h4 className="font-bold text-[20px]">{title}</h4>
-					<p className="font-medium text-muted-foreground">Explore Now!</p>
-				</div>
-				<ArrowRight />
-			</div>
 		</article>
 	);
 }
