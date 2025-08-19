@@ -5,26 +5,22 @@ type Wishlist = CartItemType & {};
 type WishlistStoreType = {
 	wishlist: Wishlist[];
 	addToWishlist: (newItem: Wishlist) => void;
-	removeFromWishlist: (id: string, size: string, color: string) => void;
+	removeFromWishlist: (id: string) => void;
 };
 
 const useWishlistStore = create<WishlistStoreType>((set, get) => ({
 	wishlist: [],
 	addToWishlist: (newItem) => {
-		const itemExist = get().wishlist.some(
-			(item) => item.id === newItem.id && item.size === newItem.size && item.color === newItem.color
-		);
+		const itemExist = get().wishlist.some((item) => item.id === newItem.id);
 
 		if (itemExist) {
-			get().removeFromWishlist(newItem.id, newItem.color, newItem.size);
+			get().removeFromWishlist(newItem.id);
 			return;
 		}
 		set((state) => ({ wishlist: [...state.wishlist, newItem] }));
 	},
-	removeFromWishlist: (id, color, size) => {
-		const updated = get().wishlist.filter(
-			(item) => !(item.id === id && item.size === size && item.color === color)
-		);
+	removeFromWishlist: (id) => {
+		const updated = get().wishlist.filter((item) => !(item.id === id));
 		set({ wishlist: updated });
 		console.log("click");
 	},

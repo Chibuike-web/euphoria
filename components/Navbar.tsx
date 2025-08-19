@@ -183,6 +183,7 @@ function MobileNav({
 					<Link
 						href="/account?tab=wishlist"
 						className="px-[24px] py-[20px] rounded-[16px] bg-accent flex gap-4 items-center text-[32px]"
+						onClick={handleClick}
 					>
 						<span>
 							<Heart className="size-[32px]" />

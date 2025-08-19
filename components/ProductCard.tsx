@@ -4,6 +4,7 @@ import { useColor } from "@/app/store/useColorStore";
 import { useSize } from "@/app/store/useSizeStore";
 import { useWishlist } from "@/app/store/useWishlist";
 import { AllProductsType } from "@/app/types";
+import { cn } from "@/lib/utils";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,12 +19,13 @@ export default function ProductCard({
 	colors,
 	sizes,
 }: AllProductsType) {
-	const { addToWishlist } = useWishlist();
+	const { addToWishlist, wishlist } = useWishlist();
 	const { colorIndex } = useColor();
 	const { sizeIndex } = useSize();
 	const selectedColor = colors?.[colorIndex as number].name;
 	const selectedSize = sizes?.[sizeIndex as number];
 	if (!selectedSize || !selectedColor || !price) return;
+	const isExist = wishlist.some((item) => item.id === id);
 	return (
 		<article className="relative">
 			<button
@@ -36,9 +38,13 @@ export default function ProductCard({
 						size: selectedSize,
 						price: price,
 						quantity: 1,
+						gender,
 					})
 				}
-				className="absolute right-3 top-3 md:right-6 md:top-6 size-8 flex items-center justify-center bg-white rounded-full"
+				className={cn(
+					"absolute right-3 top-3 md:right-6 md:top-6 size-8 flex items-center justify-center bg-white rounded-full",
+					isExist && "text-red-500"
+				)}
 			>
 				<Heart className="size-4" />
 			</button>

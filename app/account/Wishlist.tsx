@@ -20,7 +20,7 @@ export default function Wishlist() {
 			<main className="grid place-items-center py-[104px]">
 				<div className="flex flex-col items-center">
 					<EmptyWishlist />
-					<h1 className="text-[34px] font-semibold mt-6">Your wishlist is empty.</h1>
+					<h1 className="text-[34px] font-semibold mt-6 text-center">Your wishlist is empty.</h1>
 					<p className="text-muted-foreground mt-2 mb-6 text-[20px] w-full max-w-[550px] text-center">
 						You don’t have any products in the wishlist yet. You will find a lot of interesting
 						products on our Shop page.
@@ -74,8 +74,14 @@ export default function Wishlist() {
 					}
 					return (
 						<Fragment key={item.id}>
-							<div className="flex gap-4 items-center">
-								<button onClick={() => removeFromWishlist(item.id, item.color, item.size)}>
+							<Link href={`products/${item.gender}/${item.id}`} className="flex gap-4 items-center">
+								<button
+									onClick={(e) => {
+										e.preventDefault();
+										e.stopPropagation();
+										removeFromWishlist(item.id);
+									}}
+								>
 									<X />{" "}
 								</button>
 								<div className="flex gap-9 items-center w-full">
@@ -98,15 +104,23 @@ export default function Wishlist() {
 												<span className="font-bold">Quantity:</span> <span>{item.quantity}</span>
 											</div>
 										</div>
-										<div className="flex items-center gap-4">
+										<div className="flex items-center gap-4" onClick={(e) => e.stopPropagation()}>
 											<span className="text-muted-foreground font-bold">${item.price}</span>
-											<Button disabled={isExist} onClick={handleAddToCart} className="text-[18px]">
+											<Button
+												disabled={isExist}
+												onClick={(e) => {
+													e.preventDefault();
+													e.stopPropagation();
+													handleAddToCart();
+												}}
+												className="text-[18px]"
+											>
 												{cartButtonLabel}
 											</Button>
 										</div>
 									</div>
 								</div>
-							</div>
+							</Link>
 							<span className="w-full h-[2px] my-8 block bg-muted" />
 						</Fragment>
 					);

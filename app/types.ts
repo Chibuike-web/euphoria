@@ -71,4 +71,5 @@ export type CartItemType = {
 	price: number;
 	quantity: number;
 	shipping?: "FREE" | number;
+	gender?: string;
 };
