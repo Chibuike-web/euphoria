@@ -74,7 +74,7 @@ export default function Signup() {
 		if (storedUserInfo) {
 			router.push("/");
 		}
-	}, []);
+	});
 
 	return (
 		<main className="flex w-full justify-center items-center gap-6">

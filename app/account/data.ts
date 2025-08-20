@@ -1,4 +1,4 @@
-import { ChevronRight, Heart, LogOut, LucideIcon, ShoppingBag, UserRound } from "lucide-react";
+import { Heart, LogOut, LucideIcon, ShoppingBag, UserRound } from "lucide-react";
 
 import { v4 as uuidv4 } from "uuid";
 

@@ -31,7 +31,7 @@ type BigSavingZoneProps = AllProductsType & {
 	index: number;
 };
 
-function BigSavingZoneCard({ name, desc, image, promo, custom, index }: BigSavingZoneProps) {
+function BigSavingZoneCard({ name, desc, images, promo, custom, index }: BigSavingZoneProps) {
 	const articleStyles = [
 		" px-8 text-white",
 		"items-end  px-8 text-white",
@@ -40,7 +40,7 @@ function BigSavingZoneCard({ name, desc, image, promo, custom, index }: BigSavin
 		"items-end px-8 md:px-16 text-black",
 	];
 
-	let styles = articleStyles[index];
+	const styles = articleStyles[index];
 
 	return (
 		<article
@@ -49,7 +49,7 @@ function BigSavingZoneCard({ name, desc, image, promo, custom, index }: BigSavin
 				styles
 			)}
 			style={{
-				backgroundImage: `url(${typeof image === "string" ? image : image.src})`,
+				backgroundImage: `url(${typeof images[0] === "string" ? images[0] : images[0].src})`,
 			}}
 		>
 			<div className="flex flex-col w-[164px]">

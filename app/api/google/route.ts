@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export function GET(req: NextRequest) {
+export function GET() {
 	const redirectUrl = process.env.REDIRECT_URL;
 	const clientId = process.env.GOOGLE_CLIENT_ID;
 	const scope = "openid profile email";

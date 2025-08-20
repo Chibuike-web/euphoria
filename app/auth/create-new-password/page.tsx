@@ -33,7 +33,7 @@ export default function CreateNewPassword() {
 		formState: { errors },
 	} = useForm<NewPasswordFormData>({ resolver: zodResolver(newPasswordSchema) });
 
-	const onSubmit = (data: NewPasswordFormData) => {};
+	const onSubmit = () => {};
 	return (
 		<main className="flex w-full justify-center items-center gap-6">
 			<section className="w-full max-w-[1240px]">

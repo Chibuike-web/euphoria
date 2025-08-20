@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import { AllProductsType } from "@/app/types";
 
 export const useProductsByGender = (gender: string) =>
 	useQuery({

@@ -114,7 +114,10 @@ const DesktopCartItemDisplay = (item: CartItemType) => {
 	return (
 		<div className="flex items-center py-5 ">
 			<div className="w-[600px] flex gap-3">
-				<div className="rounded-[12px] overflow-hidden h-[120px] w-[105px]">
+				<Link
+					href={`/products/${item.gender!}/${item.id}`}
+					className="rounded-[12px] overflow-hidden h-[120px] w-[105px]"
+				>
 					<Image
 						src={item.image}
 						alt={item.name}
@@ -122,7 +125,7 @@ const DesktopCartItemDisplay = (item: CartItemType) => {
 						height={120}
 						className="w-full h-full object-cover"
 					/>{" "}
-				</div>
+				</Link>
 				<div className="flex flex-col">
 					<p className="font-bold text-[18px]">{item.name}</p>
 					<span className="text-muted-foreground font-medium text-[14px]">
@@ -158,8 +161,4 @@ const DesktopCartItemDisplay = (item: CartItemType) => {
 			</div>
 		</div>
 	);
-};
-
-const MobileCartItemDisplay = () => {
-	return <div></div>;
 };

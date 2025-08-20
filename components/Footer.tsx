@@ -87,7 +87,7 @@ type Footertype = {
 	heading: string;
 	subheading: SubHeading[];
 };
-const footerItems = [
+const footerItems: Footertype[] = [
 	{
 		id: uuidv4(),
 		heading: "Need Help",

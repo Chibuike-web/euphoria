@@ -15,8 +15,8 @@ export type PromoCardType = {
 export type AllProductsType = {
 	id: string;
 	name: string;
-	image: StaticImageData | string;
-	gender?: "men" | "women" | "unisex";
+	images: (StaticImageData | string)[];
+	gender: "men" | "women" | "unisex";
 	price?: number;
 	promo?: string;
 	desc?: string;
@@ -71,5 +71,5 @@ export type CartItemType = {
 	price: number;
 	quantity: number;
 	shipping?: "FREE" | number;
-	gender?: string;
+	gender: string;
 };

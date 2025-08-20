@@ -23,7 +23,7 @@ export default async function NewArrivalSection() {
 						.map((i) => (
 							<article key={i.id} className="w-full min-w-[220px] snap-center">
 								<Image
-									src={i.image}
+									src={i.images[0]}
 									alt={i.name}
 									className="rounded-[24px] w-full"
 									width={262}

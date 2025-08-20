@@ -48,13 +48,14 @@ export default function ProductDetail() {
 		if (isExist) return;
 		updateCartItems({
 			id: product.id,
-			image: product.image,
+			image: product.images[0],
 			name: product.name,
 			color: selectedColor,
 			size: selectedSize,
 			price: product.price,
 			quantity: 1,
 			shipping: "FREE",
+			gender,
 		});
 		setStatus("added");
 
@@ -152,17 +153,37 @@ export default function ProductDetail() {
 }
 
 function DesktopCarousel({ product }: { product: AllProductsType }) {
+	const [imageIndex, setImageIndex] = useState(0);
 	return (
-		<div className="flex items-center gap-6 w-full max-w-[630px]">
-			<div className="w-[80px] bg-red-500 h-[80px]"></div>
+		<div className="flex flex-col-reverse lg:flex-row gap-6 w-full lg:max-w-[630px] ">
+			<div className="w-full lg:max-w-[185px] flex flex-row lg:flex-col gap-4 overflow-auto lg:h-[612px]">
+				{product.images.map((image, index) => (
+					<button
+						key={index}
+						onClick={() => setImageIndex(index)}
+						className={cn(
+							"w-full lg:min-h-[150px] flex items-center justify-center bg-[#F5F5F5]",
+							imageIndex !== index && "opacity-25"
+						)}
+					>
+						<Image
+							src={image}
+							alt={product.name}
+							width={80}
+							height={80}
+							className="w-full h-full object-cover"
+						/>
+					</button>
+				))}
+			</div>
 
-			<div className="w-full max-w-[520px] h-[785px] overflow-hidden">
+			<div className="w-full lg:max-w-[520px] overflow-hidden">
 				<Image
-					src={product.image}
+					src={product.images[imageIndex]}
 					alt={product.name}
 					width={282}
 					height={370}
-					className="w-full h-full object-cover"
+					className="w-full h-full object-cover object-top"
 				/>
 			</div>
 		</div>

@@ -29,7 +29,7 @@ export default async function CategoriesForWomenSection() {
 	);
 }
 
-function HomeProductCard({ name, image, category }: AllProductsType) {
+function HomeProductCard({ name, images, category }: AllProductsType) {
 	let title = "";
 
 	for (const c of categories) {
@@ -40,7 +40,13 @@ function HomeProductCard({ name, image, category }: AllProductsType) {
 	}
 	return (
 		<article>
-			<Image src={image} alt={name} className="w-full rounded-[16px]" width={270} height={393} />
+			<Image
+				src={images[0]}
+				alt={name}
+				className="w-full rounded-[16px]"
+				width={270}
+				height={393}
+			/>
 			<div className="flex items-center justify-between w-full">
 				<div className="flex flex-col gap-1 mt-2">
 					<h4 className="font-bold text-[20px]">{title}</h4>

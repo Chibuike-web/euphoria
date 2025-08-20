@@ -12,7 +12,7 @@ import Link from "next/link";
 export default function ProductCard({
 	id,
 	name,
-	image,
+	images,
 	brand,
 	price,
 	gender,
@@ -32,7 +32,7 @@ export default function ProductCard({
 				onClick={() =>
 					addToWishlist({
 						id: id,
-						image: image,
+						image: images[0],
 						name: name,
 						color: selectedColor,
 						size: selectedSize,
@@ -51,7 +51,7 @@ export default function ProductCard({
 			<Link href={`/products/${gender}/${id}`}>
 				<figure className="w-full xl:h-[370px] overflow-hidden rounded-[12px]">
 					<Image
-						src={image}
+						src={images[0]}
 						alt={name}
 						className="w-full rounded-[16px] object-cover"
 						width={270}

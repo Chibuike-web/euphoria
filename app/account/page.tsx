@@ -93,7 +93,7 @@ export default function Account() {
 				<div className="w-full">{mainContent}</div>
 			</section>
 
-			{sidebar && <SideBar tab={tab} user={user} setSidebar={setSideBar} />}
+			{sidebar && user && <SideBar tab={tab} user={user} setSidebar={setSideBar} />}
 		</main>
 	);
 }

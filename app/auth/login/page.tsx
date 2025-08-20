@@ -53,6 +53,7 @@ export default function Login() {
 			const data = await res.json();
 			router.push("/");
 			sessionStorage.setItem("userInfo", JSON.stringify(data.user));
+			reset();
 		} catch (err) {
 			console.error(err);
 		}

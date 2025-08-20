@@ -1,4 +1,4 @@
-import type { AllProductsType, Feedback, PromoCardType } from "./types";
+import type { Feedback, PromoCardType } from "./types";
 import promoOne from "@/app/assets/home/promo/promo-one.jpg";
 import promoSecond from "@/app/assets/home/promo/promo-two.jpg";
 import nike from "@/app/assets/home/brand-logos/nike.png";
@@ -18,8 +18,6 @@ export function getStars(rating: number) {
 
 	return { full, half, empty };
 }
-
-const id = uuidv4();
 
 export const promoCardItems: PromoCardType[] = [
 	{
