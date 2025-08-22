@@ -1,8 +1,8 @@
-import { allProducts } from "../../products";
 import { NextRequest, NextResponse } from "next/server";
+import { allProducts } from "../../products";
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
-	const { id } = await params;
+export async function GET(req: NextRequest, context: { params: Promise<{ id: string }> }) {
+	const { id } = await context.params;
 	const product = allProducts.find((p) => p.id === id);
 
 	if (!product) {

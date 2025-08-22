@@ -1,13 +1,10 @@
 import { ArrowDown } from "lucide-react";
 import type { AllProductsType } from "@/app/types";
 import { cn } from "@/lib/utils";
+import { allProducts } from "@/app/api/products/products";
 
 export default async function BigSavingZoneSection() {
-	const res = await fetch("http://localhost:3000/api/products", {
-		cache: "no-store",
-	});
-	const json = await res.json();
-	const allProducts: AllProductsType[] = json.data;
+	const allProductsList = allProducts;
 
 	return (
 		<section className="flex flex-col gap-6 w-full max-w-[1240px] mx-auto mt-[130px] px-6 xl:px-0">
@@ -17,7 +14,7 @@ export default async function BigSavingZoneSection() {
 			</h3>
 
 			<div className="flex flex-wrap gap-6">
-				{allProducts
+				{allProductsList
 					.filter((item) => item.tags?.[0].section === "BigSavingZone")
 					.map((i, index) => (
 						<BigSavingZoneCard key={i.id} {...i} index={index} />

@@ -85,7 +85,7 @@ export const useUser = () => {
 				const parsed = JSON.parse(storedUserInfo);
 				setUser(parsed);
 			} catch (e) {
-				console.error("Invalid user data in sessionStorage");
+				console.error("Invalid user data in sessionStorage", e);
 			}
 		}
 	}, []);

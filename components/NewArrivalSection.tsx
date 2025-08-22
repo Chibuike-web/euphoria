@@ -1,14 +1,9 @@
 import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import type { AllProductsType } from "@/app/types";
+import { allProducts } from "@/app/api/products/products";
 
 export default async function NewArrivalSection() {
-	const res = await fetch("http://localhost:3000/api/products", {
-		cache: "no-store",
-	});
-	const json = await res.json();
-	const allProducts: AllProductsType[] = json.data;
-
+	const allProductsList = allProducts;
 	return (
 		<section className="flex flex-col gap-6 w-full max-w-[1240px] mx-auto mt-[130px] px-6 xl:px-0">
 			<h3 className="flex items-center gap-[20px]">
@@ -18,7 +13,7 @@ export default async function NewArrivalSection() {
 			<div className="w-full relative">
 				<ArrowLeft className="flex-shrink-0 absolute left-0 top-[120px]" />
 				<div className="flex w-full gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth px-8">
-					{allProducts
+					{allProductsList
 						.filter((item) => item.tags?.[0].section === "NewArrival")
 						.map((i) => (
 							<article key={i.id} className="w-full min-w-[220px] snap-center">

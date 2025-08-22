@@ -23,7 +23,7 @@ export default function ResetPassword() {
 					<aside className="w-full xl:min-w-[567px] px-6 xl:px-0 lg:mt-16">
 						<h1 className="font-bold text-[24px] md:text-[40px]">Reset Your Password</h1>
 						<p className="font-medium mb-12">
-							Enter your email and we'll send you a link to reset your password.
+							Enter your email and we`'`ll send you a link to reset your password.
 						</p>
 
 						<form action="" className="flex flex-col gap-8">

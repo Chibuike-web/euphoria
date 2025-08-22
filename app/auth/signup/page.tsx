@@ -14,8 +14,8 @@ import { useForm } from "react-hook-form";
 import type { FormData } from "@/lib/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { emailSignupSchema } from "@/lib/authSchema";
-import { useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Signup() {
 	const { showPassword, handleShowPassword } = usePassword();

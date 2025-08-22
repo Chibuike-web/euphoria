@@ -50,6 +50,7 @@ export default function Wishlist() {
 							price: item.price,
 							quantity: 1,
 							shipping: "FREE",
+							gender: item.gender,
 						});
 						setStatus("added");
 
