@@ -52,6 +52,7 @@ export default function Signup() {
 				} else if (res.status === 409) {
 					setSignupError(errorData.error);
 					router.push("/auth/login");
+					throw new Error(errorData.error);
 				}
 				return;
 			}

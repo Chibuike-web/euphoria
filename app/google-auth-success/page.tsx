@@ -14,7 +14,7 @@ export default function GoogleAuthSuccess() {
 				sessionStorage.setItem("user", JSON.stringify(user));
 			} catch (e) {
 				console.error("Failed to parse user from URL:", e);
-				localStorage.clear();
+				sessionStorage.clear();
 			}
 		}
 

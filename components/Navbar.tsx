@@ -4,13 +4,14 @@ import { Heart, Menu, Search, ShoppingCart, UserRound, X } from "lucide-react";
 import logo from "@/app/assets/Logo.svg";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useMediaQuery, useMobileNav, useUser } from "@/lib/Hooks";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 export default function Navbar() {
 	const pathname = usePathname();
+	const searchParams = useSearchParams();
 	const { isOpen, handleClick } = useMobileNav();
 	const isDesktop = useMediaQuery("(min-width: 1024px)");
 	const user = useUser();
@@ -20,7 +21,12 @@ export default function Navbar() {
 	}, [isOpen, isDesktop]);
 
 	const accountLink = user ? "/account?tab=my-orders" : "/auth/signup";
-	const isAccount = pathname === "/account";
+	const wishlist = user ? "/account?tab=wishlist" : "/auth/signup";
+	const tab = searchParams.get("tab");
+	const tabs = ["my-orders", "my-info", "my-cancellations", "sign-out"];
+	const isAccount = pathname === "/account" && tabs.includes(tab || "");
+	const isWishlist = pathname === "/account" && tab === "wishlist";
+
 	const isCart = pathname === "/cart";
 
 	return (
@@ -49,7 +55,13 @@ export default function Navbar() {
 					</label>
 				</div>
 				<div className="hidden lg:flex items-center gap-x-[12px] text-muted-foreground">
-					<Link href="/account?tab=wishlist" className="p-[12px] rounded-[8px] bg-accent">
+					<Link
+						href={wishlist}
+						className={cn(
+							"p-[12px] rounded-[8px] bg-accent",
+							isWishlist ? "bg-primary text-white" : "bg-accent"
+						)}
+					>
 						<Heart className="size-[20px]" />
 					</Link>
 					<Link
@@ -79,6 +91,7 @@ export default function Navbar() {
 					handleClick={handleClick}
 					pathname={pathname}
 					isCart={isCart}
+					isWishlist={isWishlist}
 					isAccount={isAccount}
 					accountLink={accountLink}
 				/>
@@ -137,19 +150,24 @@ function MobileNav({
 	pathname,
 	isCart,
 	isAccount,
+	isWishlist,
 	accountLink,
 }: {
 	handleClick: () => void;
 	pathname: string;
 	isCart: boolean;
+	isWishlist: boolean;
 	isAccount: boolean;
 	accountLink: string;
 }) {
+	useEffect(() => {
+		handleClick();
+	}, [pathname]);
 	return (
-		<div className="bg-white fixed top-[68.5px] z-[100] w-full px-6 py-10 h-[calc(100vh-68.5px)] ">
-			<div className="flex flex-col h-full justify-between gap-y-20 overflow-auto">
-				<div className="flex flex-col gap-12">
-					<label className="bg-gray-100 px-2 h-10 rounded-[8px] flex items-center gap-3">
+		<div className="bg-white fixed top-[68.5px] bottom-0 left-0 right-0 z-[100] px-6 py-10">
+			<div className="flex flex-col h-full justify-between gap-y-20 overflow-auto w-full">
+				<div className="flex flex-col gap-12 w-full">
+					<label className="bg-gray-100 px-2 h-10 rounded-[8px] flex items-center gap-3 w-full">
 						<Search className="size-5 text-muted-foreground" />
 						<input
 							type="search"
@@ -165,11 +183,7 @@ function MobileNav({
 							const isActive = href === "/" ? pathname === "/" : pathname.startsWith(href);
 							return (
 								<li key={item.id}>
-									<Link
-										href={href}
-										className={cn(isActive && "text-foreground font-semibold")}
-										onClick={handleClick}
-									>
+									<Link href={href} className={cn(isActive && "text-foreground font-semibold")}>
 										{item.text}
 									</Link>
 								</li>
@@ -182,7 +196,10 @@ function MobileNav({
 				<div className="flex flex-col gap-y-[12px] text-muted-foreground">
 					<Link
 						href="/account?tab=wishlist"
-						className="px-[24px] py-[20px] rounded-[16px] bg-accent flex gap-4 items-center text-[32px]"
+						className={cn(
+							"px-[24px] py-[20px] rounded-[16px] flex gap-4 items-center text-[32px]",
+							isWishlist ? "bg-primary text-white" : "bg-accent"
+						)}
 						onClick={handleClick}
 					>
 						<span>
@@ -196,7 +213,6 @@ function MobileNav({
 							"px-[24px] py-[20px] rounded-[16px] flex gap-4 items-center text-[32px]",
 							isAccount ? "bg-primary text-white" : "bg-accent"
 						)}
-						onClick={handleClick}
 					>
 						<span>
 							<UserRound className="size-[32px]" />
@@ -206,7 +222,6 @@ function MobileNav({
 
 					<Link
 						href="/cart"
-						onClick={handleClick}
 						className={cn(
 							"px-[24px] py-[20px] rounded-[16px] bg-accent flex gap-4 items-center text-[32px]",
 							isCart ? "bg-primary text-white" : "bg-accent"

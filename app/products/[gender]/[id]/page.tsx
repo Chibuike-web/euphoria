@@ -129,7 +129,7 @@ export default function ProductDetail() {
 					</div>
 					<div className="flex items-center gap-4 mt-10 font-semibold">
 						<Button
-							className="has-[>svg]:px-10 disabled:opacity-50"
+							className="has-[>svg]:px-6 disabled:opacity-50"
 							size="md"
 							disabled={isExist}
 							onClick={handleAddToCart}
