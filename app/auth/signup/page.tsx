@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 
 export default function Signup() {
 	const { showPassword, handleShowPassword } = usePassword();
+	const [loading, setLoading] = useState(true);
 	const [signupError, setSignupError] = useState("");
 	const {
 		register,
@@ -44,20 +45,17 @@ export default function Signup() {
 				body: JSON.stringify(data),
 			});
 
+			const resData = await res.json();
 			if (!res.ok) {
-				const errorData = await res.json();
 				if (res.status === 400) {
-					setSignupError(errorData.error);
-					throw new Error(errorData.error);
+					setSignupError(resData.error);
 				} else if (res.status === 409) {
-					setSignupError(errorData.error);
-					router.push("/auth/login");
-					throw new Error(errorData.error);
+					setSignupError(resData.error);
+					router.replace("/auth/login");
 				}
-				return;
+				throw new Error(resData.error);
 			}
 
-			const resData = await res.json();
 			console.log(resData.message);
 			router.push("/auth/login");
 			reset();
@@ -73,10 +71,13 @@ export default function Signup() {
 	useLayoutEffect(() => {
 		const storedUserInfo = sessionStorage.getItem("userInfo");
 		if (storedUserInfo) {
-			router.push("/");
+			router.replace("/");
+		} else {
+			setLoading(false);
 		}
-	});
+	}, [router]);
 
+	if (loading) return null;
 	return (
 		<main className="flex w-full justify-center items-center gap-6">
 			<section className="w-full max-w-[1240px]">

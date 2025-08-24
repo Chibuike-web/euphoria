@@ -37,23 +37,19 @@ export default function Login() {
 				body: JSON.stringify({ email, password }),
 			});
 
+			const data = await res.json();
 			if (!res.ok) {
-				const errorData = await res.json();
-
 				if (res.status === 404) {
-					setLoginError(errorData.error);
-					return;
+					setLoginError(data.error);
 				}
 				if (res.status === 401) {
-					setError("password", { message: errorData.error });
-					return;
+					setError("password", { message: data.error });
 				}
+				throw new Error(data.error || "Login failed");
 			}
-
-			const data = await res.json();
-			router.push("/");
 			sessionStorage.setItem("userInfo", JSON.stringify(data.user));
 			reset();
+			router.push("/");
 		} catch (err) {
 			console.error(err);
 		}

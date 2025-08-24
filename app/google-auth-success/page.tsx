@@ -10,15 +10,15 @@ export default function GoogleAuthSuccess() {
 		const userParam = params.get("user");
 		if (userParam) {
 			try {
-				const user = JSON.parse(decodeURIComponent(userParam));
-				sessionStorage.setItem("user", JSON.stringify(user));
+				const user = JSON.parse(userParam);
+				sessionStorage.setItem("userInfo", JSON.stringify(user));
 			} catch (e) {
 				console.error("Failed to parse user from URL:", e);
 				sessionStorage.clear();
 			}
 		}
 
-		const storedUser = sessionStorage.getItem("user");
+		const storedUser = sessionStorage.getItem("userInfo");
 		if (!storedUser) {
 			router.push("/auth/signup");
 			return;

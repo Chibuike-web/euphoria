@@ -30,9 +30,11 @@ export async function GET(req: NextRequest) {
 		terms: true,
 		provider: "google" as const,
 	};
-
-	users.push(newUser);
+	const exists = users.find((u) => u.email === newUser.email);
+	if (!exists) {
+		users.push(newUser);
+	}
 	const encodedUser = encodeURIComponent(JSON.stringify(newUser));
 
-	return NextResponse.redirect(`http://localhost:5173/oauth-success?user=${encodedUser}`);
+	return NextResponse.redirect(`http://localhost:3000/google-auth-success?user=${encodedUser}`);
 }

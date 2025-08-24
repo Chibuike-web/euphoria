@@ -3,6 +3,9 @@ import { Suspense } from "react";
 import ProductList from "@/components/ProductList";
 import { SideBar, ClothingForWomenOnline, BuyWomensClothing } from "./SidebarAndInfo";
 
+export async function generateStaticParams() {
+	return [{ gender: "men" }, { gender: "women" }];
+}
 export default async function Page({ params }: { params: { gender: string } }) {
 	const { gender } = await params;
 
