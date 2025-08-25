@@ -22,14 +22,13 @@ export function useMobileNav() {
 	};
 
 	useEffect(() => {
+		const root = document.documentElement;
 		if (isOpen) {
-			document.body.style.overflow = "hidden";
+			root.classList.add("no-scroll");
 		} else {
-			document.body.style.overflow = "";
+			root.classList.remove("no-scroll");
 		}
-		return () => {
-			document.body.style.overflow = "";
-		};
+		return () => root.classList.remove("no-scroll");
 	}, [isOpen]);
 
 	return {

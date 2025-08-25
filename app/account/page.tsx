@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import AccountPageContent from "./AccountPageConten";
+import AccountPageContent from "./AccountPageContent";
 
 export default function Account() {
 	return (

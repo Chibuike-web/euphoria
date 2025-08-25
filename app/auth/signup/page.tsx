@@ -181,11 +181,11 @@ export default function Signup() {
 
 							<Button
 								size="lg"
-								className="w-full mt-12 mb-[10px] disabled:opacity-50"
+								className="w-full mt-12 mb-[10px] disabled:opacity-50 "
 								disabled={isSubmitting}
 							>
 								{isSubmitting ? (
-									<span className="flex gap-2 items-center justify-center">
+									<span className="">
 										<div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
 										Signing up...
 									</span>

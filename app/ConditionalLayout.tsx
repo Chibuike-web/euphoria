@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import AuthNavbar from "@/app/auth/AuthNavbar";
 import Footer from "@/components/Footer";
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 
 export default function ConditionalLayout({ children }: { children: ReactNode }) {
 	const pathname = usePathname();
@@ -32,7 +32,13 @@ export default function ConditionalLayout({ children }: { children: ReactNode })
 
 	return (
 		<>
-			{useAuthNavbar ? <AuthNavbar /> : <Navbar />}
+			{useAuthNavbar ? (
+				<AuthNavbar />
+			) : (
+				<Suspense fallback={null}>
+					<Navbar />
+				</Suspense>
+			)}
 			{children}
 			{shouldShowFooter && <Footer />}
 		</>

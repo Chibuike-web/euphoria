@@ -133,3 +133,8 @@ body {
 		@apply shadow-[0_1px_0_var(--muted)];
 	}
 }
+
+.no-scroll {
+	overflow: hidden !important;
+	height: 100% !important;
+}

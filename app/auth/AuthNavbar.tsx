@@ -18,7 +18,7 @@ import Link from "next/link";
 export default function Navbar() {
 	const { isOpen, handleClick } = useMobileNav();
 	return (
-		<header className="py-3 md:py-8">
+		<header className="py-3 md:py-8 bg-white top-0 sticky">
 			<nav className="w-full max-w-[1240px] mx-auto flex items-center justify-between px-6 xl:px-0">
 				<div className="flex items-center gap-10">
 					<Link href="/">
