@@ -2,7 +2,7 @@
 
 import { v4 as uuidv4 } from "uuid";
 import { useUserValue } from "../store/useUserValue";
-import { useCallback, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -27,6 +27,49 @@ type Address = {
 	isDefaultShipping: boolean;
 };
 
+const defaultAddresses: Address[] = [
+	{
+		id: uuidv4(),
+		firstName: "Chibuke",
+		lastName: "Maduabuchi",
+		phoneNumber: "8980252445",
+		address: "1/4 Pragatinagar Flats, opp. Jain Derasar, near Jain Derasar, Vijaynagar road",
+		type: "home",
+		isDefaultBilling: true,
+		isDefaultShipping: false,
+	},
+	{
+		id: uuidv4(),
+		firstName: "Chibuke",
+		lastName: "Maduabuchi",
+		phoneNumber: "8980252445",
+		address: "1/4 Pragatinagar Flats, opp. Jain Derasar, near Jain Derasar, Vijaynagar road",
+		type: "home",
+		isDefaultBilling: false,
+		isDefaultShipping: true,
+	},
+	{
+		id: uuidv4(),
+		firstName: "Chibuke",
+		lastName: "Maduabuchi",
+		phoneNumber: "8980252445",
+		address: "1/4 Pragatinagar Flats, opp. Jain Derasar, near Jain Derasar, Vijaynagar road",
+		type: "office",
+		isDefaultBilling: false,
+		isDefaultShipping: false,
+	},
+	{
+		id: uuidv4(),
+		firstName: "Chibuke",
+		lastName: "Maduabuchi",
+		phoneNumber: "8980252445",
+		address: "1/4 Pragatinagar Flats, opp. Jain Derasar, near Jain Derasar, Vijaynagar road",
+		type: "home2",
+		isDefaultBilling: false,
+		isDefaultShipping: false,
+	},
+];
+
 export default function MyInfo() {
 	const [addressList, setAddressList] = useState(defaultAddresses);
 	const [isAddingAddress, setIsAddingAddress] = useState(false);
@@ -39,7 +82,7 @@ export default function MyInfo() {
 		<div>
 			<h1 className="text-[28px] font-semibold">My Info</h1>
 			{isAddingAddress ? (
-				<AddAddress setAddressList={setAddressList} />
+				<AddAddress setAddressList={setAddressList} setIsAddingAddress={setIsAddingAddress} />
 			) : (
 				<ContactDetails addressList={addressList} handleAddAddress={handleAddAddress} />
 			)}
@@ -47,14 +90,185 @@ export default function MyInfo() {
 	);
 }
 
-const AddAddress = ({ setAddressList }: { setAddressList: (address: Address[]) => void }) => {
+const AddAddress = ({
+	setIsAddingAddress,
+	setAddressList,
+}: {
+	setIsAddingAddress: (value: boolean) => void;
+	setAddressList: Dispatch<SetStateAction<Address[]>>;
+}) => {
 	const [checked, setChecked] = useState(false);
 	const [checkedId, setCheckedId] = useState("");
+	const [firstName, setFirstName] = useState("");
+	const [firstNameError, setFirstNameError] = useState("");
+	const [lastName, setLastName] = useState("");
+	const [lastNameError, setLastNameError] = useState("");
+	const [country, setCountry] = useState("");
+	const [countryError, setCountryError] = useState("");
+	const [companyName, setCompanyName] = useState("");
+	const [street, setStreet] = useState("");
+	const [streetError, setStreetError] = useState("");
+	const [apartment, setApartment] = useState("");
+	const [apartmentError, setApartmentError] = useState("");
+	const [city, setCity] = useState("");
+	const [cityError, setCityError] = useState("");
+	const [state, setState] = useState("");
+	const [stateError, setStateError] = useState("");
+	const [phone, setPhone] = useState("");
+	const [phoneError, setPhoneError] = useState("");
+	const [postalCode, setPostalCode] = useState("");
+	const [postalCodeError, setPostalCodeError] = useState("");
+	const [deliveryInstruction, setDeliveryInstruction] = useState("");
+	const [deliveryInstructionError, setDeliveryInstructionError] = useState("");
 
 	const handleCheck = (value: boolean, id: string) => {
 		setChecked(value);
 		setCheckedId(id);
 	};
+
+	const handleChange = (id: string, value: string) => {
+		switch (id) {
+			case "firstName":
+				setFirstName(value);
+				if (firstNameError && value.trim() !== "") setFirstNameError("");
+				break;
+			case "lastName":
+				setLastName(value);
+				if (lastNameError && value.trim() !== "") setLastNameError("");
+				break;
+			case "country":
+				setCountry(value);
+				if (countryError && value.trim() !== "") setCountryError("");
+				break;
+			case "companyName":
+				setCompanyName(value);
+				break;
+			case "street":
+				setStreet(value);
+				if (streetError && value.trim() !== "") setStreetError("");
+				break;
+			case "apartment":
+				setApartment(value);
+				if (apartmentError && value.trim() !== "") setApartmentError("");
+				break;
+			case "city":
+				setCity(value);
+				if (cityError && value.trim() !== "") setCityError("");
+				break;
+			case "state":
+				setState(value);
+				if (stateError && value.trim() !== "") setStateError("");
+				break;
+			case "phone":
+				setPhone(value);
+				if (phoneError && value.trim() !== "") setPhoneError("");
+				break;
+			case "postalCode":
+				setPostalCode(value);
+				if (postalCodeError && value.trim() !== "") setPostalCodeError("");
+				break;
+			case "deliveryInstruction":
+				setDeliveryInstruction(value);
+				if (deliveryInstruction && value.trim() !== "") setDeliveryInstructionError("");
+				break;
+			default:
+				console.log("Not available");
+		}
+	};
+
+	const handleSave = () => {
+		let hasError = false;
+
+		if (!firstName.trim()) {
+			setFirstNameError("First name is required");
+			hasError = true;
+		} else {
+			setFirstNameError("");
+		}
+
+		if (!lastName.trim()) {
+			setLastNameError("Last name is required");
+			hasError = true;
+		} else {
+			setLastNameError("");
+		}
+
+		if (!country.trim()) {
+			setCountryError("Country/Region is required");
+			hasError = true;
+		} else {
+			setCountryError("");
+		}
+
+		if (!street.trim()) {
+			setStreetError("Street address is required");
+			hasError = true;
+		} else {
+			setStreetError("");
+		}
+
+		if (!apartment.trim()) {
+			setApartmentError("Apartment/Suite is required");
+			hasError = true;
+		} else {
+			setApartmentError("");
+		}
+
+		if (!city.trim()) {
+			setCityError("City is required");
+			hasError = true;
+		} else {
+			setCityError("");
+		}
+
+		if (!state.trim()) {
+			setStateError("State is required");
+			hasError = true;
+		} else {
+			setStateError("");
+		}
+
+		if (!phone.trim()) {
+			setPhoneError("Phone is required");
+			hasError = true;
+		} else {
+			setPhoneError("");
+		}
+
+		if (!postalCode.trim()) {
+			setPostalCodeError("Postal Code is required");
+			hasError = true;
+		} else {
+			setPostalCodeError("");
+		}
+
+		if (!deliveryInstruction.trim()) {
+			setDeliveryInstructionError("Delivery instruction is required");
+			hasError = true;
+		} else {
+			setDeliveryInstructionError("");
+		}
+
+		if (hasError) {
+			console.log("error");
+			return;
+		}
+
+		const newAddress: Address = {
+			id: uuidv4(),
+			firstName,
+			lastName,
+			phoneNumber: phone,
+			address: `${street} ${apartment} ${city} ${state} ${country} ${postalCode}`,
+			type: "home",
+			isDefaultBilling: checked && checkedId === "defaultBillingAddress",
+			isDefaultShipping: checked && checkedId === "defaultShippingAddress",
+		};
+
+		setAddressList((prev) => [...prev, newAddress]);
+		setIsAddingAddress(false);
+	};
+
 	return (
 		<>
 			<p className="font-semibold text-[22px] my-5">Add Address</p>
@@ -69,7 +283,10 @@ const AddAddress = ({ setAddressList }: { setAddressList: (address: Address[]) =
 							id="firstName"
 							placeholder="First Name"
 							className="bg-accent border-transparent h-12 shadow-none"
+							value={firstName}
+							onChange={(e) => handleChange(e.target.id, e.target.value)}
 						/>
+						{firstNameError && <span className="text-sm text-red-500">{firstNameError}</span>}
 					</div>
 
 					<div className="flex flex-col gap-2">
@@ -80,7 +297,10 @@ const AddAddress = ({ setAddressList }: { setAddressList: (address: Address[]) =
 							id="lastName"
 							placeholder="Last Name"
 							className="bg-accent border-transparent h-12 shadow-none"
+							value={lastName}
+							onChange={(e) => handleChange(e.target.id, e.target.value)}
 						/>
+						{lastNameError && <span className="text-sm text-red-500">{lastNameError}</span>}
 					</div>
 
 					<div className="flex flex-col gap-2">
@@ -92,7 +312,10 @@ const AddAddress = ({ setAddressList }: { setAddressList: (address: Address[]) =
 							placeholder="Country / Region"
 							type="text"
 							className="bg-accent border-transparent h-12 shadow-none"
+							value={country}
+							onChange={(e) => handleChange(e.target.id, e.target.value)}
 						/>
+						{countryError && <span className="text-sm text-red-500">{countryError}</span>}
 					</div>
 					<div className="flex flex-col gap-2">
 						<Label htmlFor="companyName">Company Name</Label>
@@ -101,18 +324,23 @@ const AddAddress = ({ setAddressList }: { setAddressList: (address: Address[]) =
 							placeholder="Company (optional)"
 							type="text"
 							className="bg-accent border-transparent h-12 shadow-none"
+							value={companyName}
+							onChange={(e) => handleChange(e.target.id, e.target.value)}
 						/>
 					</div>
 					<div className="flex flex-col gap-2">
-						<Label htmlFor="streetAddress">
+						<Label htmlFor="street">
 							Street Address <span className="text-red-500">*</span>
 						</Label>
 						<Input
-							id="streetAddress"
+							id="street"
 							placeholder="House number and street name"
 							type="text"
 							className="bg-accent border-transparent h-12 shadow-none"
+							value={street}
+							onChange={(e) => handleChange(e.target.id, e.target.value)}
 						/>
+						{streetError && <span className="text-sm text-red-500">{streetError}</span>}
 					</div>
 					<div className="flex flex-col gap-2">
 						<Label htmlFor="apartment">
@@ -123,18 +351,24 @@ const AddAddress = ({ setAddressList }: { setAddressList: (address: Address[]) =
 							placeholder="Apartment suite, unit, etc (optional)"
 							type="text"
 							className="bg-accent border-transparent h-12 shadow-none"
+							value={apartment}
+							onChange={(e) => handleChange(e.target.id, e.target.value)}
 						/>
+						{apartmentError && <span className="text-sm text-red-500">{apartmentError}</span>}
 					</div>
 					<div className="flex flex-col gap-2">
-						<Label htmlFor="town">
+						<Label htmlFor="city">
 							City <span className="text-red-500">*</span>
 						</Label>
 						<Input
-							id="town"
+							id="city"
 							placeholder="Town / City"
 							type="text"
 							className="bg-accent border-transparent h-12 shadow-none"
+							value={city}
+							onChange={(e) => handleChange(e.target.id, e.target.value)}
 						/>
+						{cityError && <span className="text-sm text-red-500">{cityError}</span>}
 					</div>
 					<div className="flex flex-col gap-2">
 						<Label htmlFor="state">
@@ -145,7 +379,10 @@ const AddAddress = ({ setAddressList }: { setAddressList: (address: Address[]) =
 							placeholder="State"
 							type="text"
 							className="bg-accent border-transparent h-12 shadow-none"
+							value={state}
+							onChange={(e) => handleChange(e.target.id, e.target.value)}
 						/>
+						{stateError && <span className="text-sm text-red-500">{stateError}</span>}
 					</div>
 					<div className="flex flex-col gap-2">
 						<Label htmlFor="phone">
@@ -156,7 +393,10 @@ const AddAddress = ({ setAddressList }: { setAddressList: (address: Address[]) =
 							placeholder="Phone"
 							type="text"
 							className="bg-accent border-transparent h-12 shadow-none"
+							value={phone}
+							onChange={(e) => handleChange(e.target.id, e.target.value)}
 						/>
+						{phoneError && <span className="text-sm text-red-500">{phoneError}</span>}
 					</div>
 					<div className="flex flex-col gap-2">
 						<Label htmlFor="postalCode">
@@ -167,19 +407,27 @@ const AddAddress = ({ setAddressList }: { setAddressList: (address: Address[]) =
 							placeholder="Postal Code"
 							type="text"
 							className="bg-accent border-transparent h-12 shadow-none"
+							value={postalCode}
+							onChange={(e) => handleChange(e.target.id, e.target.value)}
 						/>
+						{postalCodeError && <span className="text-sm text-red-500">{postalCodeError}</span>}
 					</div>
 				</div>
 
 				<div className="flex flex-col gap-2 mt-6">
-					<Label htmlFor="instruction">
+					<Label htmlFor="deliveryInstruction">
 						Delivery Instruction <span className="text-red-500">*</span>
 					</Label>
 					<Textarea
-						id="instruction"
+						id="deliveryInstruction"
 						placeholder="Delivery Instruction"
 						className="bg-accent border-transparent h-12 shadow-none"
+						value={deliveryInstruction}
+						onChange={(e) => handleChange(e.target.id, e.target.value)}
 					/>
+					{deliveryInstructionError && (
+						<span className="text-sm text-red-500">{deliveryInstructionError}</span>
+					)}
 				</div>
 
 				<div className="flex flex-col gap-2 mt-4">
@@ -194,8 +442,13 @@ const AddAddress = ({ setAddressList }: { setAddressList: (address: Address[]) =
 				</div>
 
 				<div className="flex items-center gap-4 mt-12">
-					<Button className="px-8 py-[12px] font-semibold">Save</Button>
-					<Button className="px-8 py-[12px] text-accent-foreground/50 font-semibold bg-accent">
+					<Button className="px-8 py-[12px] font-semibold" onClick={handleSave}>
+						Save
+					</Button>
+					<Button
+						className="px-8 py-[12px] text-accent-foreground/50 font-semibold bg-accent hover:bg-accent"
+						onClick={() => setIsAddingAddress(false)}
+					>
 						Cancel
 					</Button>
 				</div>
@@ -362,46 +615,3 @@ const ContactDetails = ({
 		</>
 	);
 };
-
-const defaultAddresses: Address[] = [
-	{
-		id: uuidv4(),
-		firstName: "Chibuke",
-		lastName: "Maduabuchi",
-		phoneNumber: "8980252445",
-		address: "1/4 Pragatinagar Flats, opp. Jain Derasar, near Jain Derasar, Vijaynagar road",
-		type: "home",
-		isDefaultBilling: true,
-		isDefaultShipping: false,
-	},
-	{
-		id: uuidv4(),
-		firstName: "Chibuke",
-		lastName: "Maduabuchi",
-		phoneNumber: "8980252445",
-		address: "1/4 Pragatinagar Flats, opp. Jain Derasar, near Jain Derasar, Vijaynagar road",
-		type: "home",
-		isDefaultBilling: false,
-		isDefaultShipping: true,
-	},
-	{
-		id: uuidv4(),
-		firstName: "Chibuke",
-		lastName: "Maduabuchi",
-		phoneNumber: "8980252445",
-		address: "1/4 Pragatinagar Flats, opp. Jain Derasar, near Jain Derasar, Vijaynagar road",
-		type: "office",
-		isDefaultBilling: false,
-		isDefaultShipping: false,
-	},
-	{
-		id: uuidv4(),
-		firstName: "Chibuke",
-		lastName: "Maduabuchi",
-		phoneNumber: "8980252445",
-		address: "1/4 Pragatinagar Flats, opp. Jain Derasar, near Jain Derasar, Vijaynagar road",
-		type: "home2",
-		isDefaultBilling: false,
-		isDefaultShipping: false,
-	},
-];
