@@ -29,6 +29,7 @@ export const emailSignupSchema = baseSchema.extend({
 });
 
 export const googleSignupSchema = baseSchema.extend({
+	name: z.string(),
 	provider: z.literal("google"),
 });
 

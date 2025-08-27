@@ -88,6 +88,7 @@ export default function Navbar() {
 			</header>
 			{shouldShowMobileNav && (
 				<MobileNav
+					isOpen={isOpen}
 					handleClick={handleClick}
 					pathname={pathname}
 					isCart={isCart}
@@ -146,6 +147,7 @@ const navLinks: NavLinksType[] = [
 ];
 
 function MobileNav({
+	isOpen,
 	handleClick,
 	pathname,
 	isCart,
@@ -153,6 +155,7 @@ function MobileNav({
 	isWishlist,
 	accountLink,
 }: {
+	isOpen: boolean;
 	handleClick: () => void;
 	pathname: string;
 	isCart: boolean;
@@ -161,10 +164,12 @@ function MobileNav({
 	accountLink: string;
 }) {
 	useEffect(() => {
-		handleClick();
+		if (isOpen) {
+			handleClick();
+		}
 	}, [pathname]);
 	return (
-		<div className="bg-white fixed top-[68.5px] bottom-0 left-0 right-0 z-[100] px-6 py-10">
+		<div className="bg-white fixed top-[68.5px] md:top-[100px] bottom-0 left-0 right-0 z-[100] px-6 py-10">
 			<div className="flex flex-col h-full justify-between gap-y-20 overflow-auto w-full">
 				<div className="flex flex-col gap-12 w-full">
 					<label className="bg-gray-100 px-2 h-10 rounded-[8px] flex items-center gap-3 w-full">

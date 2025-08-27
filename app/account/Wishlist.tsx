@@ -75,27 +75,30 @@ export default function Wishlist() {
 					}
 					return (
 						<Fragment key={item.id}>
-							<Link href={`products/${item.gender}/${item.id}`} className="flex gap-4 items-center">
+							<Link
+								href={`products/${item.gender}/${item.id}`}
+								className="flex gap-4 items-center relative"
+							>
 								<button
 									onClick={(e) => {
 										e.preventDefault();
 										e.stopPropagation();
 										removeFromWishlist(item.id);
 									}}
+									className="absolute bg-white size-6 flex items-center justify-center rounded-full top-2 left-2 md:static"
 								>
-									<X />{" "}
+									<X className="size-4 md:size-6" />
 								</button>
-								<div className="flex gap-9 items-center w-full">
+								<div className="flex gap-4 md:gap-9 items-start md:items-center h-[220px] md:h-auto w-full">
 									<Image
 										src={item.image}
 										alt={item.name}
 										width={110}
 										height={110}
-										className="w-[110px] h-[110px] object-cover rounded-[8px]"
+										className="w-full h-full md:w-[110px] md:h-[110px] object-cover rounded-[8px]"
 									/>
-									<div className="flex text-[22px] justify-between items-center w-full">
+									<div className="flex flex-col item-start text-[20px] md:flex-row h-full md:h-auto md:justify-between md:items-center w-full">
 										<div className="flex flex-col gap-2">
-											{" "}
 											<span className="font-bold">{item.name}</span>
 											<div>
 												<span className="font-bold">Color:</span>
@@ -105,7 +108,10 @@ export default function Wishlist() {
 												<span className="font-bold">Quantity:</span> <span>{item.quantity}</span>
 											</div>
 										</div>
-										<div className="flex items-center gap-4" onClick={(e) => e.stopPropagation()}>
+										<div
+											className="flex flex-col items-start md:flex-row md:items-center gap-4 mt-auto md:mt-0"
+											onClick={(e) => e.stopPropagation()}
+										>
 											<span className="text-muted-foreground font-bold">${item.price}</span>
 											<Button
 												disabled={isExist}

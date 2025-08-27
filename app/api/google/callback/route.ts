@@ -26,6 +26,7 @@ export async function GET(req: NextRequest) {
 
 	const user = await userRes.json();
 	const newUser = {
+		name: user.name,
 		email: user.email,
 		terms: true,
 		provider: "google" as const,

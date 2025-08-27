@@ -18,6 +18,7 @@ export const SideBar = () => {
 			document.body.style.overflow = "";
 		};
 	}, [isShow]);
+
 	const handleClick = useCallback(() => {
 		setIsShow((prev) => !prev);
 	}, []);
