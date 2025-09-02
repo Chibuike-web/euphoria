@@ -15,7 +15,13 @@ export const usePassword = () => {
 	};
 };
 
-export function useMobileNav() {
+type UseMobileNavReturn = {
+	isOpen: boolean;
+	handleClick: () => void;
+	close: () => void;
+};
+
+export function useMobileNav(): UseMobileNavReturn {
 	const [isOpen, setIsOpen] = useState(false);
 
 	useEffect(() => {
@@ -33,9 +39,14 @@ export function useMobileNav() {
 		setIsOpen((prev) => !prev);
 	}, []);
 
+	const close = useCallback(() => {
+		setIsOpen(false);
+	}, []);
+
 	return {
 		isOpen,
 		handleClick,
+		close,
 	};
 }
 

@@ -43,12 +43,7 @@ export default function AccountPageContent() {
 	return (
 		<main>
 			<div className=" max-w-[1240px] mx-auto px-6 xl:px-0 my-8 flex items-center gap-2">
-				<button
-					className="lg:hidden"
-					onClick={() => {
-						setSideBar((prev) => !prev);
-					}}
-				>
+				<button className="lg:hidden" onClick={() => setSideBar(true)}>
 					<Menu />
 				</button>
 				<span className="text-muted-foreground">Home</span>

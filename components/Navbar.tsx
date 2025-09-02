@@ -12,9 +12,15 @@ import { useEffect, useMemo } from "react";
 export default function Navbar() {
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
-	const { isOpen, handleClick } = useMobileNav();
+	const { isOpen, handleClick, close } = useMobileNav();
 	const isDesktop = useMediaQuery("(min-width: 1024px)");
 	const user = useUser();
+
+	useEffect(() => {
+		if (isOpen) {
+			close();
+		}
+	}, [pathname]);
 
 	const shouldShowMobileNav = useMemo(() => {
 		return isOpen && !isDesktop;
@@ -163,11 +169,6 @@ function MobileNav({
 	isAccount: boolean;
 	accountLink: string;
 }) {
-	useEffect(() => {
-		if (isOpen) {
-			handleClick();
-		}
-	}, [pathname]);
 	return (
 		<div className="bg-white fixed top-[68.5px] md:top-[100px] bottom-0 left-0 right-0 z-[100] px-6 py-10">
 			<div className="flex flex-col h-full justify-between gap-y-20 overflow-auto w-full">
