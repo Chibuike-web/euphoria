@@ -2,10 +2,13 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import type { AllProductsType } from "@/app/types";
 import { categories } from "@/app/utils";
-import { allProducts } from "@/app/api/products/products";
 
 export default async function CategoriesForMenSection() {
-	const allProductsList = allProducts;
+	const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/products`, {
+		cache: "no-store",
+	});
+	const json = await res.json();
+	const allProductsList: AllProductsType[] = json.data;
 
 	return (
 		<section className="flex flex-col gap-6 w-full max-w-[1240px] mx-auto mt-[130px] px-6 xl:px-0">

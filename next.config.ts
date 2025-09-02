@@ -10,13 +10,6 @@ const nextConfig: NextConfig = {
 		"@hookform/resolvers",
 	],
 	reactStrictMode: true,
-
-	// eslint: {
-	// 	ignoreDuringBuilds: true,
-	// },
-	// typescript: {
-	// 	ignoreBuildErrors: true,
-	// },
 };
 
 export default nextConfig;
