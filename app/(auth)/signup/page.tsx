@@ -17,6 +17,8 @@ import { emailSignupSchema } from "@/lib/authSchema";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+
 export default function Signup() {
 	const { showPassword, handleShowPassword } = usePassword();
 	const [loading, setLoading] = useState(true);
@@ -65,7 +67,7 @@ export default function Signup() {
 	};
 
 	const handleGoogleAuth = () => {
-		window.location.href = "http://localhost:3000/api/google";
+		window.location.href = `${siteUrl}/api/google`;
 	};
 
 	useLayoutEffect(() => {
