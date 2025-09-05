@@ -12,8 +12,8 @@ export default function GoogleAuthSuccess() {
 			try {
 				const user = JSON.parse(userParam);
 				sessionStorage.setItem("userInfo", JSON.stringify(user));
-			} catch (e) {
-				console.error("Failed to parse user from URL:", e);
+			} catch (error) {
+				console.error("Failed to parse user from URL:", error);
 				sessionStorage.clear();
 			}
 		}

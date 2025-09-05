@@ -26,8 +26,8 @@ export default function Navbar() {
 		return isOpen && !isDesktop;
 	}, [isOpen, isDesktop]);
 
-	const accountLink = user ? "/account?tab=my-orders" : "/auth/signup";
-	const wishlist = user ? "/account?tab=wishlist" : "/auth/signup";
+	const accountLink = user ? "/account?tab=my-orders" : "/signup";
+	const wishlist = user ? "/account?tab=wishlist" : "/signup";
 	const tab = searchParams.get("tab");
 	const tabs = ["my-orders", "my-info", "my-cancellations", "sign-out"];
 	const isAccount = pathname === "/account" && tabs.includes(tab || "");

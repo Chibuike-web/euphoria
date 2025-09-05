@@ -3,7 +3,7 @@
 
 import { usePathname } from "next/navigation";
 import Navbar from "@/components/Navbar";
-import AuthNavbar from "@/app/auth/AuthNavbar";
+import AuthNavbar from "@/app/(auth)/AuthNavbar";
 import Footer from "@/components/Footer";
 import { ReactNode, Suspense } from "react";
 

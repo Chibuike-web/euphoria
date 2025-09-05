@@ -36,6 +36,6 @@ export async function GET(req: NextRequest) {
 		users.push(newUser);
 	}
 	const encodedUser = encodeURIComponent(JSON.stringify(newUser));
-
-	return NextResponse.redirect(`http://localhost:3000/google-auth-success?user=${encodedUser}`);
+	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+	return NextResponse.redirect(`${siteUrl}/google-auth-success?user=${encodedUser}`);
 }

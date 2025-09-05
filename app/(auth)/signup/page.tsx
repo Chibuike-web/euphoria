@@ -51,13 +51,13 @@ export default function Signup() {
 					setSignupError(resData.error);
 				} else if (res.status === 409) {
 					setSignupError(resData.error);
-					router.replace("/auth/login");
+					router.replace("/login");
 				}
 				throw new Error(resData.error);
 			}
 
 			console.log(resData.message);
-			router.push("/auth/login");
+			router.push("/login");
 			reset();
 		} catch (err) {
 			console.error(err);
@@ -185,7 +185,7 @@ export default function Signup() {
 								disabled={isSubmitting}
 							>
 								{isSubmitting ? (
-									<span className="">
+									<span className="flex gap-2 items-center justify-center">
 										<div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
 										Signing up...
 									</span>
@@ -197,7 +197,7 @@ export default function Signup() {
 
 						<p className="flex justify-self-center items-center gap-[8px] mb-8">
 							Already have an account{" "}
-							<Link href="/auth/login" className="underline">
+							<Link href="/login" className="underline">
 								Login
 							</Link>
 						</p>

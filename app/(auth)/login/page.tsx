@@ -155,7 +155,7 @@ export default function Login() {
 
 						<p className="flex justify-self-center items-center gap-[8px] mb-8">
 							Don’t have an account?
-							<Link href="/auth/signup" className="underline">
+							<Link href="/signup" className="underline">
 								Sign up
 							</Link>
 						</p>
