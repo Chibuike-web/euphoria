@@ -2,18 +2,18 @@
 
 import { useUser } from "@/lib/Hooks";
 import Link from "next/link";
-
 import { useSearchParams } from "next/navigation";
-
 import { maskEmail, toSentenceCase } from "../utils";
 import { cn } from "@/lib/utils";
 import Wishlist from "./Wishlist";
-import MyOrders from "./MyOrders";
+
 import MyInfo from "./MyInfo";
 import { useState } from "react";
-import { ChevronRight, Menu, X } from "lucide-react";
+import { ChevronRight, LogOut, Menu, X } from "lucide-react";
 import { tabs } from "./data";
 import { UserType } from "@/lib/userSchema";
+import dynamic from "next/dynamic";
+const MyOrders = dynamic(() => import("./MyOrders"), { ssr: false });
 
 export default function AccountPageContent() {
 	const searchParams = useSearchParams();
@@ -33,12 +33,15 @@ export default function AccountPageContent() {
 		case "my-info":
 			mainContent = <MyInfo />;
 			break;
-		case "sign-out":
-			mainContent = <div>Signing out...</div>;
-			break;
 		default:
 			mainContent = <MyOrders />;
 	}
+
+	const handleLogOut = () => {
+		localStorage.removeItem("userInfo");
+		sessionStorage.clear();
+		window.location.href = "/login";
+	};
 
 	return (
 		<main>
@@ -60,7 +63,9 @@ export default function AccountPageContent() {
 				<div className="w-[310px] hidden lg:block">
 					<h3 className="flex items-center gap-[20px] mb-2 text-[clamp(1.25rem,2vh,1.5rem)]">
 						<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />
-						<span className="font-semibold">Hello {user ? maskEmail(user.email) : "Guest"}</span>
+						<span className="font-semibold">
+							Hello {user ? maskEmail(user.name.split(" ")[0]) : "Guest"}
+						</span>
 					</h3>
 					<span className="mb-6 block">Welcome to your Account</span>
 
@@ -72,7 +77,7 @@ export default function AccountPageContent() {
 									href={link}
 									key={id}
 									className={cn(
-										"flex items-center px-10 py-3 gap-4 relative rounded-r-[8px] text-muted-foreground",
+										"flex items-center px-10 py-3 gap-4 relative rounded-r-[8px] text-muted-foreground hover:bg-muted",
 										isActive &&
 											"bg-muted after:content-[''] after:absolute after:left-0 after:top-0 after:h-full after:w-[4px] after:bg-primary text-primary font-semibold"
 									)}
@@ -82,6 +87,16 @@ export default function AccountPageContent() {
 								</Link>
 							);
 						})}
+
+						<li>
+							<button
+								onClick={handleLogOut}
+								className="flex items-center w-full px-10 py-3 gap-4 relative rounded-r-[8px] text-muted-foreground hover:bg-muted cursor-pointer"
+							>
+								<LogOut />
+								<span>Sign out</span>
+							</button>
+						</li>
 					</ul>
 				</div>
 

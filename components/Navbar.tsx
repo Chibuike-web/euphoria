@@ -94,7 +94,6 @@ export default function Navbar() {
 			</header>
 			{shouldShowMobileNav && (
 				<MobileNav
-					isOpen={isOpen}
 					handleClick={handleClick}
 					pathname={pathname}
 					isCart={isCart}
@@ -153,7 +152,6 @@ const navLinks: NavLinksType[] = [
 ];
 
 function MobileNav({
-	isOpen,
 	handleClick,
 	pathname,
 	isCart,
@@ -161,7 +159,6 @@ function MobileNav({
 	isWishlist,
 	accountLink,
 }: {
-	isOpen: boolean;
 	handleClick: () => void;
 	pathname: string;
 	isCart: boolean;

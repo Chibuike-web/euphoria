@@ -1,4 +1,3 @@
-// components/ConditionalLayout.tsx
 "use client";
 
 import { usePathname } from "next/navigation";
@@ -11,20 +10,20 @@ export default function ConditionalLayout({ children }: { children: ReactNode })
 	const pathname = usePathname();
 
 	const noFooterPaths = [
-		"/auth/check-email",
-		"/auth/create-new-password",
-		"/auth/login",
-		"/auth/reset-password",
-		"/auth/signup",
-		"auth/verification",
+		"/check-email",
+		"/create-new-password",
+		"/login",
+		"/reset-password",
+		"/signup",
+		"/verification",
 	];
 	const authNavbarPaths = [
-		"/auth/check-email",
-		"/auth/create-new-password",
-		"/auth/login",
-		"/auth/reset-password",
-		"/auth/signup",
-		"auth/verification",
+		"/check-email",
+		"/create-new-password",
+		"/login",
+		"/reset-password",
+		"/signup",
+		"/verification",
 	];
 
 	const shouldShowFooter = !noFooterPaths.includes(pathname);

@@ -31,11 +31,4 @@ export const tabs: TabItem[] = [
 		link: "/account?tab=my-info",
 		tabKey: "my-info",
 	},
-	{
-		id: uuidv4(),
-		label: "Sign Out",
-		icon: LogOut,
-		link: "/account?tab=sign-out",
-		tabKey: "sign-out",
-	},
 ];
