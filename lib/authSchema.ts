@@ -24,7 +24,6 @@ const baseSchema = z.object({
 });
 
 export const emailSignupSchema = baseSchema.extend({
-	name: z.string(),
 	password: passwordSchema,
 	provider: z.literal("email"),
 });

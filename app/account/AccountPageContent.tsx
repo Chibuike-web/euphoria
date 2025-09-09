@@ -64,7 +64,10 @@ export default function AccountPageContent() {
 					<h3 className="flex items-center gap-[20px] mb-2 text-[clamp(1.25rem,2vh,1.5rem)]">
 						<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />
 						<span className="font-semibold">
-							Hello {user ? maskEmail(user.name.split(" ")[0]) : "Guest"}
+							Hello{" "}
+							{user
+								? maskEmail(user.provider === "google" ? user.name.split(" ")[0] : "")
+								: "Guest"}
 						</span>
 					</h3>
 					<span className="mb-6 block">Welcome to your Account</span>
