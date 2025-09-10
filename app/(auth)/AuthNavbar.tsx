@@ -53,12 +53,12 @@ export default function Navbar() {
 					/>
 				</label>
 				<div className="hidden lg:flex items-center gap-4 ">
-					<Link href="/auth/login">
+					<Link href="/login">
 						<Button variant="default" size="md">
 							Login
 						</Button>
 					</Link>
-					<Link href="/auth/signup">
+					<Link href="/signup">
 						<Button variant="outline" size="md">
 							Sign up
 						</Button>
@@ -102,10 +102,10 @@ function MobileNav({ handleClick }: { handleClick: () => void }) {
 
 			<div className="flex flex-col items-center gap-2 ">
 				<Button variant="default" size="md" className="w-full" onClick={handleClick} asChild>
-					<Link href="/auth/login">Login</Link>
+					<Link href="/login">Login</Link>
 				</Button>
 				<Button variant="outline" size="md" className="w-full" onClick={handleClick} asChild>
-					<Link href="/auth/signup">Sign up</Link>
+					<Link href="/signup">Sign up</Link>
 				</Button>
 			</div>
 		</nav>
