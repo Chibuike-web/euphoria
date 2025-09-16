@@ -1,15 +1,5 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-	serverExternalPackages: [
-		"zod",
-		"bcryptjs",
-		"uuid",
-		"class-variance-authority",
-		"clsx",
-		"@hookform/resolvers",
-	],
-	reactStrictMode: true,
-};
+const nextConfig: NextConfig = {};
 
 export default nextConfig;

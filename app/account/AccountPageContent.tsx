@@ -2,11 +2,10 @@
 
 import { useUser } from "@/lib/Hooks";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { maskEmail, toSentenceCase } from "../utils";
 import { cn } from "@/lib/utils";
 import Wishlist from "./Wishlist";
-
 import MyInfo from "./MyInfo";
 import { useState } from "react";
 import { ChevronRight, LogOut, Menu, X } from "lucide-react";
@@ -17,9 +16,11 @@ const MyOrders = dynamic(() => import("./MyOrders"), { ssr: false });
 
 export default function AccountPageContent() {
 	const searchParams = useSearchParams();
+	const router = useRouter();
 	const tab = searchParams.get("tab") || "my-orders";
 	const user = useUser();
 	const [sidebar, setSideBar] = useState(false);
+	const orderId = searchParams.get("order");
 
 	let mainContent = null;
 
@@ -57,14 +58,16 @@ export default function AccountPageContent() {
 				<span className="text-muted-foreground">
 					<ChevronRight />
 				</span>
-				<span className="font-medium">{toSentenceCase(tab).replace("-", " ")}</span>
+				<span className="font-medium">
+					{orderId ? "Order Details" : toSentenceCase(tab).replace("-", " ")}
+				</span>
 			</div>
 			<section className="flex gap-12 max-w-[1240px] mx-auto px-6 xl:px-0 mb-[100px]">
 				<div className="w-[310px] hidden lg:block">
 					<h3 className="flex items-center gap-[20px] mb-2 text-[clamp(1.25rem,2vh,1.5rem)]">
 						<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />
 						<span className="font-semibold">
-							Hello
+							Hello{" "}
 							{user
 								? maskEmail(user.provider === "google" ? user.name.split(" ")[0] : "")
 								: "Guest"}
@@ -76,8 +79,8 @@ export default function AccountPageContent() {
 						{tabs.map(({ id, link, label, tabKey, icon: Icon }) => {
 							const isActive = tab === tabKey;
 							return (
-								<Link
-									href={link}
+								<button
+									onClick={() => router.push(link)}
 									key={id}
 									className={cn(
 										"flex items-center px-10 py-3 gap-4 relative rounded-r-[8px] text-muted-foreground hover:bg-muted",
@@ -87,7 +90,7 @@ export default function AccountPageContent() {
 								>
 									<Icon />
 									{label}
-								</Link>
+								</button>
 							);
 						})}
 
@@ -120,6 +123,8 @@ const SideBar = ({
 	user: UserType;
 	setSidebar: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+	const router = useRouter();
+
 	return (
 		<div className="fixed bg-black/50 inset-0 z-[100]" onClick={() => setSidebar(false)}>
 			<div className="w-[310px] bg-white py-12 h-screen px-6" onClick={(e) => e.stopPropagation()}>
@@ -128,7 +133,10 @@ const SideBar = ({
 				</button>
 				<h3 className="flex items-center gap-[20px] mb-2 text-[clamp(1.25rem,2vh,1.5rem)]">
 					<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />
-					<span className="font-semibold">Hello {user ? maskEmail(user.email) : "Guest"}</span>
+					<span className="font-semibold">
+						Hello{" "}
+						{user ? maskEmail(user.provider === "google" ? user.name.split(" ")[0] : "") : "Guest"}
+					</span>
 				</h3>
 				<span className="mb-6 block">Welcome to your Account</span>
 
@@ -136,8 +144,8 @@ const SideBar = ({
 					{tabs.map(({ id, link, label, tabKey, icon: Icon }) => {
 						const isActive = tab === tabKey;
 						return (
-							<Link
-								href={link}
+							<button
+								onClick={() => router.push(link)}
 								key={id}
 								className={cn(
 									"flex items-center px-10 py-3 gap-4 relative rounded-r-[8px] text-muted-foreground",
@@ -147,7 +155,7 @@ const SideBar = ({
 							>
 								<Icon />
 								{label}
-							</Link>
+							</button>
 						);
 					})}
 				</ul>

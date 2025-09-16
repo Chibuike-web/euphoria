@@ -4,45 +4,55 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Fragment, useState } from "react";
+import { formatTime } from "./utils";
+import { orders } from "./data";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function MyOrders() {
 	const [isActive, setIsActive] = useState("active");
-	return (
-		<div>
-			<h2 className="font-semibold text-[28px]">My Orders</h2>
-			<div className="flex items-center gap-20 mt-4">
-				{["Active", "Cancelled", "Completed"].map((item) => (
-					<button
-						key={item}
-						className={cn(
-							"px-12 py-[12px]",
-							isActive === item.toLowerCase() &&
-								"bg-[#f6f6f6] rounded-t-[8px] border-b border-black font-semibold"
-						)}
-						onClick={() => setIsActive(item.toLowerCase())}
-					>
-						{item}
-					</button>
-				))}
-			</div>
+	const searchParams = useSearchParams();
+	const orderId = searchParams.get("order");
 
-			{isActive === "active" ? (
-				<ActiveOrder />
-			) : isActive === "cancelled" ? (
-				<CancelledOrder />
-			) : (
-				<CompletedOrder />
-			)}
-		</div>
-	);
+	if (!orderId)
+		return (
+			<div>
+				<h2 className="font-semibold text-[28px]">My Orders</h2>
+				<div className="flex items-center gap-20 mt-4">
+					{["Active", "Cancelled", "Completed"].map((item) => (
+						<button
+							key={item}
+							className={cn(
+								"px-12 py-[12px]",
+								isActive === item.toLowerCase() &&
+									"bg-[#f6f6f6] rounded-t-[8px] border-b border-black font-semibold"
+							)}
+							onClick={() => setIsActive(item.toLowerCase())}
+						>
+							{item}
+						</button>
+					))}
+				</div>
+
+				{isActive === "active" ? (
+					<ActiveOrder />
+				) : isActive === "cancelled" ? (
+					<CancelledOrder />
+				) : (
+					<CompletedOrder />
+				)}
+			</div>
+		);
+
+	return <OrderDetail />;
 }
 
 const ActiveOrder = () => {
+	const router = useRouter();
+	const searchParams = useSearchParams();
+	const orderId = searchParams.get("order");
 	return (
 		<div className="flex flex-col gap-10 mt-10">
 			{orders.map((order, index) => {
-				const date = new Date(order.orderDate);
-				const estDate = new Date(order.estDeliveryDate);
 				return (
 					<Fragment key={order.orderNo}>
 						<div className="flex flex-col gap-8">
@@ -51,11 +61,12 @@ const ActiveOrder = () => {
 								<div className="flex flex-col lg:flex-row gap-3 lg:items-center lg:justify-between w-full">
 									<div className="text-muted-foreground flex flex-col gap-1.5">
 										<p>
-											<span className="font-semibold">Order Date:</span> {date.toLocaleString()}
+											<span className="font-semibold">Order Date:</span>{" "}
+											{formatTime(Number(order.orderDate))}
 										</p>
 										<p>
 											<span className="font-semibold">Estimated Delivery Date:</span>{" "}
-											{estDate.toLocaleDateString()}
+											{formatTime(order.estDeliveryDate)}
 										</p>
 									</div>
 									<div className="text-muted-foreground flex flex-col gap-1.5 lg:items-end">
@@ -69,33 +80,51 @@ const ActiveOrder = () => {
 								</div>
 							</div>
 
-							<div className="flex flex-col gap-4">
-								{order.items.map((item) => {
-									return (
-										<div
-											key={item.itemName}
-											className="flex flex-col sm:flex-row gap-6 sm:justify-between w-full sm:items-center"
-										>
-											<div className="flex items-center gap-2">
-												<Image
-													src={item.itemImage}
-													alt={item.itemName}
-													width={96}
-													height={96}
-													className="size-[96px] rounded-[4px] object-cover "
-												/>
+							<div className="flex justify-between items-center">
+								<div className="flex flex-col gap-4">
+									{order.items.slice(0, 1).map((item) => {
+										return (
+											<div
+												key={item.itemName}
+												className="flex flex-col sm:flex-row gap-6 sm:justify-between w-full sm:items-center"
+											>
+												<div className="flex items-center gap-2">
+													<Image
+														src={item.itemImage}
+														alt={item.itemName}
+														width={96}
+														height={96}
+														className="size-[96px] rounded-[4px] object-cover "
+													/>
 
-												<div>
-													<p>{item.itemName}</p>
-													<p>Colour: {item.itemColour}</p>
-													<p>Qty: {item.itemQty}</p>
-													<p>Total: ${item.itemPrice.toFixed(2)}</p>
+													<div className="flex flex-col gap-[2px]">
+														<p className="font-semibold">{item.itemName}</p>
+														<p>
+															<span className="font-semibold text-[14px]">Colour: </span>
+															<span className="text-muted-foreground">{item.itemColour}</span>
+														</p>
+														<p>
+															<span className="font-semibold text-[14px]">Qty:</span>
+															<span className="text-muted-foreground">{item.itemQty}</span>
+														</p>
+														<p className="font-semibold text-muted-foreground">
+															Total: ${item.itemPrice.toFixed(2)}
+														</p>
+													</div>
 												</div>
 											</div>
-											<Button>View Details</Button>
-										</div>
-									);
-								})}
+										);
+									})}
+								</div>
+								<Button
+									onClick={() => {
+										const params = new URLSearchParams(searchParams.toString());
+										params.set("order", order.orderNo);
+										router.push(`/account?${params.toString()}`);
+									}}
+								>
+									View Details
+								</Button>
 							</div>
 						</div>
 						{index <= orders.length && <span className="h-[1px] w-full bg-muted" />}
@@ -107,90 +136,13 @@ const ActiveOrder = () => {
 };
 
 const CancelledOrder = () => {
-	return <div></div>;
+	return <div>Cancelled Order</div>;
 };
 
 const CompletedOrder = () => {
-	return <div></div>;
+	return <div>Completed Order</div>;
 };
 
-const orders = [
-	{
-		orderNo: "123456789",
-		orderDate: 1717344000000,
-		orderStatus: "In Progress",
-		estDeliveryDate: 1717948800000,
-		paymentMethod: "Cash on Delivery",
-		items: [
-			{
-				itemId: "",
-				itemName: "Men's Activewear",
-				itemColour: "Black",
-				itemImage: "/assets/men/activewear.png",
-				itemQty: 2,
-				itemPrice: 45,
-			},
-			{
-				itemId: "",
-				itemName: "Running Shoes",
-				itemColour: "Blue",
-				itemImage: "/assets/men/boxers.png",
-				itemQty: 1,
-				itemPrice: 60,
-			},
-		],
-		total: 150.0,
-	},
-	{
-		orderNo: "12345678",
-		orderDate: 1717344000000,
-		orderStatus: "In Progress",
-		estDeliveryDate: 1717948800000,
-		paymentMethod: "Cash on Delivery",
-		items: [
-			{
-				itemId: "",
-				itemName: "Men's Activewear",
-				itemColour: "Black",
-				itemImage: "/assets/men/activewear.png",
-				itemQty: 2,
-				itemPrice: 45,
-			},
-			{
-				itemId: "",
-				itemName: "Running Shoes",
-				itemColour: "Blue",
-				itemImage: "/assets/men/boxers.png",
-				itemQty: 1,
-				itemPrice: 60,
-			},
-		],
-		total: 150.0,
-	},
-	{
-		orderNo: "1234567",
-		orderDate: 1717344000000,
-		orderStatus: "In Progress",
-		estDeliveryDate: 1717948800000,
-		paymentMethod: "Cash on Delivery",
-		items: [
-			{
-				itemId: "",
-				itemName: "Men's Activewear",
-				itemColour: "Black",
-				itemImage: "/assets/men/activewear.png",
-				itemQty: 2,
-				itemPrice: 45,
-			},
-			{
-				itemId: "",
-				itemName: "Running Shoes",
-				itemColour: "Blue",
-				itemImage: "/assets/men/boxers.png",
-				itemQty: 1,
-				itemPrice: 60,
-			},
-		],
-		total: 150.0,
-	},
-];
+const OrderDetail = () => {
+	return <div>Order</div>;
+};
