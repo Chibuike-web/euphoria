@@ -7,13 +7,14 @@ import { Fragment, useState } from "react";
 import { formatTime } from "./utils";
 import { orders } from "./data";
 import { useRouter, useSearchParams } from "next/navigation";
+import { X } from "lucide-react";
 
 export default function MyOrders() {
 	const [isActive, setIsActive] = useState("active");
 	const searchParams = useSearchParams();
-	const orderId = searchParams.get("order");
+	const orderNo = searchParams.get("order");
 
-	if (!orderId)
+	if (!orderNo)
 		return (
 			<div>
 				<h2 className="font-semibold text-[28px]">My Orders</h2>
@@ -43,7 +44,7 @@ export default function MyOrders() {
 			</div>
 		);
 
-	return <OrderDetail />;
+	return <OrderDetail orderNo={orderNo} />;
 }
 
 const ActiveOrder = () => {
@@ -143,6 +144,88 @@ const CompletedOrder = () => {
 	return <div>Completed Order</div>;
 };
 
-const OrderDetail = () => {
-	return <div>Order</div>;
+const OrderDetail = ({ orderNo }: { orderNo: string }) => {
+	const order = orders.find((o) => o.orderNo === orderNo);
+	if (!order) return;
+	return (
+		<div>
+			<h2 className="font-semibold text-[28px]">Order Details</h2>
+
+			<div className="mt-4">
+				<div className="flex flex-col lg:flex-row gap-3 lg:items-center lg:justify-between w-full px-12 py-6 rounded-2xl bg-muted">
+					<div className="text-muted-foreground flex flex-col gap-1.5">
+						<p>
+							<span className="font-semibold"> Order No:</span>#{order.orderNo}
+						</p>
+						<p>
+							Placed On
+							{formatTime(Number(order.orderDate))}
+						</p>
+					</div>
+					<p>
+						<span className="font-semibold">Total:</span> ${order.total.toFixed(2)}
+					</p>
+				</div>
+				<div className="relative flex justify-between justify-self-center w-full items-center my-12 max-w-[630px]">
+					<span className="absolute top-1/2 left-10 right-8 h-[4px] bg-muted-foreground/50 -translate-y-4 z-[-1]" />
+					<Stepper />
+				</div>
+				<div className="relative flex gap-10 justify-self-center w-full items-center my-12 max-w-[748px] bg-muted px-12 py-6 rounded-[16px]">
+					<p className="text-muted-foreground">{formatTime(Number(order.estDeliveryDate))}</p>
+					<p className="font-semibold">Your order has been successfully verified</p>
+				</div>
+				<div className="flex flex-col gap-6 max-w-[895px] p-5 sm:p-10 bg-muted rounded-[16px]">
+					{order.items.map((item, index) => (
+						<Fragment key={item.itemId}>
+							<div className="flex gap-x-4 sm:gap-x-8 w-full items-start">
+								<Image
+									src={item.itemImage}
+									alt={item.itemName}
+									width={100}
+									height={100}
+									className="size-[100px] object-cover rounded-[8px]"
+								/>
+								<div className="flex flex-col md:flex-row sm:text-[22px] gap-x-8 text-muted-foreground font-medium">
+									<div className="flex flex-col">
+										<span className="font-bold text-primary">{item.itemName}</span>
+										<div className="flex items-center gap-2">
+											<span className="font-bold text-primary">Color:</span>
+											<span>{item.itemColour}</span>
+										</div>
+									</div>
+									<div className="flex gap-4">
+										<div className="flex gap-2">
+											<span className="font-bold text-primary">Qty:</span>
+											<span>{item.itemQty}</span>
+										</div>
+										<span>${item.itemPrice.toFixed(2)}</span>
+									</div>
+								</div>
+								<button className="ml-auto">
+									<X />
+								</button>
+							</div>
+							{index < order.items.length - 1 && (
+								<span className="h-[1px] w-full bg-muted-foreground/20 block" />
+							)}
+						</Fragment>
+					))}
+				</div>
+			</div>
+		</div>
+	);
+};
+
+const Stepper = () => {
+	const [active, setActive] = useState(1);
+	return (
+		<>
+			{["Order Placed", "In Progress", "Shipped", "Delivered"].map((label, index) => (
+				<div key={label} className="flex flex-col items-center gap-2">
+					<span className={cn("size-5 bg-primary rounded-full", active === index && "border-4")} />
+					<p className="text-sm font-semibold">{label}</p>
+				</div>
+			))}
+		</>
+	);
 };

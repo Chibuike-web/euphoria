@@ -153,11 +153,6 @@ const navLinks: NavLinksType[] = [
 
 function MobileNav({
 	handleClick,
-	pathname,
-	isCart,
-	isAccount,
-	isWishlist,
-	accountLink,
 }: {
 	handleClick: () => void;
 	pathname: string;
@@ -166,6 +161,17 @@ function MobileNav({
 	isAccount: boolean;
 	accountLink: string;
 }) {
+	const pathname = usePathname();
+	const searchParams = useSearchParams();
+	const user = useUser();
+	const accountLink = user ? "/account?tab=my-orders" : "/signup";
+	const wishlist = user ? "/account?tab=wishlist" : "/signup";
+	const tab = searchParams.get("tab");
+	const tabs = ["my-orders", "my-info", "my-cancellations", "sign-out"];
+	const isAccount = pathname === "/account" && tabs.includes(tab || "");
+	const isWishlist = pathname === "/account" && tab === "wishlist";
+
+	const isCart = pathname === "/cart";
 	return (
 		<div className="bg-white fixed top-[68.5px] md:top-[100px] bottom-0 left-0 right-0 z-[100] px-6 py-10">
 			<div className="flex flex-col h-full justify-between gap-y-20 overflow-auto w-full">
@@ -198,7 +204,7 @@ function MobileNav({
 				</div>
 				<div className="flex flex-col gap-y-[12px] text-muted-foreground">
 					<Link
-						href="/account?tab=wishlist"
+						href={wishlist}
 						className={cn(
 							"px-[24px] py-[20px] rounded-[16px] flex gap-4 items-center text-[32px]",
 							isWishlist ? "bg-primary text-white" : "bg-accent"

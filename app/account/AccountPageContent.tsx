@@ -20,7 +20,7 @@ export default function AccountPageContent() {
 	const tab = searchParams.get("tab") || "my-orders";
 	const user = useUser();
 	const [sidebar, setSideBar] = useState(false);
-	const orderId = searchParams.get("order");
+	const orderNo = searchParams.get("order");
 
 	let mainContent = null;
 
@@ -59,7 +59,7 @@ export default function AccountPageContent() {
 					<ChevronRight />
 				</span>
 				<span className="font-medium">
-					{orderId ? "Order Details" : toSentenceCase(tab).replace("-", " ")}
+					{orderNo ? "Order Details" : toSentenceCase(tab).replace("-", " ")}
 				</span>
 			</div>
 			<section className="flex gap-12 max-w-[1240px] mx-auto px-6 xl:px-0 mb-[100px]">
