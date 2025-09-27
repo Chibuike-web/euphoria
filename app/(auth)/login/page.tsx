@@ -96,10 +96,14 @@ export default function Login() {
 									{...register("email")}
 									id="email"
 									placeholder="Enter your email address"
+									aria-describedby="email-error"
+									aria-invalid={errors.email ? true : false}
 									className="h-12"
 								/>
 								{errors.email && (
-									<p className="mt-[10px] text-sm text-red-500">{errors.email.message}</p>
+									<p id="email-error" className="mt-[10px] text-sm text-red-500">
+										{errors.email.message}
+									</p>
 								)}
 							</div>
 							<div>
@@ -109,6 +113,7 @@ export default function Login() {
 										<button
 											type="button"
 											className="flex items-center gap-2"
+											aria-label={showPassword ? "Hide password" : "Show password"}
 											onClick={handleShowPassword}
 										>
 											{showPassword ? (
@@ -127,10 +132,14 @@ export default function Login() {
 										{...register("password")}
 										id="password"
 										placeholder="Enter your password"
+										aria-describedby="password-error"
+										aria-invalid={errors.password ? true : false}
 										className="h-12"
 									/>
 									{errors.password && (
-										<p className="mt-[10px] text-sm text-red-500">{errors.password.message}</p>
+										<p id="password-error" className="mt-[10px] text-sm text-red-500">
+											{errors.password.message}
+										</p>
 									)}
 								</div>
 								<Link href="/reset-password" className="mt-[10px] flex justify-self-end underline">

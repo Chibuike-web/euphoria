@@ -14,7 +14,10 @@ export function Checkbox({ id, name, register, watch }: CheckboxProps) {
 	const checked = watch(name);
 
 	return (
-		<label htmlFor={id} className="relative flex items-center gap-2 cursor-pointer select-none">
+		<label
+			htmlFor={id}
+			className="relative flex items-center gap-2 cursor-pointer select-none focus-within:ring-2 focus-within:rounded-[4px] ring-accent-foreground/40"
+		>
 			<input type="checkbox" id={id} {...register(name)} className="sr-only" />
 			<span
 				className={cn(

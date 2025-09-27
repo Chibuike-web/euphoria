@@ -122,11 +122,15 @@ export default function Signup() {
 									type="email"
 									id="email"
 									{...register("email")}
-									className={`h-12 ${errors.email ? "border-red-500" : ""}`}
+									className="h-12"
+									aria-describedby="email-error"
+									aria-invalid={errors.email ? true : false}
 									placeholder="Enter your email address"
 								/>
 								{errors.email && (
-									<p className="mt-[10px] text-sm text-red-500">{errors.email.message}</p>
+									<p id="email-error" className="mt-[10px] text-sm text-red-500">
+										{errors.email.message}
+									</p>
 								)}
 							</div>
 							<div>
@@ -154,12 +158,16 @@ export default function Signup() {
 									{...register("password")}
 									id="password"
 									placeholder="Enter your password"
-									className={`h-12 ${errors.password ? "border-red-500" : ""}`}
+									aria-describedby={errors.password ? "password-error" : "info"}
+									aria-invalid={errors.password ? true : false}
+									className="h-12"
 								/>
 								{errors.password ? (
-									<p className="mt-[10px] text-sm text-red-500">{errors.password.message}</p>
+									<p id="passsword-error" className="mt-[10px] text-sm text-red-500">
+										{errors.password.message}
+									</p>
 								) : (
-									<p className="mt-[10px]">
+									<p className="mt-[10px]" id="info">
 										Use 8 or more characters with a mix of letters, numbers & symbols
 									</p>
 								)}
