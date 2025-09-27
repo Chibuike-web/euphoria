@@ -112,7 +112,9 @@ export default function Cart() {
 							</div>
 						</div>
 						<span className="w-full h-[1px] my-12 block bg-muted-foreground/25" />
-						<Button className="text-[18px] h-[47px] w-[232px]">Proceed To Checkout</Button>
+						<Link href="/checkout">
+							<Button className="text-[18px] h-[47px] w-[232px]">Proceed To Checkout</Button>
+						</Link>
 					</div>
 				</div>
 			</section>

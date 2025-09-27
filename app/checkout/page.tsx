@@ -8,6 +8,8 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "../account/components/Checkbox";
 import React, { Suspense } from "react";
+import { useCartItems } from "../store/useCart";
+import Image from "next/image";
 
 export default function Checkout() {
 	const pathname = usePathname();
@@ -25,15 +27,15 @@ export default function Checkout() {
 				<span className="font-medium">{toSentenceCase(pathname.split("/")[1])}</span>
 			</div>
 			<section className="flex flex-col gap-12 max-w-[1240px] mx-auto px-6 xl:px-0 mb-[100px]">
-				<div className="w-full flex gap-[38xpx] items-end">
+				<div className="w-full flex flex-col md:flex-row gap-[38px] items-center">
 					<div className=" w-full max-w-[802px]">
-						<h3 className="flex items-center gap-[20px] mb-2 text-[clamp(1.25rem,2vh,1.5rem)]">
+						<h3 className="flex items-center gap-[20px] text-[clamp(1.25rem,2vh,1.5rem)] mb-6">
 							<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />
 							<span className="font-semibold">Checkout</span>
 						</h3>
 						<BillingDetails />
 					</div>
-					<div></div>
+					<OrderSummary />
 				</div>
 				<div className="w-full max-w-[802px] flex flex-col gap-8">
 					<ShippingAddress />
@@ -48,6 +50,64 @@ export default function Checkout() {
 		</main>
 	);
 }
+
+const OrderSummary = () => {
+	const { cartItems, getCartTotal, getShippingTotal } = useCartItems();
+
+	return (
+		<div className="w-full md:max-w-[400px] border border-foreground/10 rounded-2xl flex flex-col gap-4 p-6">
+			<h2>Order Summary</h2>
+			<span className="block h-[1px] w-full bg-foreground/4" />
+			<div className="flex flex-col gap-4 text-[14px]">
+				{cartItems.map((c, index) => (
+					<React.Fragment key={`${c.id}-${c.size}-${c.color}`}>
+						<div className="flex justify-between">
+							<div className="flex gap-4 items-center">
+								<Image
+									src={c.image}
+									alt={c.name}
+									width={63}
+									height={63}
+									className="size-[63px] object-cover rounded-[8px]"
+								/>
+								<div>
+									<p className="font-bold">
+										{c.name} <span className="text-foreground/40">x {c.quantity}</span>
+									</p>
+									<p>
+										<span className="text-muted-foreground font-medium text-[14px]">Colour: </span>
+										<span>{toSentenceCase(c.color)}</span>
+									</p>
+								</div>
+							</div>
+							<p className="font-bold text-foreground/40">${c.price.toFixed(2)}</p>
+						</div>
+						{index <= cartItems.length - 1 && (
+							<span className="block h-[1px] w-full bg-foreground/4" />
+						)}
+					</React.Fragment>
+				))}
+			</div>
+			<div className="text-[18px] flex justify-between">
+				<p className="font-bold">Subtotal ({cartItems.length} items)</p>
+				<p className="font-bold ">${getCartTotal()}</p>
+			</div>
+			<div className="text-[18px] flex justify-between">
+				<p className="font-bold">Savings</p>
+				<p className="font-bold">-$30.00</p>
+			</div>
+			<span className="block h-[1px] w-full bg-foreground/4" />
+			<div className="text-[18px] flex justify-between">
+				<p className="font-bold">Shipping</p> <p className="font-bold">-$5.00</p>
+			</div>
+			<span className="block h-[1px] w-full bg-foreground/4" />
+			<div className="text-[18px] flex justify-between">
+				<p className="font-bold">Total</p>
+				<p className="font-bold">${getCartTotal()}</p>
+			</div>
+		</div>
+	);
+};
 
 const BillingDetails = () => {
 	return (
