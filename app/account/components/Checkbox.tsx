@@ -1,35 +1,42 @@
 import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
 
-export default function Checkbox({
-	id,
-	children,
-	checkedId,
-	handleCheck,
-}: {
+type CheckboxPropsType = {
 	id: string;
 	children: React.ReactNode;
-	checkedId: string;
-	handleCheck: (value: boolean, id: string) => void;
-}) {
+	isChecked?: boolean;
+	name?: string;
+	onChange?: (checked: boolean) => void;
+	className?: string;
+};
+
+export const Checkbox = ({
+	children,
+	id,
+	isChecked,
+	name,
+	className,
+	onChange,
+}: CheckboxPropsType) => {
+	console.log(isChecked);
 	return (
-		<label htmlFor={id} className="relative flex items-center gap-2 cursor-pointer select-none">
+		<label
+			htmlFor={id}
+			className={cn("relative flex items-center gap-2 cursor-pointer select-none group", className)}
+		>
 			<input
 				type="checkbox"
 				id={id}
+				name={name}
+				checked={isChecked}
 				className="sr-only"
-				onChange={(e) => handleCheck(e.target.checked, e.target.id)}
+				onChange={(e) => onChange && onChange(e.target.checked)}
 			/>
-			<span
-				className={cn(
-					"size-4 flex items-center justify-center border rounded-[4px] transition-colors",
-					checkedId === id ? "bg-primary border-primary" : "bg-transparent border-input"
-				)}
-			>
-				{checkedId === id && <Check className="text-white w-3 h-3" />}
+			<span className="size-4 flex items-center justify-center border rounded-[4px] transition-colors bg-transparent border-input group-has-[:checked]:bg-primary group-has-[:checked]:border-primary">
+				<Check className="text-white w-3 h-3" />
 			</span>
 
 			<span>{children}</span>
 		</label>
 	);
-}
+};

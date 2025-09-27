@@ -1,7 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { useUserValue } from "@/app/store/useUserValue";
 import { useEffect, useState } from "react";
-import { useForm } from "@/lib/Hooks";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Address } from "../MyInfo";
@@ -27,7 +26,6 @@ export default function ContactDetails({
 	const [editingLabel, setEditingLabel] = useState<string | null>(null);
 	const [formValue, setFormValue] = useState("");
 	const { user } = useUserValue();
-	const { store } = useForm();
 
 	useEffect(() => {
 		const myInfo = [
@@ -56,10 +54,6 @@ export default function ContactDetails({
 		);
 		setEditingLabel(null);
 		setFormValue("");
-	};
-
-	const handleEditAddress = (id: string) => {
-		setIsEditingAddress(id);
 	};
 
 	return (

@@ -108,9 +108,9 @@ export const useUser = () => {
 export const useForm = () => {
 	const store = useFormState();
 
-	const handleCheck = (value: boolean, id: string) => {
-		store.setChecked();
-		store.setCheckedId(id);
+	const handleCheck = (checked: boolean, id: string) => {
+		store.setChecked(checked);
+		store.setCheckedId(checked ? id : "");
 	};
 
 	const handleChange = (id: string, value: string) => {

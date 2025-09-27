@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useForm } from "@/lib/Hooks";
 import ContactDetails from "./components/ContactDetails";
-import Checkbox from "./components/Checkbox";
+import { Checkbox } from "./components/Checkbox";
 
 export type Address = {
 	id: string;
@@ -378,8 +378,8 @@ const AddAddress = ({
 						<Checkbox
 							key={item.id}
 							id={item.id}
-							checkedId={store.checkedId}
-							handleCheck={handleCheck}
+							isChecked={store.checkedId === item.id}
+							onChange={(checked) => handleCheck(checked, item.id)}
 						>
 							{item.value}
 						</Checkbox>

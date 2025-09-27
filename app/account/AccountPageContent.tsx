@@ -1,8 +1,7 @@
 "use client";
 
 import { useUser } from "@/lib/Hooks";
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { maskEmail, toSentenceCase } from "../utils";
 import { cn } from "@/lib/utils";
 import Wishlist from "./Wishlist";
@@ -15,6 +14,7 @@ import dynamic from "next/dynamic";
 const MyOrders = dynamic(() => import("./MyOrders"), { ssr: false });
 
 export default function AccountPageContent() {
+	const pathname = usePathname();
 	const searchParams = useSearchParams();
 	const router = useRouter();
 	const tab = searchParams.get("tab") || "my-orders";
@@ -76,11 +76,14 @@ export default function AccountPageContent() {
 					<span className="mb-6 block">Welcome to your Account</span>
 
 					<ul className="flex flex-col gap-4 w-full">
-						{tabs.map(({ id, link, label, tabKey, icon: Icon }) => {
+						{tabs.map(({ id, label, tabKey, icon: Icon }) => {
 							const isActive = tab === tabKey;
+							const params = new URLSearchParams(searchParams);
+							params.set("tab", `${tabKey}`);
+
 							return (
 								<button
-									onClick={() => router.push(link)}
+									onClick={() => router.push(`${pathname}?${params.toString()}`)}
 									key={id}
 									className={cn(
 										"flex items-center px-10 py-3 gap-4 relative rounded-r-[8px] text-muted-foreground hover:bg-muted",
@@ -124,6 +127,7 @@ const SideBar = ({
 	setSidebar: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
 	const router = useRouter();
+	const searchParams = useSearchParams();
 
 	return (
 		<div className="fixed bg-black/50 inset-0 z-[100]" onClick={() => setSidebar(false)}>
@@ -141,11 +145,16 @@ const SideBar = ({
 				<span className="mb-6 block">Welcome to your Account</span>
 
 				<ul className="flex flex-col gap-4 w-full">
-					{tabs.map(({ id, link, label, tabKey, icon: Icon }) => {
+					{tabs.map(({ id, label, tabKey, icon: Icon }) => {
 						const isActive = tab === tabKey;
+
 						return (
 							<button
-								onClick={() => router.push(link)}
+								onClick={() => {
+									const params = new URLSearchParams(searchParams);
+									params.set("tab", `${tabKey}`);
+									router.replace(`?${params.toString()}`);
+								}}
 								key={id}
 								className={cn(
 									"flex items-center px-10 py-3 gap-4 relative rounded-r-[8px] text-muted-foreground",

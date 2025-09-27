@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 type FormState = {
 	checked: boolean;
-	setChecked: () => void;
+	setChecked: (value: boolean) => void;
 	checkedId: string;
 	setCheckedId: (value: string) => void;
 	firstName: string;
@@ -52,7 +52,7 @@ type FormState = {
 
 export const useFormState = create<FormState>((set) => ({
 	checked: false,
-	setChecked: () => set((state) => ({ checked: !state.checked })),
+	setChecked: (value: boolean) => set((state) => ({ checked: value })),
 	checkedId: "",
 	setCheckedId: (value) => set({ checkedId: value }),
 	firstName: "",
