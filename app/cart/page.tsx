@@ -2,16 +2,17 @@
 
 import React from "react";
 import Image from "next/image";
-import { useCartItems } from "../store/useCart";
+import { useCartItems } from "../../store/useCart";
 import { Button } from "@/components/ui/button";
 import emptyCart from "@/app/assets/empty-cart.svg";
 import { ChevronRight, MinusIcon, PlusIcon, Trash2 } from "lucide-react";
 import Link from "next/link";
-import { CartItemType } from "../types";
-import { toSentenceCase } from "../utils";
+
 import { Input } from "@/components/ui/input";
-import { useUserValue } from "../store/useUserValue";
-import { useMediaQuery } from "@/lib/Hooks";
+import { useUserValue } from "../../store/useUserValue";
+import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
+import { CartItemType } from "@/lib/types";
+import { toSentenceCase } from "@/lib/utils";
 
 export default function Cart() {
 	const { cartItems, getCartTotal, getShippingTotal } = useCartItems();

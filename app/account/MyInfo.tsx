@@ -6,9 +6,10 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { useForm } from "@/lib/Hooks";
+
 import ContactDetails from "./components/ContactDetails";
 import { Checkbox } from "./components/Checkbox";
+import { useForm } from "@/lib/hooks/useForm";
 
 export type Address = {
 	id: string;

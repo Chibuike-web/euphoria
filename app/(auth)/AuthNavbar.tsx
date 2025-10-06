@@ -12,8 +12,9 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { useMobileNav } from "@/lib/Hooks";
+
 import Link from "next/link";
+import { useMobileNav } from "@/lib/hooks/useMobileNav";
 
 export default function Navbar() {
 	const { isOpen, handleClick } = useMobileNav();

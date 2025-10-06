@@ -1,4 +1,4 @@
-import type { UserType } from "@/lib/userSchema";
+import { UserType } from "@/lib/schema/userSchema";
 
 declare global {
 	var users: UserType[] | undefined;

@@ -9,13 +9,13 @@ import { Checkbox } from "@/components/ui/checkbox";
 import Image from "next/image";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
-import { usePassword } from "@/lib/Hooks";
 import { useForm } from "react-hook-form";
-import type { FormData } from "@/lib/authSchema";
+import type { FormData } from "@/lib/schema/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { emailSignupSchema } from "@/lib/authSchema";
+import { emailSignupSchema } from "@/lib/schema/authSchema";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { usePassword } from "@/lib/hooks/usePassword";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 

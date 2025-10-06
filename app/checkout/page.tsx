@@ -2,14 +2,14 @@
 
 import { ChevronRight } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { toSentenceCase } from "../utils";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "../account/components/Checkbox";
 import React, { Suspense } from "react";
-import { useCartItems } from "../store/useCart";
+import { useCartItems } from "../../store/useCart";
 import Image from "next/image";
+import { toSentenceCase } from "@/lib/utils";
 
 export default function Checkout() {
 	const pathname = usePathname();

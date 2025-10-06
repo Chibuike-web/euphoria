@@ -6,11 +6,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import { EyeOff } from "lucide-react";
-import { usePassword } from "@/lib/Hooks";
-import { passwordSchema } from "../../../lib/authSchema";
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
+import { passwordSchema } from "@/lib/schema/authSchema";
+import { usePassword } from "@/lib/hooks/usePassword";
 
 export default function CreateNewPassword() {
 	const { showPassword, handleShowPassword } = usePassword();

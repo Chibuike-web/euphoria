@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import type { AllProductsType } from "@/app/types";
-import { categories } from "@/app/utils";
+import { AllProductsType } from "@/lib/types";
+import { categories } from "@/lib/data";
 
 export default async function CategoriesForWomenSection() {
 	const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/products`, {

@@ -3,7 +3,7 @@
 import { ArrowRight } from "lucide-react";
 import { DressStyle, Price, Size, Colors, Filter } from "./filter-components";
 import { useCallback, useEffect } from "react";
-import { useDropdown } from "@/lib/Hooks";
+import { useDropdown } from "@/lib/hooks/useDropdown";
 
 export const SideBar = () => {
 	const { isShow, setIsShow } = useDropdown();

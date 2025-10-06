@@ -1,7 +1,7 @@
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { UseFormWatch } from "react-hook-form";
-import { FormData } from "@/lib/authSchema";
+import { FormData } from "@/lib/schema/authSchema";
 
 type CheckboxProps = {
 	id: string;

@@ -1,5 +1,5 @@
+import { AllProductsType } from "@/lib/types";
 import { v4 as uuidv4 } from "uuid";
-import { AllProductsType } from "@/app/types";
 
 export const allProducts: AllProductsType[] = [
 	{

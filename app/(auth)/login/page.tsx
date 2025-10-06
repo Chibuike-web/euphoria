@@ -8,12 +8,12 @@ import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
-import { usePassword } from "@/lib/Hooks";
-import { loginSchema, LoginType } from "@/lib/authSchema";
+import { loginSchema, LoginType } from "@/lib/schema/authSchema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { usePassword } from "@/lib/hooks/usePassword";
 
 export default function Login() {
 	const { showPassword, handleShowPassword } = usePassword();

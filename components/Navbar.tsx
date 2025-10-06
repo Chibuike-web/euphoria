@@ -6,8 +6,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { useMediaQuery, useMobileNav, useUser } from "@/lib/Hooks";
+import { useMediaQuery } from "@/lib/hooks/useMediaQuery";
 import { useEffect, useMemo } from "react";
+import { useMobileNav } from "@/lib/hooks/useMobileNav";
+import { useUser } from "@/lib/hooks/useUser";
 
 export default function Navbar() {
 	const pathname = usePathname();

@@ -1,5 +1,5 @@
+import { CartItemType } from "@/lib/types";
 import { create } from "zustand";
-import type { CartItemType } from "../types";
 
 type CartItemStoreType = {
 	cartItems: CartItemType[];

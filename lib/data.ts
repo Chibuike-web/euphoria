@@ -1,4 +1,3 @@
-import type { Feedback, PromoCardType } from "./types";
 import promoOne from "@/app/assets/home/promo/promo-one.jpg";
 import promoSecond from "@/app/assets/home/promo/promo-two.jpg";
 import nike from "@/app/assets/home/brand-logos/nike.png";
@@ -9,15 +8,10 @@ import puma from "@/app/assets/home/brand-logos/puma.png";
 import firstReview from "@/app/assets/home/reviews/first.png";
 import secondReview from "@/app/assets/home/reviews/second.png";
 import thirdReview from "@/app/assets/home/reviews/third.png";
+
+import type { Feedback, PromoCardType } from "./types";
+
 import { v4 as uuidv4 } from "uuid";
-
-export function getStars(rating: number) {
-	const full = Math.floor(rating);
-	const half = rating % 1 >= 0.5 ? 1 : 0;
-	const empty = 5 - full - half;
-
-	return { full, half, empty };
-}
 
 export const promoCardItems: PromoCardType[] = [
 	{
@@ -97,18 +91,6 @@ Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt 
 Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.`,
 	},
 ];
-
-export function toSentenceCase(str: string): string {
-	if (!str) return "";
-	return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-}
-
-export function maskEmail(email: string): string {
-	const [name, domain] = email.split("@");
-	if (!name || !domain) return email;
-	const visible = name.slice(0, 2); // keep first 2 chars
-	return `${visible}****@${domain}`;
-}
 
 export const categories = [
 	{ id: "shirts", label: "Shirts" },

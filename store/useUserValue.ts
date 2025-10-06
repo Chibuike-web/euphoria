@@ -1,5 +1,5 @@
+import { UserType } from "@/lib/schema/userSchema";
 import { create } from "zustand";
-import type { UserType } from "@/lib/userSchema";
 
 type UserStoreType = {
 	user: UserType | null;

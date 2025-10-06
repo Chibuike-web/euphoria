@@ -1,7 +1,7 @@
-import { toSentenceCase } from "../../utils";
 import { Suspense } from "react";
 import ProductList from "@/components/ProductList";
 import { SideBar, ClothingForWomenOnline, BuyWomensClothing } from "./SidebarAndInfo";
+import { toSentenceCase } from "@/lib/utils";
 
 export async function generateStaticParams() {
 	return [{ gender: "men" }, { gender: "women" }];

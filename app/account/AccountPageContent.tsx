@@ -1,16 +1,15 @@
 "use client";
 
-import { useUser } from "@/lib/Hooks";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { maskEmail, toSentenceCase } from "../utils";
-import { cn } from "@/lib/utils";
+import { cn, maskEmail, toSentenceCase } from "@/lib/utils";
 import Wishlist from "./Wishlist";
 import MyInfo from "./MyInfo";
 import { useState } from "react";
 import { ChevronRight, LogOut, Menu, X } from "lucide-react";
 import { tabs } from "./data";
-import { UserType } from "@/lib/userSchema";
 import dynamic from "next/dynamic";
+import { useUser } from "@/lib/hooks/useUser";
+import { UserType } from "@/lib/schema/userSchema";
 const MyOrders = dynamic(() => import("./MyOrders"), { ssr: false });
 
 export default function AccountPageContent() {

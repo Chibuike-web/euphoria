@@ -1,4 +1,4 @@
-import { AllProductsType } from "@/app/types";
+import { AllProductsType } from "@/lib/types";
 import ProductCard from "./ProductCard";
 
 export default async function InTheLimeLightSection() {

@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { ChevronDown, ChevronRight, SlidersVertical } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
-import { colors, dressStyle, filter, sizes } from "./utils";
+import { colors, dressStyle, filter, sizes } from "./data";
 import * as Slider from "@radix-ui/react-slider";
 
 const dropdownVariants = {

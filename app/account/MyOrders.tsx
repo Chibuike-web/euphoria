@@ -1,10 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn, formatTime } from "@/lib/utils";
 import Image from "next/image";
 import { Fragment, useState } from "react";
-import { formatTime } from "./utils";
+
 import { orders } from "./data";
 import { useRouter, useSearchParams } from "next/navigation";
 import { X } from "lucide-react";

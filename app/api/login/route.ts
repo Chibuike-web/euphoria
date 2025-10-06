@@ -1,7 +1,7 @@
-import { loginSchema } from "@/lib/authSchema";
 import { NextRequest, NextResponse } from "next/server";
 import { users } from "@/app/api/lib/fakeDB";
 import bcrypt from "bcryptjs";
+import { loginSchema } from "@/lib/schema/authSchema";
 
 export async function POST(request: NextRequest) {
 	const data = await request.json();

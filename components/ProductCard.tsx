@@ -1,9 +1,9 @@
 "use client";
 
-import { useColor } from "@/app/store/useColorStore";
-import { useSize } from "@/app/store/useSizeStore";
-import { useWishlist } from "@/app/store/useWishlist";
-import { AllProductsType } from "@/app/types";
+import { useColor } from "@/store/useColorStore";
+import { useSize } from "@/store/useSizeStore";
+import { useWishlist } from "@/store/useWishlist";
+import { AllProductsType } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { Heart } from "lucide-react";
 import Image from "next/image";

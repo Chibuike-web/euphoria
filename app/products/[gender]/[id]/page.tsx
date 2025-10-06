@@ -1,7 +1,6 @@
 "use client";
-import { getStars, toSentenceCase } from "@/app/utils";
 import { Button } from "@/components/ui/button";
-import { useProductById } from "@/lib/product";
+import { useProductById } from "@/lib/api/fetchData";
 import videoImage from "@/app/assets/video-image.png";
 import {
 	ArrowRight,
@@ -15,13 +14,14 @@ import {
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { Colors, ProductHighlights, Sizes } from "./components";
-import { AllProductsType } from "@/app/types";
-import { useActive } from "@/lib/Hooks";
-import { cn } from "@/lib/utils";
-import { useCartItems } from "@/app/store/useCart";
-import { useSize } from "@/app/store/useSizeStore";
-import { useColor } from "@/app/store/useColorStore";
+
+import { cn, getStars, toSentenceCase } from "@/lib/utils";
+import { useCartItems } from "@/store/useCart";
+import { useSize } from "@/store/useSizeStore";
+import { useColor } from "@/store/useColorStore";
 import { useState } from "react";
+import { AllProductsType } from "@/lib/types";
+import { useActive } from "@/lib/hooks/useActive";
 
 export type NewProduct = AllProductsType & {
 	quantity: number;

@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { useUserValue } from "@/app/store/useUserValue";
+import { useUserValue } from "@/store/useUserValue";
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";

@@ -1,8 +1,8 @@
 import { CardIcon, ShirtIcon, TruckIcon, UndoIcon } from "@/app/assets/icons";
-import { useColor } from "@/app/store/useColorStore";
-import { useSize } from "@/app/store/useSizeStore";
-import { Color } from "@/app/types";
+import { useColor } from "@/store/useColorStore";
+import { useSize } from "@/store/useSizeStore";
 import { cn } from "@/lib/utils";
+import { Color } from "@/lib/types";
 
 const ALL_SIZES = ["XS", "S", "M", "L", "XL"];
 

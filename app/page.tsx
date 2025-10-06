@@ -1,7 +1,6 @@
 import hero from "@/app/assets/home/hero-image.jpg";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { brandLogos, feedback, getStars, promoCardItems } from "./utils";
-import type { Feedback, PromoCardType } from "./types";
+
 import Image from "next/image";
 import ctaFirstImage from "@/app/assets/home/first-cta/cta-first-image.png";
 import ctaSecondImage from "@/app/assets/home/first-cta/cta-second-image.png";
@@ -12,6 +11,9 @@ import BigSavingZoneSection from "@/components/BigSavingZoneSection";
 import CategoriesForMenSection from "@/components/CategoriesForMenSection";
 import CategoriesForWomenSection from "@/components/CategoriesForWomenSection";
 import InTheLimeLightSection from "@/components/InTheLimeLightSection";
+import { brandLogos, feedback, promoCardItems } from "@/lib/data";
+import type { Feedback, PromoCardType } from "@/lib/types";
+import { getStars } from "@/lib/utils";
 
 export default function Home() {
 	return (

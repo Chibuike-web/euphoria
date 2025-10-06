@@ -1,11 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useCartItems } from "../store/useCart";
-import { useWishlist } from "../store/useWishlist";
+import { useCartItems } from "../../store/useCart";
+import { useWishlist } from "../../store/useWishlist";
 import { Fragment, useState } from "react";
 import { X } from "lucide-react";
-import { toSentenceCase } from "../utils";
+import { toSentenceCase } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { EmptyWishlist } from "../assets/icons";

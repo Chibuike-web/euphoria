@@ -1,8 +1,8 @@
 "use client";
 
 import ProductCard from "@/components/ProductCard";
-import { useProductsByGender } from "@/lib/product";
-import { AllProductsType } from "@/app/types";
+import { useProductsByGender } from "@/lib/api/fetchData";
+import { AllProductsType } from "@/lib/types";
 
 export default function ProductList({ gender }: { gender: string }) {
 	const { data: products, isPending, error } = useProductsByGender(gender);
