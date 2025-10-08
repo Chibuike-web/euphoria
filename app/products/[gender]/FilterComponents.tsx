@@ -12,7 +12,7 @@ const dropdownVariants = {
 };
 
 export const DressStyle = () => {
-	const [isShow, setIsShow] = useState(true);
+	const [isShow, setIsShow] = useState(false);
 
 	return (
 		<button
@@ -49,7 +49,7 @@ export const DressStyle = () => {
 };
 
 export const Filter = () => {
-	const [isShow, setIsShow] = useState(true);
+	const [isShow, setIsShow] = useState(false);
 	return (
 		<button className=" border border-muted" onClick={() => setIsShow((prev) => !prev)}>
 			<div className="flex items-center justify-between w-full py-[20px] px-[24px] border-shadow">
@@ -88,7 +88,7 @@ export const Filter = () => {
 
 export const Price = () => {
 	const [price, setPrice] = useState([25, 75]);
-	const [isShow, setIsShow] = useState(true);
+	const [isShow, setIsShow] = useState(false);
 	return (
 		<button
 			className="border-b border-l border-r border-muted"
@@ -144,7 +144,7 @@ export const Price = () => {
 };
 
 export const Colors = () => {
-	const [isShow, setIsShow] = useState(true);
+	const [isShow, setIsShow] = useState(false);
 	return (
 		<button
 			className="border-b border-l border-r border-muted flex flex-col"
@@ -186,7 +186,7 @@ export const Colors = () => {
 };
 
 export const Size = () => {
-	const [isShow, setIsShow] = useState(true);
+	const [isShow, setIsShow] = useState(false);
 	return (
 		<button
 			className="border-b border-l border-r border-muted"

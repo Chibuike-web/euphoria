@@ -26,7 +26,7 @@ export default function Verification() {
 
 						<p className="flex items-center gap-[8px] mb-8">
 							Back to
-							<Link href="/auth/login" className="underline">
+							<Link href="/login" className="underline">
 								Login
 							</Link>
 						</p>
