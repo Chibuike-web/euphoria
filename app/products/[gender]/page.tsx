@@ -1,17 +1,25 @@
-import { Suspense } from "react";
 import ProductList from "@/components/ProductList";
 import Layout from "@/components/Layout";
+import { Suspense } from "react";
 
 export async function generateStaticParams() {
 	return [{ gender: "men" }, { gender: "women" }];
 }
 export default async function Page({ params }: { params: { gender: string } }) {
+	return (
+		<Suspense>
+			<Main params={params} />
+		</Suspense>
+	);
+}
+
+const Main = async ({ params }: { params: { gender: string } }) => {
 	const { gender } = await params;
 
 	return (
 		<section className="max-w-[1240px] mx-auto px-6 xl:px-0 mb-[100px]">
 			<Layout gender={gender}>
-				<Suspense fallback={<p>Loading products...</p>}>
+				<Suspense>
 					<ProductList gender={gender} />
 				</Suspense>
 			</Layout>
@@ -20,7 +28,7 @@ export default async function Page({ params }: { params: { gender: string } }) {
 			{gender === "women" && <BuyWomensClothing />}
 		</section>
 	);
-}
+};
 
 export const ClothingForWomenOnline = () => {
 	return (

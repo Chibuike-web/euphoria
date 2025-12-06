@@ -4,9 +4,8 @@ import { AllProductsType } from "@/lib/types";
 import { categories } from "@/lib/data";
 
 export default async function CategoriesForMenSection() {
-	const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/products`, {
-		cache: "no-store",
-	});
+	"use cache";
+	const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/products`);
 	const json = await res.json();
 	const allProductsList: AllProductsType[] = json.data;
 

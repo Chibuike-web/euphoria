@@ -3,9 +3,8 @@ import { cn } from "@/lib/utils";
 import { AllProductsType } from "@/lib/types";
 
 export default async function BigSavingZoneSection() {
-	const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/products`, {
-		cache: "no-store",
-	});
+	"use cache";
+	const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/products`);
 	const json = await res.json();
 	const allProductsList: AllProductsType[] = json.data;
 	return (

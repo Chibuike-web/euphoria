@@ -7,6 +7,14 @@ import Footer from "@/components/Footer";
 import { ReactNode, Suspense } from "react";
 
 export default function ConditionalLayout({ children }: { children: ReactNode }) {
+	return (
+		<Suspense>
+			<Main>{children}</Main>
+		</Suspense>
+	);
+}
+
+function Main({ children }: { children: ReactNode }) {
 	const pathname = usePathname();
 
 	const noFooterPaths = [

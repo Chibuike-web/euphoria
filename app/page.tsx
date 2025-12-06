@@ -58,21 +58,10 @@ export default function Home() {
 					/>
 				))}
 			</section>
-			<Suspense
-				fallback={
-					<div className=" justify-self-center self-center flex">Loading New Arrivals...</div>
-				}
-			>
-				<NewArrivalSection />
-			</Suspense>
 
-			<Suspense
-				fallback={
-					<div className=" justify-self-center self-center flex">Loading Big Saving Zone...</div>
-				}
-			>
-				<BigSavingZoneSection />
-			</Suspense>
+			<NewArrivalSection />
+
+			<BigSavingZoneSection />
 
 			<section className=" max-w-[1240px] mx-auto mt-[130px] px-6 xl:px-0 ">
 				<div className="flex flex-col lg:flex-row w-full rounded-[16px] overflow-hidden">
@@ -99,25 +88,9 @@ export default function Home() {
 				</div>
 			</section>
 
-			<Suspense
-				fallback={
-					<div className=" justify-self-center self-center flex">
-						Loading Categories For Women...
-					</div>
-				}
-			>
-				<CategoriesForMenSection />
-			</Suspense>
+			<CategoriesForMenSection />
 
-			<Suspense
-				fallback={
-					<div className=" justify-self-center self-center flex">
-						Loading Categories For Women...
-					</div>
-				}
-			>
-				<CategoriesForWomenSection />
-			</Suspense>
+			<CategoriesForWomenSection />
 			<section className="px-6 xl:px-0 overflow-hidden">
 				<div className="flex flex-col gap-6 w-full max-w-[1240px] py-8 md:py-12 text-white bg-secondary-foreground rounded-[20px] mx-auto mt-[130px]">
 					<div className="flex flex-col items-center">
@@ -139,13 +112,8 @@ export default function Home() {
 					</div>
 				</div>
 			</section>
-			<Suspense
-				fallback={
-					<div className=" justify-self-center self-center flex">Loading In the lime light ...</div>
-				}
-			>
-				<InTheLimeLightSection />
-			</Suspense>
+
+			<InTheLimeLightSection />
 			<section className="flex flex-col gap-6 w-full max-w-[1240px] mx-auto my-[130px] px-6 xl:px-0">
 				<h3 className="flex items-center gap-[20px]">
 					<span className="block h-[30px] w-[6px] rounded-full bg-[#8a33fd]" />{" "}
