@@ -10,6 +10,8 @@ export const useProductsByGender = (gender: string) =>
 			return json.data;
 		},
 		enabled: !!gender,
+		staleTime: 1000 * 60 * 5,
+		gcTime: 1000 * 60 * 30,
 	});
 
 export const useProductById = (id: string) =>
@@ -22,4 +24,6 @@ export const useProductById = (id: string) =>
 			return json.data;
 		},
 		enabled: !!id,
+		staleTime: 1000 * 60 * 5,
+		gcTime: 1000 * 60 * 30,
 	});

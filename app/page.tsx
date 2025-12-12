@@ -5,7 +5,6 @@ import Image from "next/image";
 import ctaFirstImage from "@/app/assets/home/first-cta/cta-first-image.png";
 import ctaSecondImage from "@/app/assets/home/first-cta/cta-second-image.png";
 import { Star, StarHalf } from "lucide-react";
-import { Suspense } from "react";
 import NewArrivalSection from "@/components/NewArrivalSection";
 import BigSavingZoneSection from "@/components/BigSavingZoneSection";
 import CategoriesForMenSection from "@/components/CategoriesForMenSection";
@@ -15,7 +14,7 @@ import { brandLogos, feedback, promoCardItems } from "@/lib/data";
 import type { Feedback, PromoCardType } from "@/lib/types";
 import { getStars } from "@/lib/utils";
 
-export default function Home() {
+export default async function Home() {
 	return (
 		<main>
 			<section

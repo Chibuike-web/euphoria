@@ -54,7 +54,6 @@ export function ProductHighlights() {
 			{highlights.map((item, index) => (
 				<li key={index} className="flex items-center space-x-2">
 					<span className="size-11 rounded-full flex items-center justify-center bg-muted">
-						{" "}
 						{item.icon}
 					</span>
 					<span className="text-sm text-muted-foreground">{item.label}</span>

@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { useProductById } from "@/lib/api/fetchData";
 import videoImage from "@/app/assets/video-image.png";
